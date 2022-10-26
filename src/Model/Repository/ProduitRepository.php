@@ -2,7 +2,6 @@
 
 namespace App\Bracket\Model\Repository;
 
-class ProduitRepository
-{
+class ProduitRepository extends AbstractRepository {
 
 }
