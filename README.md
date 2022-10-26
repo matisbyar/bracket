@@ -42,48 +42,36 @@
   </p>
 </div>
 
-
+![Product Name Screen Shot][product-screenshot]
 
 ## Le projet
 
-**Mettre une image** -->
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Ce projet a été réalisé dans le cadre du cours de Développement Web de l'Université de Montpellier-Sète. <br>
+Il a pour but de mettre en place une stratégie de marketing digital pour une entreprise fictive.
 
+### Créer à l'aide de
 
-### Built With
+* ![Php][Php]
+* ![MySQL][MySQL]
+* ![CSS][CSS]
+* ![HTML][HTML]
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
-
-## Comment l'utiliser
-
-A compléter
-
-## Credits
-
-A compléter
-
-
-
-
-
-<!-- ROADMAP -->
 
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Interface Base
+- [ ] Commande
+- [ ] Paiement
+    - [ ] Carte Bleue
+
+## Credits
+
+* **_Valentin Vanhove_**
+* **_Matis Byar_**
+* **_Killian Reiner_**
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Haut de la page</a>)</p>
 
 
 
@@ -115,36 +103,12 @@ A compléter
 
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: z_img_md/Soon....png
 
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Php]: https://img.shields.io/badge/Php-777BB4?style=for-the-badge&logo=PHP&logoColor=white
 
-[Next-url]: https://nextjs.org/
+[MySQL]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white
 
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[CSS]: https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white
 
-[React-url]: https://reactjs.org/
-
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-
-[Vue-url]: https://vuejs.org/
-
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-
-[Angular-url]: https://angular.io/
-
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-
-[Svelte-url]: https://svelte.dev/
-
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-
-[Laravel-url]: https://laravel.com
-
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-
-[Bootstrap-url]: https://getbootstrap.com
-
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-
-[JQuery-url]: https://jquery.com 
+[HTML]: https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white
