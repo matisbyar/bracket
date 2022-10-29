@@ -1,7 +1,10 @@
 <?php
 /** @var Client $clients*/
 foreach ($clients as $client) {
-    $email = rawurlencode($client->getEmail());
-    echo '<p>' . "<a href=?action=read&email=" . $email . ">Produit " . htmlspecialchars($client->getId()) . " ➤</a>  <button><a href=?action=update&email=" . $email . "> Modifier</a> </button>  <button><a href=?action=deleted&email=" . $email . "> Supprimer</a> </button></p>";
+    //var_dump($client);
+    //$mail = rawurlencode($client->getEmail());
+    echo '<p>'.'<a href="?read&email="'.rawurldecode($client->getMail()).'>'.htmlspecialchars($client->getNom()).' '.htmlspecialchars($client->getPrenom()).
+        '</a>'.' '.'<a href="?action=update&email="'.rawurldecode($client->getMail()). '> Modifier'.
+        '</a>'.' '.'<a href="?action=delete&email="'.rawurldecode($client->getMail()).'> Supprimer'.'</a></p>';
 }
 ?>
