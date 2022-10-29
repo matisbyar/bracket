@@ -5,17 +5,19 @@ namespace App\Bracket\Model\DataObject;
 class Commande extends AbstractDataObject {
     private int $id;
     private string $adresse, $client;
+    private array $produits;
 
     /**
      * @param int $id
      * @param string $adresse
      * @param string $client
      */
-    public function __construct(int $id, string $adresse, string $client)
+    public function __construct(int $id, string $adresse, string $client, array $produits)
     {
         $this->id = $id;
         $this->adresse = $adresse;
         $this->client = $client;
+        $this->produits = $produits;
     }
 
     /**
@@ -66,6 +68,20 @@ class Commande extends AbstractDataObject {
         $this->client = $client;
     }
 
+    /**
+     * @return array
+     */
+    public function getProduits(): array
+    {
+        return $this->produits;
+    }
 
+    /**
+     * @param array $produits
+     */
+    public function setProduits(array $produits): void
+    {
+        $this->produits = $produits;
+    }
 
 }
