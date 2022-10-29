@@ -16,7 +16,7 @@ class Produit extends AbstractDataObject  {
      * @param float $prix
      * @param int $stock
      */
-    public function __construct(string $id, string $type, string $materiau, string $couleur, string $taille, float $prix, int $stock)
+    public function __construct(string $id, string $type, float $prix, string $materiau, string $couleur, string $taille, int $stock)
     {
         $this->id = $id;
         $this->type = $type;
