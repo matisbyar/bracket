@@ -10,6 +10,11 @@ class ControllerClient {
         self::afficheVue("view.php", ["clients" => $clients, "pagetitle" => "Liste des clients", "cheminVueBody" => "client/list.php"]);
     }
 
+    public static function read() : void {
+        $client = (new ClientRepository())->select($_GET['email']);
+        if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Détail d'un client", "cheminVueBody" => "client/detail.php"]);
+    }
+
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
         extract($parametres); // Crée des variables à partir du tableau $parametres
         require __DIR__ . "/../view/$cheminVue"; // Charge la vue
