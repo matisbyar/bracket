@@ -4,7 +4,7 @@ namespace App\Bracket\Model\Repository;
 use App\Bracket\Model\DataObject\CarteBancaire;
 
 class CarteBancaireRepository extends AbstractRepository {
-    public function construire(array $carteBancaireFormatTableau) {
+    public function construire(array $carteBancaireFormatTableau): CarteBancaire {
         return new CarteBancaire($carteBancaireFormatTableau['0'], $carteBancaireFormatTableau['1'], $carteBancaireFormatTableau['2'], $carteBancaireFormatTableau['3']);
     }
 
