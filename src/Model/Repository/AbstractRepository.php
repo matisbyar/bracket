@@ -12,7 +12,6 @@ abstract class AbstractRepository {
         foreach ($pdoStatement as $objetFormatTableau) {
             $tableau[] = $this->construire($objetFormatTableau);
         }
-
         return $tableau;
     }
 

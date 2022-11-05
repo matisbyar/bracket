@@ -3,7 +3,7 @@
 namespace App\Bracket\Model\DataObject;
 
 class Client extends AbstractDataObject {
-    private string $mail, $nom, $prenom, $dateNaissance, $adresse, $password;
+    private string $mail, $nom, $prenom, $dateNaissance, $adresse, $password, $description;
 
     /**
      * @param string $mail
@@ -12,8 +12,9 @@ class Client extends AbstractDataObject {
      * @param string $dateNaissance
      * @param string $adresse
      * @param string $password
+     * @param string $description
      */
-    public function __construct(string $mail, string $nom, string $prenom, string $dateNaissance, string $adresse, string $password)
+    public function __construct(string $mail, string $nom, string $prenom, string $dateNaissance, string $adresse, string $password,string $description)
     {
         $this->mail = $mail;
         $this->nom = $nom;
@@ -21,6 +22,7 @@ class Client extends AbstractDataObject {
         $this->dateNaissance = $dateNaissance;
         $this->adresse = $adresse;
         $this->password = $password;
+        $this->description = $description;
     }
 
     /**
@@ -119,5 +121,19 @@ class Client extends AbstractDataObject {
         $this->password = $password;
     }
 
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
 
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
 }
