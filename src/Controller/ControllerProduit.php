@@ -19,6 +19,11 @@ class ControllerProduit {
         self::afficheVue("view.php", ["errorMessage" => $errorMessage, "pagetitle" => "Oups :/", "cheminVueBody" => "produit/error.php"]);
     }
 
+    public static function home(): void {
+        $produits = (new ProduitRepository())->selectAll();
+        self::afficheVue("home.php", ["produits" => $produits, "pagetitle" => "Liste des produits", "cheminVueBody" => "home.php"]);
+    }
+
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
         extract($parametres); // Crée des variables à partir du tableau $parametres
         require __DIR__ . "/../view/$cheminVue"; // Charge la vue

@@ -1,0 +1,135 @@
+
+/* POLICES D'ÉCRITURE */
+@font-face {
+    font-family: "Unna";
+    src: url("/fonts/Unna.ttf");
+}
+
+@font-face {
+    font-family: "WorkSans";
+    src: url("/fonts/WorkSans.ttf");
+}
+
+/* STYLES GLOBAUX */
+a {
+    text-decoration: none;
+}
+
+body {
+    margin: 0;
+}
+
+/* BARRE DE NAVIGATION */
+nav {
+    height: 70px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    justify-content: space-around;
+
+    background-color: #111D13;
+}
+
+.nav-raccourcis {
+    font-family: "WorkSans", "ui-rounded";
+
+    display: flex;
+    flex-direction: row;
+}
+
+/* Correspond au logo "Bracket." */
+.logo {
+    font-family: 'Unna', monospace;
+    font-size: 40px;
+
+    text-decoration: none;
+    margin: 0;
+}
+
+nav a {
+    color: white;
+    margin-right: 10px;
+}
+
+/* PAGE D'ACCUEIL: À L'AFFICHE */
+.starred {
+    display: flex;
+    flex-direction: row;
+    background-color: #C4DAC6;
+}
+
+.starred-gauche{
+    display: flex;
+    max-width: 50%;
+    align-items: center;
+}
+
+.starred-droite {
+    padding: 5% 2% 10% 0;
+    max-width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    align-items: flex-end;
+}
+
+.starred-droite>h1 {
+    font-family: "Unna", monospace;
+    font-size: 100px;
+    margin: 2px;
+}
+
+.starred-droite>h2 {
+    font-family: "WorkSans", ui-rounded;
+    font-weight: 200;
+    margin: 0;
+}
+
+.starred-droite>small {
+    font-family: "WorkSans", ui-rounded;
+    font-weight: 50;
+    font-size: 15px;
+    margin: 0;
+}
+
+.starred-droite>p {
+    padding-left: 30%;
+}
+
+.starred img {
+    max-height: 100%;
+    max-width: 100%;
+    filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.25));
+}
+
+.starred-buttons {
+    margin: 2px;
+    padding: 2px 0;
+}
+
+.starred-buttons>button {
+    border-radius: 20px;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 12.5px;
+}
+
+.starred-buttons>button#acheter {
+    background: black;
+}
+
+.starred-buttons>button#en-savoir-plus {
+    background: #58675B;
+}
+
+.starred-buttons>button#en-savoir-plus:hover,.starred-buttons>button#acheter:hover {
+    box-shadow: 0 0 0 2px black;
+    color: black;
+    background: transparent;
+}
+
