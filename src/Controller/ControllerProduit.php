@@ -32,7 +32,8 @@ class ControllerProduit
     public static function home(): void
     {
         $produits = (new ProduitRepository())->selectAll();
-        self::afficheVue("home.php", ["produits" => $produits, "pagetitle" => "Liste des produits", "cheminVueBody" => "home.php"]);
+        shuffle($produits);
+        self::afficheVue("home.php", ["produits" => $produits, "produitALaUne" => $produits[0],  "pagetitle" => "Liste des produits", "cheminVueBody" => "home.php"]);
     }
 
     public static function readAllBracelets(): void
