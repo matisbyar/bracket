@@ -135,5 +135,36 @@ nav a {
 
 .wrapper {
     display: grid;
-    grid-template-columns: 30% 30% 30%;
+    grid-template-columns: 8cm 8cm 8cm 8cm;
+    grid-template-rows: 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm;
+    grid-gap: 50px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+
+.produit {
+    text-align: center;
+    border-color: #cacaca;
+    border-style: solid;
+    border-radius: 20px;
+}
+.haut, .bas{
+    height:50%;
+}
+
+.haut{
+    background-image: url("/images/100.png");
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-style: solid;
+    border-top: #111D13;
+    border-left: #111D13;
+    border-right: #111D13;
+
+}
+
+.bas{
+    margin-bottom: 300px;
 }
