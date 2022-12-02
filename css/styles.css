@@ -1,4 +1,3 @@
-
 /* POLICES D'ÉCRITURE */
 @font-face {
     font-family: "Unna";
@@ -60,7 +59,7 @@ nav a {
     background-color: #C4DAC6;
 }
 
-.starred-gauche{
+.starred-gauche {
     display: flex;
     max-width: 50%;
     align-items: center;
@@ -76,26 +75,26 @@ nav a {
     align-items: flex-end;
 }
 
-.starred-droite>h1 {
+.starred-droite > h1 {
     font-family: "Unna", monospace;
     font-size: 100px;
     margin: 2px;
 }
 
-.starred-droite>h2 {
+.starred-droite > h2 {
     font-family: "WorkSans", ui-rounded;
     font-weight: 200;
     margin: 0;
 }
 
-.starred-droite>small {
+.starred-droite > small {
     font-family: "WorkSans", ui-rounded;
     font-weight: 50;
     font-size: 15px;
     margin: 0;
 }
 
-.starred-droite>p {
+.starred-droite > p {
     padding-left: 30%;
 }
 
@@ -110,7 +109,7 @@ nav a {
     padding: 2px 0;
 }
 
-.starred-buttons>button {
+.starred-buttons > button {
     border-radius: 20px;
     border: none;
     color: white;
@@ -119,15 +118,15 @@ nav a {
     font-size: 12.5px;
 }
 
-.starred-buttons>button#acheter {
+.starred-buttons > button#acheter {
     background: black;
 }
 
-.starred-buttons>button#en-savoir-plus {
+.starred-buttons > button#en-savoir-plus {
     background: #58675B;
 }
 
-.starred-buttons>button#en-savoir-plus:hover,.starred-buttons>button#acheter:hover {
+.starred-buttons > button#en-savoir-plus:hover, .starred-buttons > button#acheter:hover {
     box-shadow: 0 0 0 2px black;
     color: black;
     background: transparent;
@@ -136,7 +135,7 @@ nav a {
 .wrapper {
     display: grid;
     grid-template-columns: 8cm 8cm 8cm 8cm;
-    grid-template-rows: 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm 6cm;
+    grid-template-rows: 8cm 8cm 8cm 8cm;
     grid-gap: 50px;
     justify-content: center;
     margin-top: 30px;
@@ -144,27 +143,74 @@ nav a {
 
 
 .produit {
-    text-align: center;
+    text-align: left;
     border-color: #cacaca;
     border-style: solid;
     border-radius: 20px;
 }
-.haut, .bas{
-    height:50%;
+
+a.produit-a {
+    text-decoration: none;
+    color: black;
 }
 
-.haut{
-    background-image: url("/images/100.png");
-    background-size: 40%;
-    background-repeat: no-repeat;
-    background-position: center;
+.haut, .bas {
+    height: 50%;
+}
+
+.haut {
     border-style: solid;
-    border-top: #111D13;
-    border-left: #111D13;
-    border-right: #111D13;
-
+    border-top: rgba(107, 107, 107, 0.43);
+    border-left: rgba(107, 107, 107, 0.43);
+    border-right: rgba(107, 107, 107, 0.43);
+    text-align: center;
 }
 
-.bas{
-    margin-bottom: 300px;
+.bas {
+    padding: 0 2%;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.haut img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.title-product-pane {
+    font-family: "Unna", monospace;
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.info-product-pane {
+    font-family: "WorkSans", ui-rounded;
+    font-size: 15px;
+    font-weight: 200;
+    margin: 0;
+}
+
+.bottom-product-pane {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button#acheter {
+    background: black;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+button#acheter:hover {
+    box-shadow: 0 0 0 2px black;
+    color: black;
+    background: transparent;
 }
