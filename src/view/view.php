@@ -16,7 +16,6 @@
     </nav>
 </header>
 <main>
-
     <?php
     require __DIR__ . "/{$cheminVueBody}";
     ?>

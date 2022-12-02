@@ -18,17 +18,17 @@
 <main>
     <div class="starred">
         <div class="starred-gauche">
-            <img src="../../images/100.png" alt="Produit à l'affiche">
+            <img src="../../images/<?php echo $produitALaUne->getId(); ?>.png" alt="Produit à l'affiche">
         </div>
         <div class="starred-droite">
             <small>À L'AFFICHE</small>
-            <h1>Bracelet Daniel</h1>
-            <h2>5 étoiles — Acier inoxydable — Argent</h2>
+            <h1><?php echo $produitALaUne->getNom(); ?></h1>
+            <h2><?php echo $produitALaUne->getMateriau() . " — " . $produitALaUne->getPrix() . "€"; ?></h2>
             <p>
-                Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur.
+                <?php echo $produitALaUne->getDescription();  ?>
             </p>
             <div class="starred-buttons">
-                <button id="en-savoir-plus">EN SAVOIR PLUS</button>
+                <button id="en-savoir-plus"><a href="?action=read&id=<?php echo $produitALaUne->getId(); ?>">EN SAVOIR PLUS</a></button>
                 <button id="acheter">ACHETER</button>
             </div>
         </div>
