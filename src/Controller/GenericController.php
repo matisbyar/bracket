@@ -17,7 +17,7 @@ class GenericController
         exit();
     }
 
-    public static function connexion(): void
+    public static function login(): void
     {
         self::afficheVue("view.php", ["pagetitle" => "Connexion", "cheminVueBody" => "client/login.php"]);
     }
