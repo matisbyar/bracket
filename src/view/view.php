@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title><?php use App\Bracket\Lib\ConnexionUtilisateur;
+        use App\Bracket\Lib\MessageFlash;
 
         echo $pagetitle; ?></title>
     <link rel="stylesheet" href="../css/styles.css">
@@ -31,6 +32,8 @@
 </header>
 <main>
     <?php
+    $messages = MessageFlash::lireTousMessages();
+    foreach ($messages as $message) echo '<div class="alert alert-' . $message["type"] . '" role="alert">' . $message["message"] . '</div>';
     require __DIR__ . "/{$cheminVueBody}";
     ?>
 </main>

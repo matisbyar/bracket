@@ -1,8 +1,8 @@
 <?php
 namespace App\Bracket\Model\HTTP;
 
-use App\Covoiturage\Config\Conf;
-use App\Covoiturage\Lib\MessageFlash;
+use App\Bracket\Config\Conf;
+use App\Bracket\Lib\MessageFlash;
 use Exception;
 
 class Session {
