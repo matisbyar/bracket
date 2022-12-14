@@ -6,6 +6,11 @@ use App\Bracket\Model\Repository\ProduitRepository;
 
 class ControllerProduit extends GenericController
 {
+    public static function error($errorMessage = ""): void
+    {
+        self::afficheVue("view.php", ["errorMessage" => $errorMessage, "pagetitle" => "Oups :/", "cheminVueBody" => "produit/error.php"]);
+    }
+
     public static function readAll(): void
     {
         $produits = (new ProduitRepository())->selectAll();
@@ -16,11 +21,6 @@ class ControllerProduit extends GenericController
     {
         $produit = (new ProduitRepository())->select($_GET['id']);
         if ($produit != null) self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Détail d'un produit", "cheminVueBody" => "produit/detail.php"]);
-    }
-
-    public static function error($errorMessage = ""): void
-    {
-        self::afficheVue("view.php", ["errorMessage" => $errorMessage, "pagetitle" => "Oups :/", "cheminVueBody" => "produit/error.php"]);
     }
 
     public static function home(): void
