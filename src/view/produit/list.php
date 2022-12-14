@@ -4,7 +4,7 @@ echo '<div class="wrapper">';
 foreach ($produits as $produit) {
     $id = rawurlencode($produit->getId());
     echo '<a href="?action=read&id=' . $id .'" class="produit-a"><div class="produit">';
-    echo "<div class='haut'><img src='../../../images/" . $produit->getId() . ".png' alt='Produit'></div>";
+    echo "<div class='haut'><img src='../images/" . $produit->getId() . ".png' alt='Produit'></div>";
 
     echo '<div class="bas">' . "
             <p class='title-product-pane'>" . $produit->getNom() . "</p>
