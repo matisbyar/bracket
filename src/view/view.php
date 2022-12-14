@@ -14,18 +14,18 @@
         <div class="nav-raccourcis">
             <a href="../web/frontController.php?action=readAllBracelets"><p>Bracelets</p></a>
             <a href="../web/frontController.php?action=readAllBagues"><p>Bagues</p></a>
-            <?php if (ConnexionUtilisateur::estConnecte()) { ?>
+            <!--<//?php //if (ConnexionUtilisateur::estConnecte()) { ?>-->
                 <li><a href="../web/frontController.php?action=account">
-                        <button>account<img src="../../images/person.svg" alt="Fav" style="width:30px;height:30px;"></button>
+                        <button>account<img src="../../images/account_login.png" alt="Fav" style="width:30px;height:30px;"></button>
                     </a></li>
                 <li><a href="../web/frontController.php?action=logout">
-                        <button>logout<img src="../../images/person.svg" alt="Fav" style="width:30px;height:30px;"></button>
+                        <button>logout<img src="../../images/logout.png" alt="Fav" style="width:30px;height:30px;"></button>
                     </a></li>
-            <?php } else { ?>
+            <!--<//?php } else { ?>-->
                 <li><a href="../web/frontController.php?action=login">
-                        <button>login<img src="../../images/person.svg" alt="Fav" style="width:30px;height:30px;"></button>
+                        <button>login<img src="../../images/account_login.png" alt="Fav" style="width:30px;height:30px;"></button>
                     </a></li>
-            <?php } ?>
+            <!--<//?php } ?>-->
         </div>
     </nav>
 </header>
