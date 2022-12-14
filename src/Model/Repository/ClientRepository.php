@@ -16,6 +16,10 @@ class ClientRepository extends AbstractRepository {
         return "email";
     }
 
-
-
+    protected function getNomColonnes(): array
+    {
+        return array(
+            "email", "nom", "prenom", "dateNaissance", "adresse", "password", "description"
+        );
+    }
 }

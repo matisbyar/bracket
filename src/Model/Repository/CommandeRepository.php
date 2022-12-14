@@ -15,4 +15,11 @@ class CommandeRepository extends AbstractRepository {
     protected function getNomClePrimaire(): string {
         return "id";
     }
+
+    protected function getNomColonnes(): array
+    {
+        return array(
+            "id", "adresse", "client"
+        );
+    }
 }

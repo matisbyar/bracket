@@ -13,26 +13,26 @@ class ControllerProduit extends GenericController
 
     public static function readAll(): void
     {
-        $produits = (new ProduitRepository())->selectAll();
+        $produits = (new ProduitRepository())->readAll();
         self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Liste des produits", "cheminVueBody" => "produit/list.php"]);
     }
 
     public static function read(): void
     {
-        $produit = (new ProduitRepository())->select($_GET['id']);
+        $produit = (new ProduitRepository())->read($_GET['id']);
         if ($produit != null) self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Détail d'un produit", "cheminVueBody" => "produit/detail.php"]);
     }
 
     public static function home(): void
     {
-        $produits = (new ProduitRepository())->selectAll();
+        $produits = (new ProduitRepository())->readAll();
         shuffle($produits);
         self::afficheVue("home.php", ["produits" => $produits, "produitALaUne" => $produits[0],  "pagetitle" => "Liste des produits", "cheminVueBody" => "home.php"]);
     }
 
     public static function readAllBracelets(): void
     {
-        $produits = (new ProduitRepository())->selectAll();
+        $produits = (new ProduitRepository())->readAll();
         $produits = array_filter($produits, function ($produit) {
             return $produit->getId() < 200;
         });
@@ -41,7 +41,7 @@ class ControllerProduit extends GenericController
 
     public static function readAllBagues(): void
     {
-        $produits = (new ProduitRepository())->selectAll();
+        $produits = (new ProduitRepository())->readAll();
         $produits = array_filter($produits, function ($produit) {
             return $produit->getId() >= 200;
         });

@@ -21,25 +21,25 @@ class ControllerClient extends GenericController
 
     public static function read(): void
     {
-        $client = (new ClientRepository())->select($_GET['email']);
+        $client = (new ClientRepository())->read($_GET['email']);
         if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Détail d'un client", "cheminVueBody" => "client/detail.php"]);
     }
 
     public static function readAll(): void
     {
-        $clients = (new ClientRepository())->selectAll();
+        $clients = (new ClientRepository())->readAll();
         self::afficheVue("view.php", ["clients" => $clients, "pagetitle" => "Liste des clients", "cheminVueBody" => "client/list.php"]);
     }
 
     public static function update(): void
     {
-        $client = (new ClientRepository())->select($_GET['email']);
+        $client = (new ClientRepository())->read($_GET['email']);
         if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier un client", "cheminVueBody" => "client/update.php"]);
     }
 
     public static function connecter()
     {
-        $utilisateur = (new ClientRepository())->select($_POST['login']);
+        $utilisateur = (new ClientRepository())->read($_POST['login']);
         if ($utilisateur == null) {
             MessageFlash::ajouter("Danger", "L'identifiant est incorrect");
         } else {
