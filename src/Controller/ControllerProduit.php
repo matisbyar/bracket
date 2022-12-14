@@ -2,6 +2,8 @@
 
 namespace App\Bracket\Controller;
 
+use App\Bracket\Model\DataObject\Produit;
+use App\Bracket\Model\Repository\AbstractRepository;
 use App\Bracket\Model\Repository\ProduitRepository;
 
 class ControllerProduit
@@ -64,6 +66,10 @@ class ControllerProduit
         $material = $_GET["materiau"];
         $name = $_GET["nom"];
         $description = $_GET["description"];
-        $produit = (new ProduitRepository())->insert($type,$prix,$material,$name,$description);
+        $produit = new Produit($type,floatval($prix),$material,$name,$description);
+        $produitRepository = new ProduitRepository();
+        $produitRepository->create($produit);
+        $produits = (new ProduitRepository())->readAll();
+        ControllerProduit::afficheVue('view.php',["pagetitle"=>"Création d'un bijoux","cheminVueBody"=>"produit/created.php","produits"=>$produits]);
     }
 }

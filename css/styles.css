@@ -1,12 +1,12 @@
 /* POLICES D'ÉCRITURE */
 @font-face {
     font-family: "Unna";
-    src: url("/fonts/Unna.ttf");
+    src: url("../fonts/Unna.ttf");
 }
 
 @font-face {
     font-family: "WorkSans";
-    src: url("/fonts/WorkSans.ttf");
+    src: url("../fonts/WorkSans.ttf");
 }
 
 /* STYLES GLOBAUX */
