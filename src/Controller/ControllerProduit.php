@@ -59,6 +59,11 @@ class ControllerProduit
     }
 
     public static function created() : void{
-
+        $type = $_GET["bijou"];
+        $prix = $_GET["prix"];
+        $material = $_GET["materiau"];
+        $name = $_GET["nom"];
+        $description = $_GET["description"];
+        $produit = (new ProduitRepository())->insert($type,$prix,$material,$name,$description);
     }
 }
