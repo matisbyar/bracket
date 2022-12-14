@@ -41,14 +41,21 @@ class ControllerClient extends GenericController
     {
         $utilisateur = (new ClientRepository())->select($_POST['login']);
         if ($utilisateur == null) {
-            MessageFlash::ajouter("Danger","L'identifiant est incorrect");
+            MessageFlash::ajouter("Danger", "L'identifiant est incorrect");
         } else {
             if ($_POST['motdepasse'] == MotDePasse::verifier($_POST['motdepasse'], $utilisateur->getMdpHache())) {
                 ConnexionUtilisateur::connecter($utilisateur->getMail());
-                header('Location: frontController.php?controller=utilisateur&action=read&login=' . rawurlencode($utilisateur->getMail()));
+                self::redirige("home.php");
             } else {
-                MessageFlash::ajouter("Danger","Le mot de passe est incorrect");
+                MessageFlash::ajouter("Danger", "Le mot de passe est incorrect");
             }
         }
+    }
+
+    public static function deconnecter()
+    {
+        ConnexionUtilisateur::deconnecter();
+        MessageFlash::ajouter("success", "Vous êtes déconnecté");
+        self::redirige("?action=home");
     }
 }
