@@ -8,10 +8,10 @@
 <body>
 <header>
     <nav>
-        <a href="/web/frontController.php?action=home"><p class="logo">Bracket.</p></a>
+        <a href="../web/frontController.php?action=home"><p class="logo">Bracket.</p></a>
         <div class="nav-raccourcis">
-            <a href="/web/frontController.php?action=readAllBracelets"><p>Bracelets</p></a>
-            <a href="/web/frontController.php?action=readAllBagues"><p>Bagues</p></a>
+            <a href="../web/frontController.php?action=readAllBracelets"><p>Bracelets</p></a>
+            <a href="../web/frontController.php?action=readAllBagues"><p>Bagues</p></a>
         </div>
     </nav>
 </header>
