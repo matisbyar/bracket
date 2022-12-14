@@ -36,6 +36,11 @@
 
     <h1>Les classiques</h1>
     <?php
+    use App\Bracket\Lib\MessageFlash;
+    $messages = MessageFlash::lireTousMessages();
+    foreach ($messages as $message) {
+        echo '<div class="alert alert-' . $message["type"] . '" role="alert">' . $message["message"] . '</div>';
+    }
     require "produit/list.php";
     ?>
 
