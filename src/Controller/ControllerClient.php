@@ -7,24 +7,28 @@ use App\Bracket\Lib\MessageFlash;
 use App\Bracket\Lib\MotDePasse;
 use App\Bracket\Model\Repository\ClientRepository;
 
-class ControllerClient
+class ControllerClient extends GenericController
 {
-    public static function readAll(): void
+    public static function error(string $action): void
     {
-        $clients = (new ClientRepository())->selectAll();
-        self::afficheVue("view.php", ["clients" => $clients, "pagetitle" => "Liste des clients", "cheminVueBody" => "client/list.php"]);
+        MessageFlash::ajouter("danger", "L'action " . $action . " est impossible.");
     }
 
-    private static function afficheVue(string $cheminVue, array $parametres = []): void
+    public static function create(): void
     {
-        extract($parametres);               // Crée des variables à partir du tableau $parametres
-        require __DIR__ . "/../view/$cheminVue";    // Charge la vue
+        self::afficheVue("view.php", ["pagetitle" => "Créer un compte", "cheminVueBody" => "client/create"]);
     }
 
     public static function read(): void
     {
         $client = (new ClientRepository())->select($_GET['email']);
         if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Détail d'un client", "cheminVueBody" => "client/detail.php"]);
+    }
+
+    public static function readAll(): void
+    {
+        $clients = (new ClientRepository())->selectAll();
+        self::afficheVue("view.php", ["clients" => $clients, "pagetitle" => "Liste des clients", "cheminVueBody" => "client/list.php"]);
     }
 
     public static function update(): void
