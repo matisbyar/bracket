@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Accueil — Bracket.</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
 <header>
@@ -18,7 +18,7 @@
 <main>
     <div class="starred">
         <div class="starred-gauche">
-            <img src="../../images/<?php echo $produitALaUne->getId(); ?>.png" alt="Produit à l'affiche">
+            <img src="../images/<?php echo $produitALaUne->getId(); ?>.png" alt="Produit à l'affiche">
         </div>
         <div class="starred-droite">
             <small>À L'AFFICHE</small>
