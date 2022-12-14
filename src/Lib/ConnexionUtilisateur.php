@@ -18,19 +18,16 @@ class ConnexionUtilisateur
 
     public static function estConnecte(): bool
     {
-        // À compléter
         return Session::getInstance()->contient(self::$cleConnexion);
     }
 
     public static function deconnecter(): void
     {
-        // À compléter
         Session::getInstance()->detruire(self::$cleConnexion);
     }
 
     public static function getLoginUtilisateurConnecte(): ?string
     {
-        // À compléter
         return Session::getInstance()->lire(self::$cleConnexion);
     }
 
