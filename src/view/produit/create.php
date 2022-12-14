@@ -5,11 +5,11 @@
         <fieldset>
             <legend>Choix du type</legend>
             <div>
-                <input type="radio" id="bagueId" name="bague" value="bague" checked>
+                <input type="radio" id="bagueId" name="bijou" value="bague" checked>
                 <label for="bagueId">Bague</label>
             </div>
             <div>
-                <input type="radio" id="braceletId" name="bracelet" value="bracelet">
+                <input type="radio" id="braceletId" name="bijou" value="bracelet">
                 <label for="braceletId">Bracelet</label>
             </div>
         </fieldset>
