@@ -14,7 +14,7 @@ if (isset($_GET['controller'])) {
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 } else {
-    $action = 'readAll';
+    $action = 'home';
 }
 
 $controllerClassName = 'App\Bracket\Controller\\'.'Controller'.ucfirst($controller);

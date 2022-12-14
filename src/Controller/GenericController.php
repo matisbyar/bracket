@@ -21,4 +21,9 @@ class GenericController
     {
         self::afficheVue("view.php", ["pagetitle" => "Connexion", "cheminVueBody" => "client/login.php"]);
     }
+
+    public static function home(): void
+    {
+        self::afficheVue("view.php", ["pagetitle" => "Accueil", "cheminVueBody" => "home.php"]);
+    }
 }
