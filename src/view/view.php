@@ -15,7 +15,7 @@
         <div class="nav-raccourcis">
             <a href="../web/frontController.php?action=readAllBracelets"><p>Bracelets</p></a>
             <a href="../web/frontController.php?action=readAllBagues"><p>Bagues</p></a>
-            <?php if (!ConnexionUtilisateur::estConnecte()) { ?>
+            <?php if (ConnexionUtilisateur::estConnecte()) { ?>
                 <a href="../web/frontController.php?controller=client&action=account">
                         <button class="lien"><img src="../../images/account_login.svg" alt="Fav"></button>
                     </a>
