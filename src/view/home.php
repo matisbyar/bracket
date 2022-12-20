@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Accueil — Bracket.</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-<header>
-    <nav>
-        <a href="../web/frontController.php?action=home"><p class="logo">Bracket.</p></a>
-        <div class="nav-raccourcis">
-            <a href="../web/frontController.php?action=readAllBracelets"><p>Bracelets</p></a>
-            <a href="../web/frontController.php?action=readAllBagues"><p>Bagues</p></a>
-        </div>
-    </nav>
-</header>
-<main>
-    <div class="starred">
+ <div class="starred">
         <div class="starred-gauche">
             <img src="../images/<?php echo $produitALaUne->getId(); ?>.png" alt="Produit à l'affiche">
         </div>
@@ -46,10 +28,4 @@
 
     <h1>Les nouveautés</h1>
     <small><a href="/web/frontController.php?action=readAll">VOIR PLUS ></a></small>
-</main>
-<footer>
-    <!-- <p>Bracket — Bijouterie en ligne</p> -->
-</footer>
-</body>
-</html>
 

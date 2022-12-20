@@ -35,7 +35,7 @@ class ControllerProduit
     {
         $produits = (new ProduitRepository())->readAll();
         shuffle($produits);
-        self::afficheVue("home.php", ["produits" => $produits, "produitALaUne" => $produits[0],  "pagetitle" => "Liste des produits", "cheminVueBody" => "home.php"]);
+        self::afficheVue("view.php", ["produits" => $produits, "produitALaUne" => $produits[0],  "pagetitle" => "Liste des produits", "cheminVueBody" => "home.php"]);
     }
 
     public static function readAllBracelets(): void
