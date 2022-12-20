@@ -33,7 +33,6 @@ nav {
 
 .nav-raccourcis {
     font-family: "WorkSans", "ui-rounded";
-
     display: flex;
     flex-direction: row;
 }
@@ -248,4 +247,16 @@ button#acheter:hover {
     color: #a94442;
     background-color: #f2dede;
     border-color: #ebccd1;
+}
+
+.lien{
+    background-color: transparent;
+    border: none;
+    margin-top: 5px;
+    margin-left: 15px;
+}
+
+.lien img{
+    width: 30px;
+    height: 30px;
 }
