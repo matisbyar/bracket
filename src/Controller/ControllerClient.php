@@ -42,6 +42,12 @@ class ControllerClient extends GenericController
         self::afficheVue("view.php", ["pagetitle" => "Se connecter", "cheminVueBody" => "client/login.php"]);
     }
 
+    public static function account() : void
+    {
+        $client = (new ClientRepository())->read($_SESSION['email']);
+        if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Mon compte", "cheminVueBody" => "client/account.php"]);
+    }
+
     public static function connecter() : void
     {
         $utilisateur = (new ClientRepository())->read($_POST['login']);
@@ -56,7 +62,7 @@ class ControllerClient extends GenericController
             }
         }
     }
-    public static function deconnecter() : void
+    public static function logout() : void
     {
         ConnexionUtilisateur::deconnecter();
         MessageFlash::ajouter("success", "Vous êtes déconnecté");
