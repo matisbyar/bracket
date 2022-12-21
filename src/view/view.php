@@ -6,7 +6,7 @@
         use App\Bracket\Lib\MessageFlash;
 
         echo $pagetitle; ?></title>
-    <link rel="stylesheet" href="../../css/styles.css"/>
+    <link rel="stylesheet" href="../css/styles.css"/>
 </head>
 <body>
 <header>
@@ -17,10 +17,10 @@
             <a href="../web/frontController.php?action=readAllBagues"><p>Bagues</p></a>
             <?php if (ConnexionUtilisateur::estConnecte()) { ?>
                 <a href="../web/frontController.php?controller=client&action=account">
-                        <button class="lien"><img src="../../images/account_login.svg" alt="Fav"></button>
+                        <button class="lien"><img src="../images/account_login.svg" alt="Fav"></button>
                     </a>
                <a href="../web/frontController.php?controller=client&action=logout">
-                        <button class="lien"><img src="../../images/logout.svg" alt="Fav" ></button>
+                        <button class="lien"><img src="../images/logout.svg" alt="Fav" ></button>
                     </a>
             <?php } else { ?>
                <a href="../web/frontController.php?controller=client&action=login">
