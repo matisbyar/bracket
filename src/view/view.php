@@ -24,7 +24,7 @@
                     </a>
             <?php } else { ?>
                <a href="../web/frontController.php?controller=client&action=login">
-                        <button class="lien"><img src="../../images/account_login.svg" alt="Fav"></button>
+                        <button class="lien"><img src="../images/account_login.svg" alt="Fav"></button>
                     </a>
             <?php } ?>
         </div>

@@ -25,6 +25,7 @@ class Client extends AbstractDataObject
         $this->mail = $mail;
         $this->adresse = $adresse;
         $this->password = $password;
+        $this->description = "";
         // $this->description = $description;
     }
 
@@ -40,16 +41,16 @@ class Client extends AbstractDataObject
         );
     }
 // TODO : problème avec le formatTableau
-    public function formatTableau(AbstractDataObject $object): array
+    public function formatTableau(): array
     {
         return array(
-            "NomTag" => $object->getNom(),
-            "PrenomTag" => $object->getPrenom(),
-            "DateNaissanceTag" => $object->getDateNaissance(),
-            "MailTag" => $object->getMail(),
-            "AdresseTag" => $object->getAdresse(),
-            "PasswordTag" => $object->getPassword(),
-           /* "DescriptionTag" => $object->getDescription()*/
+            "nomTag" => $this->getNom(),
+            "prenomTag" => $this->getPrenom(),
+            "naissanceTag" => $this->getDateNaissance(),
+            "mailTag" => $this->getMail(),
+            "adresseTag" => $this->getAdresse(),
+            "passwordTag" => $this->getPassword(),
+            "descriptionTag" => $this->getDescription()
         );
     }
 

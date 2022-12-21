@@ -64,6 +64,7 @@ class ControllerClient extends GenericController
     public static function creer(): void
     {
         if ($_POST['password'] == $_POST['password2']) {
+            var_dump($_POST);
             $client = Client::construireDepuisFormulaire($_POST);
             if ($client == null) {
                 MessageFlash::ajouter("warning", "L'client existe deja");
