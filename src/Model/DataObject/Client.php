@@ -2,7 +2,10 @@
 
 namespace App\Bracket\Model\DataObject;
 
-class Client extends AbstractDataObject {
+use App\Bracket\Lib\MotDePasse;
+
+class Client extends AbstractDataObject
+{
     private string $mail, $nom, $prenom, $dateNaissance, $adresse, $password, $description;
 
     /**
@@ -14,15 +17,40 @@ class Client extends AbstractDataObject {
      * @param string $password
      * @param string $description
      */
-    public function __construct(string $mail, string $nom, string $prenom, string $dateNaissance, string $adresse, string $password, string $description)
+    public function __construct(string $nom, string $prenom, string $dateNaissance, string $mail, string $adresse, string $password)
     {
-        $this->mail = $mail;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->dateNaissance = $dateNaissance;
+        $this->mail = $mail;
         $this->adresse = $adresse;
         $this->password = $password;
-        $this->description = $description;
+        // $this->description = $description;
+    }
+
+    public static function construireDepuisFormulaire(array $tableauFormulaire): Client
+    {
+        return new Client(
+            $tableauFormulaire["nom"],
+            $tableauFormulaire["prenom"],
+            $tableauFormulaire["naissance"],
+            $tableauFormulaire["mail"],
+            $tableauFormulaire["adresse"],
+            MotDePasse::hacher($tableauFormulaire["password"])
+        );
+    }
+// TODO : problème avec le formatTableau
+    public function formatTableau(AbstractDataObject $object): array
+    {
+        return array(
+            "NomTag" => $object->getNom(),
+            "PrenomTag" => $object->getPrenom(),
+            "DateNaissanceTag" => $object->getDateNaissance(),
+            "MailTag" => $object->getMail(),
+            "AdresseTag" => $object->getAdresse(),
+            "PasswordTag" => $object->getPassword(),
+           /* "DescriptionTag" => $object->getDescription()*/
+        );
     }
 
     /**

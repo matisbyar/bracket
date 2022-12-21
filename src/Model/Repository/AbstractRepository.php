@@ -8,12 +8,12 @@ abstract class AbstractRepository {
     public function create(AbstractDataObject $object)
     {
         $sql = "INSERT INTO " . $this->getNomTable() . " (";
-        foreach ($this->getNomsColonnes() as $colonne) {
+        foreach ($this->getNomColonnes() as $colonne) {
             $sql .= "$colonne,";
         }
         $sql = substr($sql, 0, -1);
         $sql .= ") VALUES (";
-        foreach ($this->getNomsColonnes() as $colonne) {
+        foreach ($this->getNomColonnes() as $colonne) {
             $sql .= ":$colonne" . "Tag,";
         }
         $sql = substr($sql, 0, -1);

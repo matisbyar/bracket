@@ -6,17 +6,17 @@
     <link rel="stylesheet" href="../../../css/styles.css"/>
 </head>
 <body>
-<form method="post" action="../web/frontController.php?action=readAllBagues">
+<form method="post" action="../web/frontController.php?controller=client&action=creer">
     <fieldset class="fieldsetLeft">
         <legend>Création d'un compte</legend>
         <input type='hidden' name='action' value='created'>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="nomId">Nom</label>
-            <input class="InputAddOn-field" type="text" placeholder="Prénom" name="nom" id="nomId" required/>
+            <input class="InputAddOn-field" type="text" placeholder="nom" name="nom" id="nomId" required/>
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="prenomId">Prénom</label>
-            <input class="InputAddOn-field" type="text" placeholder="Nom" name="nom" id="nomId" required/>
+            <input class="InputAddOn-field" type="text" placeholder="prenom" name="prenom" id="nomId" required/>
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="naissanceId">Date de naissance</label>
@@ -48,7 +48,7 @@
         </div>
     </fieldset>
 </form>
-<form method="post" action="../web/frontController.php?action=readAllBagues">
+<form method="post" action="../web/frontController.php?controller=client&action=connecter">
     <fieldset>
         <legend>Connexion</legend>
         <p class="InputAddOn">
