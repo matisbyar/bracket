@@ -119,4 +119,8 @@ class Produit extends AbstractDataObject  {
         $this->description = $description;
     }
 
+    public function formatTableau(AbstractDataObject $object): array
+    {
+        // TODO: Implement formatTableau() method.
+    }
 }
