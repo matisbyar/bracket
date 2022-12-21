@@ -23,7 +23,7 @@ class ConnexionUtilisateur
 
     public static function deconnecter(): void
     {
-        Session::getInstance()->detruire(self::$cleConnexion);
+        Session::getInstance()->supprimer(self::$cleConnexion);
     }
 
     public static function getLoginUtilisateurConnecte(): ?string

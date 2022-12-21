@@ -6,7 +6,7 @@
         use App\Bracket\Lib\MessageFlash;
 
         echo $pagetitle; ?></title>
-    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/styles.css"/>
 </head>
 <body>
 <header>
