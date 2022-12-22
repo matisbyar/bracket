@@ -40,6 +40,7 @@ class Client extends AbstractDataObject
             MotDePasse::hacher($tableauFormulaire["password"])
         );
     }
+
 // TODO : problème avec le formatTableau
     public function formatTableau(): array
     {
@@ -49,7 +50,7 @@ class Client extends AbstractDataObject
             "prenomTag" => $this->getPrenom(),
             "dateNaissanceTag" => $this->getDateNaissance(),
             "adresseTag" => $this->getAdresse(),
-            "passwordTag" => $this->getPassword(),
+            "passwordTag" => $this->getMdpHache(),
             "descriptionTag" => $this->getDescription()
         );
     }

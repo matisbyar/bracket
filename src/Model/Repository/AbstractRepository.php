@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Bracket\Model\Repository;
+
 use App\Bracket\Model\DataObject\AbstractDataObject;
 
-abstract class AbstractRepository {
+abstract class AbstractRepository
+{
 
     public function create(AbstractDataObject $object)
     {
@@ -24,8 +26,9 @@ abstract class AbstractRepository {
         $pdoStatement->execute($object->formatTableau());
     }
 
-    public function read(string $valeurClePrimaire):?AbstractDataObject {
-        $sql = "SELECT * FROM ". $this->getNomTable() ." WHERE ".$this->getNomClePrimaire()."=:clePrimaire";
+    public function read(string $valeurClePrimaire): ?AbstractDataObject
+    {
+        $sql = "SELECT * FROM " . $this->getNomTable() . " WHERE " . $this->getNomClePrimaire() . "=:clePrimaire";
         // Préparation de la requête
         $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
 
@@ -43,8 +46,9 @@ abstract class AbstractRepository {
         else return NULL;
     }
 
-    public function readAll(): array {
-        $pdoStatement = DatabaseConnection::getPdo()->query("SELECT * FROM ".$this->getNomTable());
+    public function readAll(): array
+    {
+        $pdoStatement = DatabaseConnection::getPdo()->query("SELECT * FROM " . $this->getNomTable());
 
         $tableau = [];
 
@@ -68,7 +72,8 @@ abstract class AbstractRepository {
         $pdoStatement->execute($object->formatTableau());
     }
 
-    public function delete(string $valeurClePrimaire): bool {
+    public function delete(string $valeurClePrimaire): bool
+    {
         try {
             $sql = "DELETE FROM " . $this->getNomTable() . " WHERE " . $this->getNomClePrimaire() . " = :clePrimaire";
 
@@ -87,7 +92,7 @@ abstract class AbstractRepository {
 
     protected abstract function getNomTable(): string;
 
-    protected abstract function construire(array $objetFormatTableau) : AbstractDataObject;
+    protected abstract function construire(array $objetFormatTableau): AbstractDataObject;
 
     protected abstract function getNomClePrimaire(): string;
 

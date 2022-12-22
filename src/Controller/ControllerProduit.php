@@ -3,7 +3,6 @@
 namespace App\Bracket\Controller;
 
 use App\Bracket\Model\DataObject\Produit;
-use App\Bracket\Model\Repository\AbstractRepository;
 use App\Bracket\Model\Repository\ProduitRepository;
 
 class ControllerProduit
@@ -35,7 +34,7 @@ class ControllerProduit
     {
         $produits = (new ProduitRepository())->readAll();
         shuffle($produits);
-        self::afficheVue("view.php", ["produits" => $produits, "produitALaUne" => $produits[0],  "pagetitle" => "Liste des produits", "cheminVueBody" => "home.php"]);
+        self::afficheVue("view.php", ["produits" => $produits, "produitALaUne" => $produits[0], "pagetitle" => "Liste des produits", "cheminVueBody" => "home.php"]);
     }
 
     public static function readAllBracelets(): void
@@ -56,20 +55,22 @@ class ControllerProduit
         self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Liste des bagues", "cheminVueBody" => "produit/list.php"]);
     }
 
-    public static function create(): void{
-        ControllerProduit::afficheVue('view.php',["pagetitle"=>"Création d'un bijoux","cheminVueBody"=>"produit/create.php"]);
+    public static function create(): void
+    {
+        ControllerProduit::afficheVue('view.php', ["pagetitle" => "Création d'un bijoux", "cheminVueBody" => "produit/create.php"]);
     }
 
-    public static function created() : void{
+    public static function created(): void
+    {
         $type = $_GET["bijou"];
         $prix = $_GET["prix"];
         $material = $_GET["materiau"];
         $name = $_GET["nom"];
         $description = $_GET["description"];
-        $produit = new Produit($type,floatval($prix),$material,$name,$description);
+        $produit = new Produit($type, floatval($prix), $material, $name, $description);
         $produitRepository = new ProduitRepository();
         $produitRepository->create($produit);
         $produits = (new ProduitRepository())->readAll();
-        ControllerProduit::afficheVue('view.php',["pagetitle"=>"Création d'un bijoux","cheminVueBody"=>"produit/created.php","produits"=>$produits]);
+        ControllerProduit::afficheVue('view.php', ["pagetitle" => "Création d'un bijoux", "cheminVueBody" => "produit/created.php", "produits" => $produits]);
     }
 }

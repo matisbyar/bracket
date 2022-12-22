@@ -2,8 +2,9 @@
 
 namespace App\Bracket\Model\DataObject;
 
-class Produit extends AbstractDataObject  {
-    private string $id, $type, $materiau,$nom,$description;
+class Produit extends AbstractDataObject
+{
+    private string $id, $type, $materiau, $nom, $description;
     private float $prix;
 
     /**
@@ -14,7 +15,8 @@ class Produit extends AbstractDataObject  {
      * @param string $nom
      * @param string $description
      */
-    public function __construct(string $id, string $type, float $prix, string $materiau, string $nom, string $description) {
+    public function __construct(string $id, string $type, float $prix, string $materiau, string $nom, string $description)
+    {
         $this->id = $id;
         $this->type = $type;
         $this->materiau = $materiau;
