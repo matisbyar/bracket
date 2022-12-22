@@ -137,7 +137,7 @@ class Client extends AbstractDataObject
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getMdpHache(): string
     {
         return $this->password;
     }

@@ -53,7 +53,7 @@ class ControllerClient extends GenericController
         } else {
             if ($_POST['motdepasse'] == MotDePasse::verifier($_POST['motdepasse'], $client->getMdpHache())) {
                 ConnexionUtilisateur::connecter($client->getMail());
-                self::redirige("home.php");
+                self::redirige("?action=home");
             } else {
                 MessageFlash::ajouter("Danger", "Le mot de passe est incorrect");
                 self::redirige("?action=login&controller=client");
@@ -64,7 +64,6 @@ class ControllerClient extends GenericController
     public static function creer(): void
     {
         if ($_POST['password'] == $_POST['password2']) {
-            var_dump($_POST);
             $client = Client::construireDepuisFormulaire($_POST);
             if ($client == null) {
                 MessageFlash::ajouter("warning", "L'client existe deja");
