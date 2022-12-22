@@ -19,6 +19,7 @@ abstract class AbstractRepository {
         $sql = substr($sql, 0, -1);
         $sql .= ");";
 
+        echo $sql;
         $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
         $pdoStatement->execute($object->formatTableau());
     }

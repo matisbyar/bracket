@@ -44,10 +44,10 @@ class Client extends AbstractDataObject
     public function formatTableau(): array
     {
         return array(
+            "emailTag" => $this->getMail(),
             "nomTag" => $this->getNom(),
             "prenomTag" => $this->getPrenom(),
-            "naissanceTag" => $this->getDateNaissance(),
-            "mailTag" => $this->getMail(),
+            "dateNaissanceTag" => $this->getDateNaissance(),
             "adresseTag" => $this->getAdresse(),
             "passwordTag" => $this->getPassword(),
             "descriptionTag" => $this->getDescription()
