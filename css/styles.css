@@ -216,6 +216,13 @@ button#acheter:hover {
     background: transparent;
 }
 
+.imageAffiche{
+    width: 70%;
+    height: 70%;
+    object-fit: cover;
+    margin-left: 150px;
+}
+
 /* Bootstrap alerts */
 /* https://getbootstrap.com/docs/3.4/components/#alerts */
 
