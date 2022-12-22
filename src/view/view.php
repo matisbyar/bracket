@@ -38,7 +38,6 @@
     ?>
 </main>
 <footer>
-    <!-- <p>Bracket — Bijouterie en ligne</p> -->
 </footer>
 </body>
 </html>

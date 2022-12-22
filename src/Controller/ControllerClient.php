@@ -53,6 +53,7 @@ class ControllerClient extends GenericController
         } else {
             if ($_POST['motdepasse'] == MotDePasse::verifier($_POST['motdepasse'], $client->getMdpHache())) {
                 ConnexionUtilisateur::connecter($client->getMail());
+                MessageFlash::ajouter("success", "Vous êtes connecté");
                 self::redirige("?action=home");
             } else {
                 MessageFlash::ajouter("Danger", "Le mot de passe est incorrect");
