@@ -9,13 +9,12 @@ class Client extends AbstractDataObject
     private string $mail, $nom, $prenom, $dateNaissance, $adresse, $password, $description;
 
     /**
-     * @param string $mail
      * @param string $nom
      * @param string $prenom
      * @param string $dateNaissance
+     * @param string $mail
      * @param string $adresse
      * @param string $password
-     * @param string $description
      */
     public function __construct(string $nom, string $prenom, string $dateNaissance, string $mail, string $adresse, string $password)
     {
@@ -26,7 +25,6 @@ class Client extends AbstractDataObject
         $this->adresse = $adresse;
         $this->password = $password;
         $this->description = "";
-        // $this->description = $description;
     }
 
     public static function construireDepuisFormulaire(array $tableauFormulaire): Client
@@ -41,7 +39,6 @@ class Client extends AbstractDataObject
         );
     }
 
-// TODO : problème avec le formatTableau
     public function formatTableau(): array
     {
         return array(
