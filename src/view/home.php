@@ -11,13 +11,13 @@
                 <?php echo $produitALaUne->getDescription();  ?>
             </p>
             <div class="starred-buttons">
-                <button id="en-savoir-plus"><a href="?action=read&id=<?php echo $produitALaUne->getId(); ?>">EN SAVOIR PLUS</a></button>
+                <button id="enSavoirPlus"><a href="?action=read&id=<?php echo $produitALaUne->getId(); ?>">EN SAVOIR PLUS</a></button>
                 <button id="acheter">ACHETER</button>
             </div>
         </div>
     </div>
 
-    <h1>Les classiques</h1>
+    <h1 class="ClassiqueHome">Les classiques</h1>
     <?php
     use App\Bracket\Lib\MessageFlash;
     $messages = MessageFlash::lireTousMessages();
