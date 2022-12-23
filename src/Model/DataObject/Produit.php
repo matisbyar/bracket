@@ -123,6 +123,6 @@ class Produit extends AbstractDataObject
 
     public function formatTableau(): array
     {
-        // TODO: Implement formatTableau() method.
+        return null;
     }
 }

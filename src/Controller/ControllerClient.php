@@ -30,7 +30,12 @@ class ControllerClient extends GenericController
     public static function update(): void
     {
         $client = (new ClientRepository())->read($_GET['email']);
-        if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier un client", "cheminVueBody" => "client/update.php"]);
+        if($client->getMail()!=ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+            MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte");
+            self::redirige("?action=account&controller=client");
+        }else if ($client != null) {
+            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier un client", "cheminVueBody" => "client/update.php"]);
+        }
     }
 
     public static function login(): void
@@ -103,6 +108,35 @@ class ControllerClient extends GenericController
         }else{
             MessageFlash::ajouter("warning", "Le mot de passe est incorrect");
             self::redirige("?action=update&controller=client&email=".$clientUpdate->getMail());
+        }
+    }
+
+    public static function updatePassword() : void{
+        $client = (new ClientRepository())->read(ConnexionUtilisateur::getLoginUtilisateurConnecte());
+        if($client->getMail()!=ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+            MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte");
+            self::redirige("?action=account&controller=client");
+        }else if ($client != null) {
+            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier le mot de passe", "cheminVueBody" => "client/updatePassword.php"]);
+        }
+    }
+
+    public static function updatedPassword(): void {
+        $oldPassword = $_POST["oldPassword"];
+        $password = $_POST["password"];
+        $password2 = $_POST["password2"];
+        $client = (new ClientRepository)->read(ConnexionUtilisateur::getLoginUtilisateurConnecte());
+        if(!strcmp($password,$password2)){
+            MessageFlash::ajouter("warning", "Les mots de passe rentrés sont différents");
+            self::redirige("?action=updatePassword&controller=client");
+        }else if (!MotDePasse::verifier($oldPassword,$client->getMdpHache())){
+            MessageFlash::ajouter("warning", "Le mot de passe actuel n'est pas correct");
+            self::redirige("?action=updatePassword&controller=client");
+        }else{
+            MessageFlash::ajouter("success", "Le mot de passe a bien été modifié");
+            $client->setPassword(MotDePasse::hacher($password));
+            (new ClientRepository)->update($client);
+            self::redirige("?action=account&controller=client");
         }
     }
 }

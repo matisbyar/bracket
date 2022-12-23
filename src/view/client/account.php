@@ -9,5 +9,6 @@ echo "<p><strong>Date de naissance : </strong>".htmlspecialchars($client->getDat
 echo "<p><strong>Adresse : </strong>".htmlspecialchars($client->getAdresse())."</p>";
 echo "<p><strong>Description : </strong>".htmlspecialchars($client->getDescription())."</p>";
 
-echo "<p><a href=\"?action=update&controller=client&email=".rawurlencode(ConnexionUtilisateur::getLoginUtilisateurConnecte())."\">Modification des informations du compte</p>";
-echo "<p><a href=\"?action=updatePassword&controller=client&email=".rawurlencode(ConnexionUtilisateur::getLoginUtilisateurConnecte())."\">Modification du mot de passe</p>";
+echo "<p><a href=\"?action=update&controller=client&email=".rawurldecode(ConnexionUtilisateur::getLoginUtilisateurConnecte())."\">Modification des informations du compte</p>";
+echo "<p><a href=\"?action=updatePassword&controller=client\">Modification du mot de passe</p>";
+echo "<p><a href=\"?controller=client&action=logout\">Se déconnecter</p>";

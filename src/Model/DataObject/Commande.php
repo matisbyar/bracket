@@ -84,4 +84,10 @@ class Commande extends AbstractDataObject {
         $this->produits = $produits;
     }
 
+	/**
+	 * @return array
+	 */
+	public function formatTableau(): array {
+        return null;
+	}
 }

@@ -83,6 +83,8 @@ class CarteBancaire extends AbstractDataObject{
         $this->proprietaire = $proprietaire;
     }
 
-
+    public function formatTableau() : array {
+        return null;
+    }
 
 }
