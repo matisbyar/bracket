@@ -1,33 +1,47 @@
-<form action="../web/frontController.php">
-    <fieldset>
-        <legend>Mon formulaire :</legend>
-        <input type='hidden' name='action' value='updated'>
-        <p>
-            <label for="email_id">Email</label> :
-            <input type="text" value="<?= /* @var Client $client */ htmlspecialchars($client->getMail()); ?>" name="mail" id="email_id" readonly/>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Connexion</title>
+    <link rel="stylesheet" href="../../../css/styles.css"/>
+</head>
+<body>
+<p></p>
+<form method="post" action="../web/frontController.php?controller=client&action=updated">
+    <fieldset class="fieldsetLeft">
+        <legend>Mise à jour des informations</legend>
+        <input type='hidden' name='action' value='created'>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="mailId">Adresse e-mail</label>
+            <input class="InputAddOn-field" type="email" placeholder="Adresse e-mail" name="mail" id="mailId" 
+                value="<?= /* @var Client $client */ htmlspecialchars($client->getMail()); ?>" readonly/>
         </p>
-        <p>
-            <label for="nom_id">Nom</label> :
-            <input type="text" value="<?= /* @var Client $client */ htmlspecialchars($client->getNom()); ?>" name="nom" id="nom_id" required/>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="nomId">Nom</label>
+            <input class="InputAddOn-field" type="text" placeholder="nom" name="nom" id="nomId"
+                value="<?= /* @var Client $client */ htmlspecialchars($client->getNom()); ?>" required/>
         </p>
-        <p>
-            <label for="prenom_id">Prenom</label> :
-            <input type="text" value="<?= /* @var Client $client */ htmlspecialchars($client->getPrenom()); ?>" name="prenom" id="prenom_id" required/>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="prenomId">Prénom</label>
+            <input class="InputAddOn-field" type="text" placeholder="prenom" name="prenom" id="nomId"
+            value="<?= /* @var Client $client */ htmlspecialchars($client->getPrenom()); ?>" required/>
         </p>
-        <p>
-            <label for="dateN_id">Date de naissance</label> :
-            <input type="text" value="<?= /* @var Client $client */ htmlspecialchars($client->getDateNaissance()); ?>" name="dateN" id="dateN_id" required/>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="naissanceId">Date de naissance</label>
+            <input class="InputAddOn-field" type="date" name="naissance" id="naissanceId"
+                value="<?= /* @var Client $client */ htmlspecialchars($client->getDateNaissance()); ?>" required/>
         </p>
-        <p>
-            <label for="adresse_id">Adresse</label> :
-            <input type="text" value="<?= /* @var Client $client */ htmlspecialchars($client->getAdresse()); ?>" name="adresse" id="adresse_id" required/>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="adresseId">Adresse postale</label>
+            <input class="InputAddOn-field" type="text" placeholder="Adresse postale" name="adresse" id="adresseId"
+                value="<?= /* @var Client $client */ htmlspecialchars($client->getAdresse()); ?>" required/>
         </p>
-        <p>
-            <label for="password_id">Mot de passe</label> :
-            <input type="text" value="<?= /* @var Client $client */ htmlspecialchars($client->getPassword()); ?>" name="password" id="password_id" required/>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="oldPasswordId">Ancien mot de passe</label>
+            <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="oldPassword" id="oldPasswordId" required/>
         </p>
-        <p>
-            <input type="submit" value="Envoyer" />
-        </p>
+        <div class="buttonForm">
+            <button class="buttonOnForm" role="button"><input type="submit" value=""/>Mettre à jour le compte</button>
+        </div>
     </fieldset>
 </form>

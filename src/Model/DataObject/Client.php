@@ -16,7 +16,7 @@ class Client extends AbstractDataObject
      * @param string $adresse
      * @param string $password
      */
-    public function __construct(string $nom, string $prenom, string $dateNaissance, string $mail, string $adresse, string $password)
+    public function __construct(string $mail, string $nom, string $prenom, string $dateNaissance, string $adresse, string $password)
     {
         $this->nom = $nom;
         $this->prenom = $prenom;
