@@ -40,7 +40,7 @@ class ControllerClient extends GenericController
 
     public static function account(): void
     {
-        $client = (new ClientRepository())->read($_SESSION['email']);
+        $client = (new ClientRepository())->read(ConnexionUtilisateur::getLoginUtilisateurConnecte());
         if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Mon compte", "cheminVueBody" => "client/account.php"]);
     }
 
@@ -86,5 +86,23 @@ class ControllerClient extends GenericController
         ConnexionUtilisateur::deconnecter();
         MessageFlash::ajouter("success", "Vous êtes déconnecté");
         self::redirige("?action=home");
+    }
+
+    public static function updated() : void 
+    {
+        $clientUpdate = Client::construireDepuisFormulaire($_POST);
+        $clientRepository = new ClientRepository();
+        $client = $clientRepository->read($clientUpdate->getMail());
+        if(!ConnexionUtilisateur::estUtilisateur($clientUpdate->getMail())){
+            MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour modifier ce compte");
+            self::redirige("?action=update&controller=client&email=".$clientUpdate->getMail());
+        }else if(MotDePasse::verifier($_POST['password'], $client->getMdpHache())){
+            $clientRepository->update($clientUpdate);
+            MessageFlash::ajouter("success", "Votre compte à bien été modifié");
+            self::redirige("?action=account&controller=client");
+        }else{
+            MessageFlash::ajouter("warning", "Le mot de passe est incorrect");
+            self::redirige("?action=update&controller=client&email=".$clientUpdate->getMail());
+        }
     }
 }

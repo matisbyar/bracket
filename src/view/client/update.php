@@ -38,7 +38,7 @@
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="oldPasswordId">Ancien mot de passe</label>
-            <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="oldPassword" id="oldPasswordId" required/>
+            <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="password" id="oldPasswordId" required/>
         </p>
         <div class="buttonForm">
             <button class="buttonOnForm" role="button"><input type="submit" value=""/>Mettre à jour le compte</button>

@@ -30,10 +30,10 @@ class Client extends AbstractDataObject
     public static function construireDepuisFormulaire(array $tableauFormulaire): Client
     {
         return new Client(
+            $tableauFormulaire["mail"],
             $tableauFormulaire["nom"],
             $tableauFormulaire["prenom"],
             $tableauFormulaire["naissance"],
-            $tableauFormulaire["mail"],
             $tableauFormulaire["adresse"],
             MotDePasse::hacher($tableauFormulaire["password"])
         );

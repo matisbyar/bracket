@@ -61,7 +61,7 @@ abstract class AbstractRepository
     public function update(AbstractDataObject $object): void
     {
         $sql = "UPDATE " . $this->getNomTable() . " SET ";
-        foreach ($this->getNomsColonnes() as $colonne) {
+        foreach ($this->getNomColonnes() as $colonne) {
             if ($colonne != $this->getNomClePrimaire()) {
                 $sql .= "$colonne = :$colonne" . "Tag,";
             }
