@@ -18,8 +18,9 @@ class Client extends AbstractDataObject
      * @param string $password
      * @param boolean $estAdmin
      */
-    public function __construct(string $mail, string $nom, string $prenom, string $dateNaissance, string $adresse, string $password, bool $estAdmin)
+    public function __construct(string $mail, string $nom, string $prenom, string $dateNaissance, string $adresse, string $password,bool $estAdmin)
     {
+        //var_dump($estAdmin);
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->dateNaissance = $dateNaissance;
@@ -32,14 +33,27 @@ class Client extends AbstractDataObject
 
     public static function construireDepuisFormulaire(array $tableauFormulaire): Client
     {
-        return new Client(
-            $tableauFormulaire["mail"],
-            $tableauFormulaire["nom"],
-            $tableauFormulaire["prenom"],
-            $tableauFormulaire["naissance"],
-            $tableauFormulaire["adresse"],
-            MotDePasse::hacher($tableauFormulaire["password"])
-        );
+        if($tableauFormulaire["estAdmin"]==null){
+            return new Client(
+                $tableauFormulaire["mail"],
+                $tableauFormulaire["nom"],
+                $tableauFormulaire["prenom"],
+                $tableauFormulaire["naissance"],
+                $tableauFormulaire["adresse"],
+                MotDePasse::hacher($tableauFormulaire["password"]),
+                false
+            );
+        } else {
+            return new Client(
+                $tableauFormulaire["mail"],
+                $tableauFormulaire["nom"],
+                $tableauFormulaire["prenom"],
+                $tableauFormulaire["naissance"],
+                $tableauFormulaire["adresse"],
+                MotDePasse::hacher($tableauFormulaire["password"]),
+                $tableauFormulaire["estAdmin"]
+            );
+        }
     }
 
     public function formatTableau(): array

@@ -23,13 +23,21 @@ class ControllerClient extends GenericController
 
     public static function readAll(): void
     {
-        $clients = (new ClientRepository())->readAll();
-        self::afficheVue("view.php", ["clients" => $clients, "pagetitle" => "Liste des clients", "cheminVueBody" => "client/list.php"]);
+        if(ConnexionUtilisateur::estAdministrateur()){
+            $clients = (new ClientRepository())->readAll();
+            self::afficheVue("view.php", ["clients" => $clients, "pagetitle" => "Liste des clients", "cheminVueBody" => "client/list.php"]);
+        }else{
+            MessageFlash::ajouter("danger", "Vous n'avez pas accès à cette page");
+            self::redirige("?action=account&controller=client");
+        }
     }
 
     public static function update(): void
     {
         $client = (new ClientRepository())->read($_GET['email']);
+        if(ConnexionUtilisateur::estAdministrateur()){
+            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier un client", "cheminVueBody" => "client/update.php"]);
+        }
         if($client->getMail()!=ConnexionUtilisateur::getLoginUtilisateurConnecte()){
             MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte");
             self::redirige("?action=account&controller=client");
@@ -72,7 +80,7 @@ class ControllerClient extends GenericController
         if ($_POST['password'] == $_POST['password2']) {
             $client = Client::construireDepuisFormulaire($_POST);
             if ($client == null) {
-                MessageFlash::ajouter("warning", "L'client existe deja");
+                MessageFlash::ajouter("warning", "Le client existe deja");
                 self::redirige("?action=login&controller=client");
             } else {
                 $clientRepository = new ClientRepository();

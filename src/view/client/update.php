@@ -46,6 +46,13 @@
                    value="<?= /* @var Client $client */
                    htmlspecialchars($client->getAdresse()); ?>" required/>
         </p>
+        <?php
+        echo '<p class="InputAddOn">
+        <label class="InputAddOn-item" for="estAdmin_id">Administrateur</label>
+        <input class="InputAddOn-field" type="checkbox" placeholder="" name="estAdmin" id="estAdmin_id">
+        </p>';
+        
+        ?>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="oldPasswordId">Ancien mot de passe</label>
             <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="password"

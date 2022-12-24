@@ -37,7 +37,6 @@ abstract class AbstractRepository
         );
         // On donne les valeurs et on exécute la requête
         $pdoStatement->execute($values);
-
         // On récupère les résultats comme précédemment
         // Note: fetch() renvoie false si pas de voiture correspondante
         $objet = $pdoStatement->fetch();
