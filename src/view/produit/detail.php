@@ -1,6 +1,11 @@
 <?php
 /** @var Produit $produit */
 
+?>
+    <div class="back-btn">
+        <button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../../../images/backPage.svg" alt="button retour"></i></button>
+    </div>
+<?php
 
 echo '<h1 class="h1Description">' . ucfirst($produit->getType()) . '</h1>';
 
