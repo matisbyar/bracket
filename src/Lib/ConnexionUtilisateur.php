@@ -3,6 +3,7 @@
 namespace App\Bracket\Lib;
 
 use App\Bracket\Model\HTTP\Session;
+use App\Bracket\Model\Repository\ClientRepository;
 
 class ConnexionUtilisateur
 {
@@ -34,6 +35,16 @@ class ConnexionUtilisateur
     public static function estUtilisateur($login): bool
     {
         return self::getLoginUtilisateurConnecte() === $login;
+    }
+
+    public static function estAdministrateur() : bool
+    {
+        $user = (new ClientRepository)->read(self::getLoginUtilisateurConnecte());
+        if(self::estConnecte() && $user->isEstAdmin()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 ?>

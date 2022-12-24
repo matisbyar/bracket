@@ -51,7 +51,8 @@ class Client extends AbstractDataObject
             "dateNaissanceTag" => $this->getDateNaissance(),
             "adresseTag" => $this->getAdresse(),
             "passwordTag" => $this->getMdpHache(),
-            "descriptionTag" => $this->getDescription()
+            "descriptionTag" => $this->getDescription(),
+            "estAdminTag"=> $this->getEstAdmin(),
         );
     }
 
@@ -173,6 +174,12 @@ class Client extends AbstractDataObject
     public function isEstAdmin(): bool
     {
         return $this->estAdmin;
+    }
+
+    public function getEstAdmin() : int
+    {
+        if($this->estAdmin) return 1;
+        else return 0;
     }
 
     /**
