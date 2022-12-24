@@ -33,6 +33,19 @@ class Client extends AbstractDataObject
 
     public static function construireDepuisFormulaire(array $tableauFormulaire): Client
     {
+        return new Client(
+            $tableauFormulaire["mail"],
+            $tableauFormulaire["nom"],
+            $tableauFormulaire["prenom"],
+            $tableauFormulaire["naissance"],
+            $tableauFormulaire["adresse"],
+            MotDePasse::hacher($tableauFormulaire["password"]),
+            false
+        );
+    }
+
+    public static function construireDepuisFormulaireAdmin(array $tableauFormulaire, string $password): Client
+    {
         if($tableauFormulaire["estAdmin"]==null){
             return new Client(
                 $tableauFormulaire["mail"],
@@ -40,7 +53,7 @@ class Client extends AbstractDataObject
                 $tableauFormulaire["prenom"],
                 $tableauFormulaire["naissance"],
                 $tableauFormulaire["adresse"],
-                MotDePasse::hacher($tableauFormulaire["password"]),
+                $password,
                 false
             );
         } else {
@@ -50,7 +63,7 @@ class Client extends AbstractDataObject
                 $tableauFormulaire["prenom"],
                 $tableauFormulaire["naissance"],
                 $tableauFormulaire["adresse"],
-                MotDePasse::hacher($tableauFormulaire["password"]),
+                $password,
                 $tableauFormulaire["estAdmin"]
             );
         }

@@ -35,14 +35,21 @@ class ControllerClient extends GenericController
     public static function update(): void
     {
         $client = (new ClientRepository())->read($_GET['email']);
-        if(ConnexionUtilisateur::estAdministrateur()){
+        if ($client->getMail()==ConnexionUtilisateur::getLoginUtilisateurConnecte()) {
             self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier un client", "cheminVueBody" => "client/update.php"]);
-        }
-        if($client->getMail()!=ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+        }else{
             MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte");
             self::redirige("?action=account&controller=client");
-        }else if ($client != null) {
-            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier un client", "cheminVueBody" => "client/update.php"]);
+        }
+    }
+
+    public static function updateAdmin() : void
+    {
+        $client = (new ClientRepository())->read($_GET["email"]);
+        if(ConnexionUtilisateur::estAdministrateur()){
+            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier un client", "cheminVueBody" => "client/updateAdmin.php"]);
+        }else{
+            MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte");
         }
     }
 
@@ -117,6 +124,16 @@ class ControllerClient extends GenericController
             MessageFlash::ajouter("warning", "Le mot de passe est incorrect");
             self::redirige("?action=update&controller=client&email=".$clientUpdate->getMail());
         }
+    }
+
+    public static function updatedAdmin() : void 
+    {
+        $clientRepository = new ClientRepository();
+        $client = $clientRepository->read($_POST['mail']);
+        $clientUpdate = Client::construireDepuisFormulaireAdmin($_POST, $client->getMdpHache());
+        $clientRepository->update($clientUpdate);
+        MessageFlash::ajouter("success", "Le compte a bien été modifié");
+        self::redirige("?action=readAll&controller=client");
     }
 
     public static function updatePassword() : void{

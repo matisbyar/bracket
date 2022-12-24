@@ -20,6 +20,7 @@ echo "<div class='infoCompte'><p><strong>Adresse :</strong> ".htmlspecialchars($
 echo "<div class='infoCompte'><p><strong>Description :</strong> ".htmlspecialchars($client->getDescription())."</p></div>";
 if ($client->isEstAdmin()) {
     echo "<div class='infoCompte'><p><strong>Administrateur : </strong>Oui</p></div>";
+    echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=readAll&controller=client\">Accéder au panel admin</button></p></div>";
 }else{
     echo "<div class='infoCompte'><p><strong>Administrateur : </strong>Non</p></div>";
 }

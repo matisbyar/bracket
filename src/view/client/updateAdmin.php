@@ -12,7 +12,7 @@
                                                                         alt="button retour"></i></button>
 </div>
 
-<form method="post" action="../web/frontController.php?controller=client&action=updated">
+<form method="post" action="../web/frontController.php?controller=client&action=updatedAdmin">
     <fieldset class="formAccountPlus">
         <legend>Mise à jour des informations</legend>
         <input type='hidden' name='action' value='created'>
@@ -47,9 +47,8 @@
                    htmlspecialchars($client->getAdresse()); ?>" required/>
         </p>
         <p class="InputAddOn">
-            <label class="InputAddOn-item" for="oldPasswordId">Ancien mot de passe</label>
-            <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="password"
-                   id="oldPasswordId" required/>
+            <label class="InputAddOn-item" for="estAdmin_id">Administrateur</label>
+            <input class="InputAddOn-field" type="checkbox" placeholder="" name="estAdmin" id="estAdmin_id">
         </p>
         <div class="buttonForm">
             <button class="buttonOnForm" role="button"><input type="submit" value=""/>Mettre à jour le compte</button>
