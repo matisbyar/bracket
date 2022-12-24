@@ -322,7 +322,7 @@ a.produit-a {
 fieldset {
     width: 40%;
     margin-left: 7%;
-    margin-top: 15px;
+    margin-top: 0;
     background-color: white;
     padding: 20px;
     border: 1px solid #ccc;

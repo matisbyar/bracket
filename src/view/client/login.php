@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="../../../css/styles.css"/>
 </head>
 <body>
+<div class="back-btn">
+    <button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../../../images/backPage.svg"
+                                                                        alt="button retour"></i></button>
+</div>
+
 <form method="post" action="../web/frontController.php?controller=client&action=creer">
     <fieldset class="fieldsetLeft">
         <legend>Création d'un compte</legend>

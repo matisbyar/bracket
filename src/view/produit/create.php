@@ -36,7 +36,7 @@
             <input type="text" placeholder="" name="description" id="descriptionId" required/>
         </p>
         <p>
-            <input type="submit" value="Envoyer" />
+            <input type="submit" value="Envoyer"/>
         </p>
     </fieldset>
 </form>

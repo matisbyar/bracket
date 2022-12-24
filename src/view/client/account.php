@@ -1,6 +1,13 @@
 <?php
 use App\Bracket\Lib\ConnexionUtilisateur;
 use App\Bracket\Model\Repository\ClientRepository;
+
+?>
+    <div class="back-btn">
+        <button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../../../images/backPage.svg" alt="button retour"></i></button>
+    </div>
+<?php
+
 $client = (new ClientRepository)->read(ConnexionUtilisateur::getLoginUtilisateurConnecte());
 echo "<section class='subInfoCompte'>";
 echo "<div class='infoCompte'><p><strong>Identifiant :</strong> ".htmlspecialchars($client->getMail())."</p></div>";
