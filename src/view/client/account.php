@@ -4,7 +4,8 @@ use App\Bracket\Model\Repository\ClientRepository;
 
 ?>
     <div class="back-btn">
-        <button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../../../images/backPage.svg" alt="button retour"></i></button>
+        <button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../../../images/backPage.svg"
+                                                                            alt="button retour"></i></button>
     </div>
 <?php
 

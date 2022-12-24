@@ -45,7 +45,8 @@
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="password2Id">Confirmation</label>
-            <input class="InputAddOn-field" type="password" placeholder="Confirmation mot de passe" name="password2" id="password2Id"
+            <input class="InputAddOn-field" type="password" placeholder="Confirmation mot de passe" name="password2"
+                   id="password2Id"
                    required/>
         </p>
         <div class="buttonForm">
@@ -58,7 +59,8 @@
         <legend>Connexion</legend>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="login_id">Identifiant</label>
-            <input class="InputAddOn-field" type="text" placeholder="Identifiant" name="login" id="login_id" required/><br>
+            <input class="InputAddOn-field" type="text" placeholder="Identifiant" name="login" id="login_id"
+                   required/><br>
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="login_id">Mot de passe</label>
