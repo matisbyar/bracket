@@ -7,6 +7,7 @@ use App\Bracket\Lib\MotDePasse;
 class Client extends AbstractDataObject
 {
     private string $mail, $nom, $prenom, $dateNaissance, $adresse, $password, $description;
+    private bool $estAdmin;
 
     /**
      * @param string $nom
@@ -15,8 +16,9 @@ class Client extends AbstractDataObject
      * @param string $mail
      * @param string $adresse
      * @param string $password
+     * @param boolean $estAdmin
      */
-    public function __construct(string $mail, string $nom, string $prenom, string $dateNaissance, string $adresse, string $password)
+    public function __construct(string $mail, string $nom, string $prenom, string $dateNaissance, string $adresse, string $password, bool $estAdmin)
     {
         $this->nom = $nom;
         $this->prenom = $prenom;
@@ -25,6 +27,7 @@ class Client extends AbstractDataObject
         $this->adresse = $adresse;
         $this->password = $password;
         $this->description = "";
+        $this->estAdmin = $estAdmin;
     }
 
     public static function construireDepuisFormulaire(array $tableauFormulaire): Client
@@ -162,5 +165,21 @@ class Client extends AbstractDataObject
     public function setDescription(string $description): void
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEstAdmin(): bool
+    {
+        return $this->estAdmin;
+    }
+
+    /**
+     * @param bool $estAdmin
+     */
+    public function setEstAdmin(bool $estAdmin): void
+    {
+        $this->estAdmin = $estAdmin;
     }
 }
