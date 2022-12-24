@@ -133,14 +133,14 @@ button#acheter {
     font-size: 12px;
 }
 
-button#enSavoirPlus{
+button#enSavoirPlus {
     color: white;
     padding: 10px;
     cursor: pointer;
     font-size: 12px;
 }
 
-button#enSavoirPlus a{
+button#enSavoirPlus a {
     color: #000000;
 }
 
@@ -376,4 +376,30 @@ fieldset {
 
 .buttonOnForm:focus-visible {
     box-shadow: none;
+}
+
+.infoCompte {
+    height: 100%;
+    font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
+}
+
+.infoCompteButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoCompteButton a{
+    text-decoration: none;
+    color: #111827;
+}
+
+.subInfoCompte {
+    background: rgba(102, 102, 102, 0.32);
+    width: 500px;
+    height: 50%;
+    padding: 100px;
+    margin: 10px auto;
+    border-radius: 10px;
+
 }
