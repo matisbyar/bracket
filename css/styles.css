@@ -216,6 +216,21 @@ a.produit-a {
     align-items: center;
 }
 
+.bottom-product-pane button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    margin-right: 5px;
+}
+
+.bottom-product-pane button img{
+    height: 22px;
+    width: 22px;
+    rotate: 180deg;
+}
+
 .imageAffiche {
     width: 70%;
     height: 70%;
@@ -378,6 +393,17 @@ fieldset {
     box-shadow: none;
 }
 
+
+.buttonOnForm#modification{
+    margin-top: 20px;
+    margin-left: 150px;
+}
+
+.buttonOnForm#modification a{
+    text-decoration: none;
+    color: #111827;
+}
+
 .infoCompte {
     height: 100%;
     font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
@@ -427,7 +453,7 @@ fieldset {
 .h1Description{
     font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
     text-align: left;
-    margin: 150px 0 0 200px;
+    margin: 20px 0 0 200px;
     font-size: 100px;
 
 }
@@ -435,7 +461,7 @@ fieldset {
 .description{
     font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
     text-align: left;
-    width: 300px;
+    width: 1000px;
     height: 40px;
     margin: 30px 0 0 200px;
     font-size: 20px;
@@ -449,7 +475,7 @@ fieldset {
     padding: 10px;
     border-radius: 10px;
     background-color: #c0c0c0;
-    width: 60%;
+    width: 200px;
     text-align: center;
 
 }

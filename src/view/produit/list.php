@@ -11,7 +11,7 @@ foreach ($produits as $produit) {
             <p class='info-product-pane'>" . $produit->getMateriau() . "</p>
             <div class='bottom-product-pane'>
                 <p class='info-product-pane'>" . $produit->getPrix() . "€</p>
-                <button id='acheter'>></button>
+                <button><img src='../images/read_product.svg' alt='detail'></button>
             </div>
             
         </div>";
