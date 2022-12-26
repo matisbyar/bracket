@@ -27,6 +27,9 @@
                         <button class="lien"><img src="../images/account_login.svg" alt="Fav"></button>
                     </a>
             <?php } ?>
+            <a href="../web/frontController.php?controller=client&action=basket">
+                <button class="lien"><img src="../images/basket.svg" alt="Fav"></button>
+            </a>
         </div>
     </nav>
 </header>
