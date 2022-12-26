@@ -70,4 +70,21 @@ class ControllerProduit  extends GenericController{
         MessageFlash::ajouter("success","Le produit a bien été créé");
         self::redirige("?action=readAll");
     }
+
+    public static function update() : void
+    {
+        $produit = (new ProduitRepository)->read($_GET["id"]);
+        self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Modifier un produit", "cheminVueBody" => "produit/update.php"]);
+    }
+
+    public static function updated() : void 
+    {
+        $produit = (new ProduitRepository)->read($_POST["id"]);
+        $produit->setPrix(floatval($_POST["prix"]));
+        $produit->setNom($_POST["nom"]);
+        $produit->setDescription($_POST["description"]);
+        (new ProduitRepository)->update($produit);
+        MessageFlash::ajouter("success", "Le produit a été modifié");
+        self::redirige("?action=read&id=".$produit->getId());
+    }
 }

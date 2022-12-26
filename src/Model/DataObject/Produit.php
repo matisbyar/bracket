@@ -132,4 +132,8 @@ class Produit extends AbstractDataObject
             "descriptionTag"=>$this->getDescription()
         );
     }
+
+    public static function construireDepuisFormulaire($formatTableau) : Produit{
+        return null;
+    }
 }
