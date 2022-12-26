@@ -8,7 +8,7 @@ class ProduitRepository extends AbstractRepository
 {
     public function construire(array $produitFormatTableau): Produit
     {
-        return new Produit($produitFormatTableau['0'], $produitFormatTableau['1'], $produitFormatTableau['2'], $produitFormatTableau['3'], $produitFormatTableau['4'], $produitFormatTableau['5']);
+        return new Produit($produitFormatTableau['0'], $produitFormatTableau['1'], $produitFormatTableau['2'], $produitFormatTableau['3'], $produitFormatTableau['4'], $produitFormatTableau['5'], $produitFormatTableau['6']);
     }
 
     protected function getNomTable(): string
@@ -24,7 +24,7 @@ class ProduitRepository extends AbstractRepository
     protected function getNomColonnes(): array
     {
         return array(
-            "id", "type", "prix", "materiau", "nom", "description"
+            "id", "type", "prix", "materiau", "nom", "description","image"
         );
     }
 
@@ -37,7 +37,7 @@ class ProduitRepository extends AbstractRepository
             $pdoStatement->execute($values);
             return $pdoStatement->fetch()["id"];
         }catch (PDOException) {
-            echo "La suppression a échoué. Merci de réessayer.";
+            echo "La mise à jour a échoué. Merci de réessayer.";
             return false;
         }
     }

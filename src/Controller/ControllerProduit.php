@@ -61,11 +61,12 @@ class ControllerProduit  extends GenericController{
         $material = $_GET["materiau"];
         $name = $_GET["nom"];
         $description = $_GET["description"];
+        $image = $_GET["image"];
         $prix = floatval($prixStr);
         $produitRepository = new ProduitRepository();
         $id = $produitRepository->getId($type);
         var_dump(gettype($prix));
-        $produit = new Produit($id+1, $type, $prix, $material, $name, $description);
+        $produit = new Produit($id+1, $type, $prix, $material, $name, $description,$image);
         $produitRepository->create($produit);
         MessageFlash::ajouter("success","Le produit a bien été créé");
         self::redirige("?action=readAll");
@@ -83,6 +84,7 @@ class ControllerProduit  extends GenericController{
         $produit->setPrix(floatval($_POST["prix"]));
         $produit->setNom($_POST["nom"]);
         $produit->setDescription($_POST["description"]);
+        $produit->setImage($_POST["image"]);
         (new ProduitRepository)->update($produit);
         MessageFlash::ajouter("success", "Le produit a été modifié");
         self::redirige("?action=read&id=".$produit->getId());
