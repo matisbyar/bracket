@@ -404,9 +404,17 @@ fieldset {
     color: #111827;
 }
 
+.buttonOnForm#admin{
+    background-color: rgba(169, 68, 66, 0.44);
+}
+
 .infoCompte {
     height: 100%;
     font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
+}
+
+.infoCompte#admin{
+    color: #a94442;
 }
 
 .infoCompteButton{
@@ -426,12 +434,10 @@ fieldset {
 }
 
 .subInfoCompte {
-    width: 500px;
-    height: 50%;
-    padding: 100px;
+    width: 1200px;
+    height: 40%;
+    padding: 40px;
     margin: auto;
-    border: 5px solid black;
-    border-radius: 20px;
     font-size: 13pt;
 
 }

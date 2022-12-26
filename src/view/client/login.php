@@ -58,7 +58,7 @@
     <fieldset>
         <legend>Connexion</legend>
         <p class="InputAddOn">
-            <label class="InputAddOn-item" for="login_id">Identifiant</label>
+            <label class="InputAddOn-item" for="login_id">Adresse e-mail</label>
             <input class="InputAddOn-field" type="text" placeholder="Identifiant" name="login" id="login_id"
                    required/><br>
         </p>
