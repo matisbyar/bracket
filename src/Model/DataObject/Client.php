@@ -6,7 +6,7 @@ use App\Bracket\Lib\MotDePasse;
 
 class Client extends AbstractDataObject
 {
-    private string $mail, $nom, $prenom, $dateNaissance, $adresse, $password, $description;
+    private string $mail, $nom, $prenom, $dateNaissance, $adresse, $password;
     private bool $estAdmin;
 
     /**
@@ -27,7 +27,6 @@ class Client extends AbstractDataObject
         $this->mail = $mail;
         $this->adresse = $adresse;
         $this->password = $password;
-        $this->description = "";
         $this->estAdmin = $estAdmin;
     }
 
@@ -78,7 +77,6 @@ class Client extends AbstractDataObject
             "dateNaissanceTag" => $this->getDateNaissance(),
             "adresseTag" => $this->getAdresse(),
             "passwordTag" => $this->getMdpHache(),
-            "descriptionTag" => $this->getDescription(),
             "estAdminTag"=> $this->getEstAdmin(),
         );
     }
@@ -177,22 +175,6 @@ class Client extends AbstractDataObject
     public function setPassword(string $password): void
     {
         $this->password = $password;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
     }
 
     /**
