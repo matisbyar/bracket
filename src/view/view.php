@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title><?php use App\Bracket\Lib\ConnexionUtilisateur;
-        use App\Bracket\Lib\MessageFlash;
-
-        echo $pagetitle; ?></title>
+    <?php use App\Bracket\Lib\ConnexionUtilisateur;
+        use App\Bracket\Lib\MessageFlash;?>
+    <title><?php echo $pagetitle; ?></title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/styles.css"/>
 </head>
 <body>
