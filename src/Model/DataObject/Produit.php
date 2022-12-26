@@ -4,7 +4,7 @@ namespace App\Bracket\Model\DataObject;
 
 class Produit extends AbstractDataObject
 {
-    private string $id, $type, $materiau, $nom, $description;
+    private string $id, $type, $materiau, $nom, $description,$image;
     private float $prix;
 
     /**
@@ -14,8 +14,9 @@ class Produit extends AbstractDataObject
      * @param string $materiau
      * @param string $nom
      * @param string $description
+     * @param string $image
      */
-    public function __construct(string $id, string $type, float $prix, string $materiau, string $nom, string $description)
+    public function __construct(string $id, string $type, float $prix, string $materiau, string $nom, string $description, string $image)
     {
         $this->id = $id;
         $this->type = $type;
@@ -23,6 +24,7 @@ class Produit extends AbstractDataObject
         $this->prix = $prix;
         $this->nom = $nom;
         $this->description = $description;
+        $this->image = $image;
     }
 
     /**
@@ -121,6 +123,19 @@ class Produit extends AbstractDataObject
         $this->description = $description;
     }
 
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
+    }
+
     public function formatTableau(): array
     {
         return array(
@@ -129,7 +144,8 @@ class Produit extends AbstractDataObject
             "prixTag"=>$this->getPrix(),
             "materiauTag"=>$this->getMateriau(),
             "nomTag"=>$this->getNom(),
-            "descriptionTag"=>$this->getDescription()
+            "descriptionTag"=>$this->getDescription(),
+            "imageTag"=>$this->getImage()
         );
     }
 

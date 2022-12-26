@@ -36,4 +36,4 @@ if(ConnexionUtilisateur::estAdministrateur()){
 ?>
 <h1>Les nouveautés</h1>
 <small><a href="?action=readAll">VOIR PLUS ></a></small>
-
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Logo-Test.png" alt="Test">

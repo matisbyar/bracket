@@ -50,6 +50,10 @@
             <input type="text" placeholder="" name="description" id="descriptionId" required/>
         </p>
         <p>
+            <label for="imageId">Lien de l'image</label> :
+            <input type="text" placeholder="" name="image" id="imageId" required/>
+        </p>
+        <p>
             <input type="submit" value="Envoyer"/>
         </p>
     </fieldset>
