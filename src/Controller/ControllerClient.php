@@ -18,14 +18,14 @@ class ControllerClient extends GenericController
     public static function read(): void
     {
         $client = (new ClientRepository())->read($_GET['email']);
-        if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Détail d'un client", "cheminVueBody" => "client/detail.php"]);
+        if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/detail.php"]);
     }
 
     public static function readAll(): void
     {
         if(ConnexionUtilisateur::estAdministrateur()){
             $clients = (new ClientRepository())->readAll();
-            self::afficheVue("view.php", ["clients" => $clients, "pagetitle" => "Liste des clients", "cheminVueBody" => "client/list.php"]);
+            self::afficheVue("view.php", ["clients" => $clients, "pagetitle" => "Bracket - Clients", "cheminVueBody" => "client/list.php"]);
         }else{
             MessageFlash::ajouter("danger", "Vous n'avez pas accès à cette page");
             self::redirige("?action=account&controller=client");
@@ -36,7 +36,7 @@ class ControllerClient extends GenericController
     {
         $client = (new ClientRepository())->read($_GET['email']);
         if ($client->getMail()==ConnexionUtilisateur::getLoginUtilisateurConnecte()) {
-            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier un client", "cheminVueBody" => "client/update.php"]);
+            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Modifier client", "cheminVueBody" => "client/update.php"]);
         }else{
             MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte");
             self::redirige("?action=account&controller=client");
@@ -47,7 +47,7 @@ class ControllerClient extends GenericController
     {
         $client = (new ClientRepository())->read($_GET["email"]);
         if(ConnexionUtilisateur::estAdministrateur()){
-            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier un client", "cheminVueBody" => "client/updateAdmin.php"]);
+            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Modifier client", "cheminVueBody" => "client/updateAdmin.php"]);
         }else{
             MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte");
         }
@@ -55,13 +55,13 @@ class ControllerClient extends GenericController
 
     public static function login(): void
     {
-        self::afficheVue("view.php", ["pagetitle" => "Se connecter", "cheminVueBody" => "client/login.php"]);
+        self::afficheVue("view.php", ["pagetitle" => "Bracket - Connection", "cheminVueBody" => "client/login.php"]);
     }
 
     public static function account(): void
     {
         $client = (new ClientRepository())->read(ConnexionUtilisateur::getLoginUtilisateurConnecte());
-        if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Mon compte", "cheminVueBody" => "client/account.php"]);
+        if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/account.php"]);
     }
 
     public static function connecter(): void
@@ -142,7 +142,7 @@ class ControllerClient extends GenericController
             MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte");
             self::redirige("?action=account&controller=client");
         }else if ($client != null) {
-            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Modifier le mot de passe", "cheminVueBody" => "client/updatePassword.php"]);
+            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Modification", "cheminVueBody" => "client/updatePassword.php"]);
         }
     }
 

@@ -10,25 +10,25 @@ class ControllerProduit  extends GenericController{
     public static function readAll(): void
     {
         $produits = (new ProduitRepository())->readAll();
-        self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Liste des produits", "cheminVueBody" => "produit/list.php"]);
+        self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket", "cheminVueBody" => "produit/list.php"]);
     }
 
     public static function read(): void
     {
         $produit = (new ProduitRepository())->read($_GET['id']);
-        if ($produit != null) self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Détail d'un produit", "cheminVueBody" => "produit/detail.php"]);
+        if ($produit != null) self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Bracket - Détail", "cheminVueBody" => "produit/detail.php"]);
     }
 
-    public static function error($errorMessage = ""): void
+    public static function error(string $action): void
     {
-        self::afficheVue("view.php", ["errorMessage" => $errorMessage, "pagetitle" => "Oups :/", "cheminVueBody" => "produit/error.php"]);
+        MessageFlash::ajouter("danger", "L'action " . $action . " est impossible.");
     }
 
     public static function home(): void
     {
         $produits = (new ProduitRepository())->readAll();
         shuffle($produits);
-        self::afficheVue("view.php", ["produits" => $produits, "produitALaUne" => $produits[0], "pagetitle" => "Liste des produits", "cheminVueBody" => "home.php"]);
+        self::afficheVue("view.php", ["produits" => $produits, "produitALaUne" => $produits[0], "pagetitle" => "Bracket", "cheminVueBody" => "home.php"]);
     }
 
     public static function readAllBracelets(): void
@@ -37,7 +37,7 @@ class ControllerProduit  extends GenericController{
         $produits = array_filter($produits, function ($produit) {
             return $produit->getId() < 200;
         });
-        self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Liste des bagues", "cheminVueBody" => "produit/list.php"]);
+        self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket - Bracelets", "cheminVueBody" => "produit/list.php"]);
     }
 
     public static function readAllBagues(): void
@@ -46,12 +46,12 @@ class ControllerProduit  extends GenericController{
         $produits = array_filter($produits, function ($produit) {
             return $produit->getId() >= 200;
         });
-        self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Liste des bagues", "cheminVueBody" => "produit/list.php"]);
+        self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket - Bagues", "cheminVueBody" => "produit/list.php"]);
     }
 
     public static function create(): void
     {
-        ControllerProduit::afficheVue('view.php', ["pagetitle" => "Création d'un bijoux", "cheminVueBody" => "produit/create.php"]);
+        ControllerProduit::afficheVue('view.php', ["pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/create.php"]);
     }
 
     public static function created(): void
