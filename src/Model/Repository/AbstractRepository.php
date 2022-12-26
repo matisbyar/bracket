@@ -3,6 +3,7 @@
 namespace App\Bracket\Model\Repository;
 
 use App\Bracket\Model\DataObject\AbstractDataObject;
+use PDOException;
 
 abstract class AbstractRepository
 {

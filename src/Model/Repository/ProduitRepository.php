@@ -3,6 +3,7 @@
 namespace App\Bracket\Model\Repository;
 
 use App\Bracket\Model\DataObject\Produit;
+use PDOException;
 
 class ProduitRepository extends AbstractRepository
 {
@@ -28,7 +29,7 @@ class ProduitRepository extends AbstractRepository
         );
     }
 
-    public function getId($typeBijou) : int
+    public function getId ($typeBijou) : int
     {
         try {
             $sql = "SELECT id FROM p_bijoux WHERE type=:typeBijou ORDER BY id DESC LIMIT 1;";
@@ -37,7 +38,7 @@ class ProduitRepository extends AbstractRepository
             $pdoStatement->execute($values);
             return $pdoStatement->fetch()["id"];
         }catch (PDOException) {
-            echo "La mise à jour a échoué. Merci de réessayer.";
+            echo "La requête a échoué. Merci de réessayer.";
             return false;
         }
     }
