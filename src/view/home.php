@@ -22,14 +22,18 @@
 <?php
 
 use App\Bracket\Lib\MessageFlash;
+use App\Bracket\Lib\ConnexionUtilisateur;
 
 $messages = MessageFlash::lireTousMessages();
 foreach ($messages as $message) {
     echo '<div class="alert alert-' . $message["type"] . '" role="alert">' . $message["message"] . '</div>';
 }
 require "produit/list.php";
-?>
 
+if(ConnexionUtilisateur::estAdministrateur()){
+    echo "<a href=\"?action=create&controller=produit\">Créer un bijou</a>";
+}
+?>
 <h1>Les nouveautés</h1>
-<small><a href="/web/frontController.php?action=readAll">VOIR PLUS ></a></small>
+<small><a href="?action=readAll">VOIR PLUS ></a></small>
 

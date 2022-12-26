@@ -123,6 +123,13 @@ class Produit extends AbstractDataObject
 
     public function formatTableau(): array
     {
-        return null;
+        return array(
+            "idTag" => $this->getId(),
+            "typeTag"=>$this->getType(),
+            "prixTag"=>$this->getPrix(),
+            "materiauTag"=>$this->getMateriau(),
+            "nomTag"=>$this->getNom(),
+            "descriptionTag"=>$this->getDescription()
+        );
     }
 }

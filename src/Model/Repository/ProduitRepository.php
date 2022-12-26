@@ -27,4 +27,18 @@ class ProduitRepository extends AbstractRepository
             "id", "type", "prix", "materiau", "nom", "description"
         );
     }
+
+    public function getId($typeBijou) : int
+    {
+        try {
+            $sql = "SELECT id FROM p_bijoux WHERE type=:typeBijou ORDER BY id DESC LIMIT 1;";
+            $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+            $values = array("typeBijou" => $typeBijou);
+            $pdoStatement->execute($values);
+            return $pdoStatement->fetch()["id"];
+        }catch (PDOException) {
+            echo "La suppression a échoué. Merci de réessayer.";
+            return false;
+        }
+    }
 }

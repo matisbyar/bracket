@@ -57,14 +57,16 @@ class ControllerProduit  extends GenericController{
     public static function created(): void
     {
         $type = $_GET["bijou"];
-        $prix = $_GET["prix"];
+        $prixStr = $_GET["prix"];
         $material = $_GET["materiau"];
         $name = $_GET["nom"];
         $description = $_GET["description"];
-        $produit = new Produit($type, floatval($prix), $material, $name, $description);
+        $prix = floatval($prixStr);
         $produitRepository = new ProduitRepository();
+        $id = $produitRepository->getId($type);
+        var_dump(gettype($prix));
+        $produit = new Produit($id+1, $type, $prix, $material, $name, $description);
         $produitRepository->create($produit);
-        $produits = (new ProduitRepository())->readAll();
         MessageFlash::ajouter("success","Le produit a bien été créé");
         self::redirige("?action=readAll");
     }
