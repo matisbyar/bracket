@@ -180,7 +180,7 @@ class Client extends AbstractDataObject
     /**
      * @return bool
      */
-    public function isEstAdmin(): bool
+    public function estAdmin(): bool
     {
         return $this->estAdmin;
     }

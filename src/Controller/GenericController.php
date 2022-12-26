@@ -2,6 +2,8 @@
 
 namespace App\Bracket\Controller;
 
+use App\Bracket\Lib\MessageFlash;
+
 class GenericController
 {
 
@@ -20,5 +22,10 @@ class GenericController
     public static function login(): void
     {
         self::afficheVue("view.php", ["pagetitle" => "Connexion", "cheminVueBody" => "client/login.php"]);
+    }
+
+    public static function error(string $action): void
+    {
+        MessageFlash::ajouter("danger", "L'action " . $action . " est impossible.");
     }
 }

@@ -6,7 +6,8 @@ use App\Bracket\Lib\MessageFlash;
 use App\Bracket\Model\DataObject\Produit;
 use App\Bracket\Model\Repository\ProduitRepository;
 
-class ControllerProduit  extends GenericController{
+class ControllerProduit extends GenericController
+{
     public static function readAll(): void
     {
         $produits = (new ProduitRepository())->readAll();
@@ -17,11 +18,6 @@ class ControllerProduit  extends GenericController{
     {
         $produit = (new ProduitRepository())->read($_GET['id']);
         if ($produit != null) self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Bracket - Détail", "cheminVueBody" => "produit/detail.php"]);
-    }
-
-    public static function error(string $action): void
-    {
-        MessageFlash::ajouter("danger", "L'action " . $action . " est impossible.");
     }
 
     public static function home(): void
@@ -66,19 +62,19 @@ class ControllerProduit  extends GenericController{
         $produitRepository = new ProduitRepository();
         $id = $produitRepository->getId($type);
         var_dump(gettype($prix));
-        $produit = new Produit($id+1, $type, $prix, $material, $name, $description,$image);
+        $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
         $produitRepository->create($produit);
-        MessageFlash::ajouter("success","Le produit a bien été créé");
+        MessageFlash::ajouter("success", "Le produit a bien été créé");
         self::redirige("?action=readAll");
     }
 
-    public static function update() : void
+    public static function update(): void
     {
         $produit = (new ProduitRepository)->read($_GET["id"]);
         self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Modifier un produit", "cheminVueBody" => "produit/update.php"]);
     }
 
-    public static function updated() : void 
+    public static function updated(): void
     {
         $produit = (new ProduitRepository)->read($_POST["id"]);
         $produit->setPrix(floatval($_POST["prix"]));
@@ -87,6 +83,6 @@ class ControllerProduit  extends GenericController{
         $produit->setImage($_POST["image"]);
         (new ProduitRepository)->update($produit);
         MessageFlash::ajouter("success", "Le produit a été modifié");
-        self::redirige("?action=read&id=".$produit->getId());
+        self::redirige("?action=read&id=" . $produit->getId());
     }
 }

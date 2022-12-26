@@ -16,13 +16,13 @@ echo "<div class='infoCompte'><p><strong>Nom :</strong> ".htmlspecialchars($clie
 echo "<div class='infoCompte'><p><strong>Prénom :</strong> ".htmlspecialchars($client->getPrenom())."</p></div>";
 echo "<div class='infoCompte'><p><strong>Date de naissance :</strong> ".htmlspecialchars($client->getDateNaissance())."</p></div>";
 echo "<div class='infoCompte'><p><strong>Adresse :</strong> ".htmlspecialchars($client->getAdresse())."</p></div>";
-if ($client->isEstAdmin()) {
+if ($client->estAdmin()) {
     echo "<div class='infoCompte' id='admin'><p><strong>Administrateur : </strong>Oui</p></div>";
 }
 
 echo "</section>";
 echo "<section>";
-if ($client->isEstAdmin()) {
+if ($client->estAdmin()) {
     echo "<div class='infoCompteButton' ><p><button class='buttonOnForm' id='admin'><a href=\"?action=readAll&controller=client\">Accéder au panel admin</button></p></div>";
 }
 echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=update&controller=client&email=".rawurldecode(ConnexionUtilisateur::getLoginUtilisateurConnecte())."\">Modification des informations du compte</button></p></div>";

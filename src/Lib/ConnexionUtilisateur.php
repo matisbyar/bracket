@@ -41,7 +41,7 @@ class ConnexionUtilisateur
     {
         if(self::estConnecte()){
             $user = (new ClientRepository)->read(self::getLoginUtilisateurConnecte());
-            if(self::estConnecte() && $user->isEstAdmin()){
+            if(self::estConnecte() && $user->estAdmin()){
                 return true;
             }else{
                 return false;

@@ -1,3 +1,9 @@
+<?php
+
+use App\Bracket\Lib\ConnexionUtilisateur;
+use App\Bracket\Model\Repository\ClientRepository;
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,11 +52,13 @@
                    value="<?= /* @var Client $client */
                    htmlspecialchars($client->getAdresse()); ?>" required/>
         </p>
-        <p class="InputAddOn">
-            <label class="InputAddOn-item" for="oldPasswordId">Ancien mot de passe</label>
-            <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="password"
-                   id="oldPasswordId" required/>
-        </p>
+        <?php
+        if (ConnexionUtilisateur::estAdministrateur())
+            echo '<p class="InputAddOn">
+                    <label class="InputAddOn-item" for="estAdmin_id">Administrateur ?&#42;</label>
+                    <input class="InputAddOn-field" type="checkbox"' . ((new ClientRepository())->read($client->getMail())->estAdmin() ? "checked" : "") . ' name="estAdmin" id="estAdmin_id">
+                </p>';
+        ?>
         <div class="buttonForm">
             <button class="buttonOnForm" role="button"><input type="submit" value=""/>Mettre à jour le compte</button>
         </div>
