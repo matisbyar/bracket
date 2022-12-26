@@ -23,7 +23,7 @@ class ClientRepository extends AbstractRepository {
     protected function getNomColonnes(): array
     {
         return array(
-            "email", "nom", "prenom", "dateNaissance", "adresse", "password", "description",'estAdmin'
+            "email", "nom", "prenom", "dateNaissance", "adresse", "password",'estAdmin'
         );
     }
 }

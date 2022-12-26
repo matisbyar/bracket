@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="../css/styles.css"/>
 <div class="starred">
     <div class="starred-gauche">
-        <img class="imageAffiche" src="../images/<?php echo $produitALaUne->getId(); ?>.png" alt="Produit à l'affiche">
+        <img class="imageAffiche" src="<?php echo $produitALaUne->getImage(); ?>" alt="Produit à l'affiche">
     </div>
     <div class="starred-droite">
         <small>À L'AFFICHE</small>
