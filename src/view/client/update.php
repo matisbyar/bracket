@@ -1,18 +1,9 @@
 <?php
 
-use App\Bracket\Lib\ConnexionUtilisateur;
+use App\Bracket\Lib\ConnexionClient;
 use App\Bracket\Model\Repository\ClientRepository;
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Connexion</title>
-    <link rel="stylesheet" href="../../../css/styles.css"/>
-</head>
-<body>
-
 <div class="back-btn">
     <button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../images/backPage.svg"
                                                                         alt="button retour"></i></button>
@@ -24,7 +15,7 @@ use App\Bracket\Model\Repository\ClientRepository;
         <input type='hidden' name='action' value='created'>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="mailId">Adresse e-mail</label>
-            <input class="InputAddOn-field" type="email" placeholder="Adresse e-mail" name="mail" id="mailId"
+            <input class="InputAddOn-field" type="email" placeholder="Adresse e-mail" name="email" id="mailId"
                    value="<?= /* @var Client $client */
                    htmlspecialchars($client->getMail()); ?>" readonly/>
         </p>
@@ -52,15 +43,11 @@ use App\Bracket\Model\Repository\ClientRepository;
                    value="<?= /* @var Client $client */
                    htmlspecialchars($client->getAdresse()); ?>" required/>
         </p>
-        <p class="InputAddOn">
-            <label class="InputAddOn-item" for="passwordId">Mot de passe</label>
-            <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="password" id="passwordId" required/>
-        </p>
         <?php
-        if(ConnexionUtilisateur::estAdministrateur()){
+        if(ConnexionClient::estAdministrateur()){
             echo '<p class="InputAddOn">
-            <label class="InputAddOn-item" for="estAdmin_id">Administrateur</label>
-            <input class="InputAddOn-field" type="checkbox" placeholder="" name="estAdmin" id="estAdmin_id">
+            <label class="InputAddOn-item" for="estAdmin_id" >Administrateur</label>
+            <input class="InputAddOn-field" type="checkbox"' . ((new ClientRepository())->select($client->getMail())->estAdmin() ? "checked" : "") . ' name="estAdmin" id="estAdmin_id">
         </p>';
         }
         ?>

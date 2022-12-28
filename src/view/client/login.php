@@ -58,13 +58,13 @@
     <fieldset>
         <legend>Connexion</legend>
         <p class="InputAddOn">
-            <label class="InputAddOn-item" for="login_id">Adresse e-mail</label>
-            <input class="InputAddOn-field" type="text" placeholder="Identifiant" name="login" id="login_id"
+            <label class="InputAddOn-item" for="emailId">Adresse e-mail</label>
+            <input class="InputAddOn-field" type="text" placeholder="Identifiant" name="email" id="emailId"
                    required/><br>
         </p>
         <p class="InputAddOn">
-            <label class="InputAddOn-item" for="login_id">Mot de passe</label>
-            <input class="InputAddOn-field" type="password" placeholder="***********" name="motdepasse" id="nom_id"
+            <label class="InputAddOn-item" for="passwordId">Mot de passe</label>
+            <input class="InputAddOn-field" type="password" placeholder="***********" name="password" id="passwordId"
                    required/><br>
         </p>
         <div class="buttonForm">
