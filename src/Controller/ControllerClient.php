@@ -186,4 +186,13 @@ class ControllerClient extends GenericController
         }
         self::redirige("?controller=client&action=readAll");
     }
+
+    public static function admin(): void {
+        if (!ConnexionClient::estAdministrateur()) {
+            MessageFlash::ajouter("danger", "Vous n'avez pas accès à cette page.");
+            self::redirige("?action=home");
+        } else {
+            self::afficheVue("view.php", ["pagetitle" => "Administration", "cheminVueBody" => "admin.php"]);
+        }
+    }
 }
