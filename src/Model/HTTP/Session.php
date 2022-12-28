@@ -52,7 +52,7 @@ class Session {
         if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > Conf::getDureeSession())) {
             // last request was more than 30 minutes ago
             $this->detruire();   // destroy session data in storage
-            MessageFlash::ajouter("warning", "Votre session a expiré.");
+            MessageFlash::ajouter("warning", "Votre session est échue. " . '<a href="?controller=client&action=login">Se reconnecter</a>.');
         }
         $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
     }
