@@ -64,12 +64,24 @@ class ControllerClient extends GenericController
     public static function updated(): void
     {
         $clientMisAJour = Client::construireDepuisFormulaire($_POST);
-        $client = (new ClientRepository())->read($clientMisAJour->getMail());
+        $clientModif = (new ClientRepository())->read($clientMisAJour->getMail());
+        $client = (new ClientRepository())->read(ConnexionUtilisateur::getLoginUtilisateurConnecte());
 
-        if (!ConnexionUtilisateur::estUtilisateur($clientMisAJour->getMail())) {
+        if(ConnexionUtilisateur::estAdministrateur() && MotDePasse::verifier($_POST['password'], $client->getMdpHache())){
+            $clientRepository = new ClientRepository();
+            $clientModif = $clientRepository->read($_POST['mail']);
+            $clientUpdate = Client::construireDepuisFormulaireAdmin($_POST, $clientModif->getMdpHache());
+            $clientRepository->update($clientUpdate);
+            MessageFlash::ajouter("success", "Le compte a bien été modifié");
+            self::redirige("?action=readAll&controller=client");
+        }else if(ConnexionUtilisateur::estAdministrateur() && !MotDePasse::verifier($_POST['password'], $client->getMdpHache())){
+            MessageFlash::ajouter("warning",'Mauvais mot de passe');
+            self::redirige("?action=readlAll&controller=client");
+        }else if (!ConnexionUtilisateur::estUtilisateur($clientMisAJour->getMail())) {
             MessageFlash::ajouter("warning", "Vous ne pouvez modifier ce compte.");
-            self::redirige("?action=update&controller=client&action=readAll");
+            self::redirige("?action=update&controller=client&action=account");
         } else if (MotDePasse::verifier($_POST['password'], $client->getMdpHache())) {
+            $clientMisAJour->setPassword($clientModif->getMdpHache());
             (new ClientRepository())->update($clientMisAJour);
             MessageFlash::ajouter("success", "Votre compte à bien été modifié.");
             self::redirige("?action=account&controller=client");
@@ -77,26 +89,6 @@ class ControllerClient extends GenericController
             MessageFlash::ajouter("warning", "Le mot de passe est incorrect");
             self::redirige("?action=update&controller=client&email=" . $clientMisAJour->getMail());
         }
-    }
-
-    public static function updateAdmin(): void
-    {
-        $client = (new ClientRepository())->read($_GET["email"]);
-        if (ConnexionUtilisateur::estAdministrateur()) {
-            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Modifier client", "cheminVueBody" => "client/updateAdmin.php"]);
-        } else {
-            MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte");
-        }
-    }
-
-    public static function updatedAdmin(): void
-    {
-        $clientRepository = new ClientRepository();
-        $client = $clientRepository->read($_POST['mail']);
-        $clientUpdate = Client::construireDepuisFormulaireAdmin($_POST, $client->getMdpHache());
-        $clientRepository->update($clientUpdate);
-        MessageFlash::ajouter("success", "Le compte a bien été modifié");
-        self::redirige("?action=readAll&controller=client");
     }
 
     public static function updatePassword(): void
