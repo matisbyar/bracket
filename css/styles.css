@@ -180,6 +180,7 @@ a.produit-a {
     border-top: rgba(107, 107, 107, 0.43);
     border-left: rgba(107, 107, 107, 0.43);
     border-right: rgba(107, 107, 107, 0.43);
+    border-bottom: transparent;
     text-align: center;
 }
 
@@ -197,8 +198,23 @@ a.produit-a {
 
 .title-product-pane {
     font-family: "Unna", monospace;
-    font-size: 30px;
-    font-weight: 500;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.type-product-pane {
+    font-family: 'WorkSans', ui-rounded;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    /* identical to box height, or 114% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.1em;
+    text-transform: uppercase;
     margin: 0;
 }
 
@@ -241,6 +257,57 @@ a.produit-a {
 .ClassiqueHome {
     margin-left: 10px;
 
+}
+
+/* PAGE DÉTAIL D'UN PRODUIT */
+.type-product-detail {
+    font-family: 'WorkSans', ui-rounded;
+    font-size: 30px;
+    line-height: 16px;
+    letter-spacing: -0.1em;
+    margin: 20px 0 0 20px;
+}
+
+.title-product-detail {
+    font-family: "Unna", monospace;
+    font-size: 100px;
+    font-weight: 800;
+    margin: 0 0 0 20px;
+}
+
+.detail-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.detail-description-droite{
+    width: 40%;
+    height: 30%;
+}
+
+.detail-description-gauche {
+    font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
+    text-align: left;
+    height: 40px;
+    margin: 30px 0 0 20px;
+    font-size: 20px;
+    padding-top: 30px;
+}
+
+.detail-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.detail-description-prix{
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    text-align: center;
+    /* align to right of parent */
+    margin-left: 50%;
+    margin-top: 20px;
 }
 
 /* Bootstrap alerts */
@@ -439,51 +506,6 @@ fieldset {
     padding: 40px;
     margin: auto;
     font-size: 13pt;
-
-}
-
-.imageAfficheDescription{
-    width: 40%;
-    height: 30%;
-    float: right;
-}
-
-.imageDescription {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    margin-left: -200px;
-    margin-top: -100px;
-}
-
-.h1Description{
-    font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
-    text-align: left;
-    margin: 20px 0 0 200px;
-    font-size: 100px;
-
-}
-
-.description{
-    font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
-    text-align: left;
-    width: 1000px;
-    height: 40px;
-    margin: 30px 0 0 200px;
-    font-size: 20px;
-    padding-top: 30px;
-}
-
-.lastDesc{
-    font-size: 50px;
-    margin-top: 50px;
-    margin-left: 120px;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #c0c0c0;
-    width: 200px;
-    text-align: center;
-
 }
 
 .back-btn button{
