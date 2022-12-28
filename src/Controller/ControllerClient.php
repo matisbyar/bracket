@@ -132,7 +132,7 @@ class ControllerClient extends GenericController
 
     public static function login(): void
     {
-        self::afficheVue("view.php", ["pagetitle" => "Bracket - Connection", "cheminVueBody" => "client/login.php"]);
+        self::afficheVue("view.php", ["pagetitle" => "Bracket - Connexion", "cheminVueBody" => "client/login.php"]);
     }
 
     public static function account(): void
@@ -162,7 +162,7 @@ class ControllerClient extends GenericController
     public static function logout(): void
     {
         ConnexionClient::deconnecter();
-        MessageFlash::ajouter("success", "Vous êtes bien déconnecté.");
+        MessageFlash::ajouter("success", "Vous êtes bien déconnecté(e).");
         self::redirige("?action=home");
     }
 
