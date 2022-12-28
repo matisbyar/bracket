@@ -24,6 +24,7 @@ class ControllerProduit extends GenericController
     {
         $produits = (new ProduitRepository())->selectAll();
         shuffle($produits);
+        $produits = array_slice($produits, 0, 8);
         self::afficheVue("view.php", ["produits" => $produits, "produitALaUne" => $produits[0], "pagetitle" => "Bracket", "cheminVueBody" => "home.php"]);
     }
 

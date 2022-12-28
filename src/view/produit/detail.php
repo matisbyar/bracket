@@ -8,12 +8,10 @@
     <div class="detail-description-gauche">
         <p class="type-product-detail"><?= /** @var $produit */ strtoupper($produit->getType()) ?></p>
         <p class="title-product-detail"><?= substr(strstr($produit->getNom(), " "), 1) ?></p>
-        <div>- <?= $produit->getMateriau() ?></div>
-        <div>- <?= $produit->getDescription() ?></div>
+        <p>- <?= $produit->getMateriau() ?></p>
+        <p>- <?= $produit->getDescription() ?></p>
         <div class="detail-description-prix"><?= $produit->getPrix() ?> € </div>
-        <?php if (ConnexionClient::estAdministrateur()): ?>
-            <div><button class="buttonOnForm" id="modification"><a href="?action=update&controller=produit&id=<?= $produit->getId() ?>">Modifier le produit</button></div>
-        <?php endif; ?>
+        <?php if (ConnexionClient::estAdministrateur()) echo '<div><button class="buttonOnForm" id="modification"><a href="?action=update&controller=produit&id=' . $produit->getId() . '">Modifier le produit</a></button></div>'; ?>
     </div>
 
     <div class="detail-description-droite">

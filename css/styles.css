@@ -20,7 +20,7 @@ body {
     /*font-family: "WorkSans", sans-serif;*/
 }
 
-a img {
+a img, i img {
     cursor: pointer;
 }
 
@@ -158,7 +158,6 @@ button#enSavoirPlus a {
 .wrapper {
     display: grid;
     grid-template-columns: 8cm 8cm 8cm 8cm;
-    grid-template-rows: 8cm 8cm 8cm 8cm;
     grid-gap: 50px;
     justify-content: center;
     margin-top: 30px;
@@ -541,3 +540,79 @@ transform: scale(1.1);
     border-radius: 5px;
     padding: 20px;
 }
+
+/* PAGE ADMIN */
+div.admin-title {
+    background-color: #C4DAC6;
+    margin: 0;
+    padding: 20px 0;
+}
+
+div.admin-title h1 {
+    text-align: center;
+    margin: 0;
+    padding-top: 20px;
+    font-size: 50px;
+    font-family: 'Unna', monospace;
+}
+
+div.admin-title p {
+    text-align: center;
+    margin-top: 0;
+    padding-bottom: 20px;
+    font-size: 20px;
+    font-family: 'WorkSans', monospace;
+}
+
+div.admin-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 20px;
+    margin: 20px;
+}
+
+div.admin-actions a {
+    text-decoration: none;
+    color: #111827;
+}
+
+div.admin-actions a:hover {
+    color: #111D13;
+}
+
+div.admin-action {
+    background-color: white;
+    transition: background-color 0.5s ease;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    font-family: 'WorkSans', monospace;
+}
+
+div.admin-action:hover {
+    background-color: #58675B;
+    transition: background-color 0.5s ease;
+}
+
+div.admin-action:hover a {
+    color: white;
+}
+
+.admin-action-icon img {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
+div.admin-action:hover .admin-icon, div.admin-action .admin-icon-hover {
+    display: none;
+}
+
+.div.admin-action .admin-icon, div.admin-action:hover .admin-icon-hover {
+    display: inherit;
+}
+
+
+

@@ -11,8 +11,7 @@
             <?php echo $produitALaUne->getDescription(); ?>
         </p>
         <div class="starred-buttons">
-            <button id="enSavoirPlus"><a href="?action=read&id=<?php echo $produitALaUne->getId(); ?>">EN SAVOIR
-                    PLUS</a></button>
+            <button id="enSavoirPlus"><a href="?action=read&id=<?php echo $produitALaUne->getId(); ?>">EN SAVOIR PLUS</a></button>
             <button id="acheter">ACHETER</button>
         </div>
     </div>
@@ -29,10 +28,6 @@ foreach ($messages as $message) {
     echo '<div class="alert alert-' . $message["type"] . '" role="alert">' . $message["message"] . '</div>';
 }
 require "produit/list.php";
-
-if(ConnexionClient::estAdministrateur()){
-    echo "<a href=\"?action=create&controller=produit\">Créer un bijou</a>";
-}
 ?>
 <h1>Les nouveautés</h1>
 <small><a href="?action=readAll">VOIR PLUS ></a></small>
