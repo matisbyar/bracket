@@ -52,13 +52,10 @@ use App\Bracket\Model\Repository\ClientRepository;
                    value="<?= /* @var Client $client */
                    htmlspecialchars($client->getAdresse()); ?>" required/>
         </p>
-        <?php
-        if (ConnexionUtilisateur::estAdministrateur())
-            echo '<p class="InputAddOn">
-                    <label class="InputAddOn-item" for="estAdmin_id">Administrateur ?&#42;</label>
-                    <input class="InputAddOn-field" type="checkbox"' . ((new ClientRepository())->read($client->getMail())->estAdmin() ? "checked" : "") . ' name="estAdmin" id="estAdmin_id">
-                </p>';
-        ?>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="passwordId">Mot de passe</label>
+            <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="password" id="passwordId" required/>
+        </p>
         <div class="buttonForm">
             <button class="buttonOnForm" role="button"><input type="submit" value=""/>Mettre à jour le compte</button>
         </div>
