@@ -8,7 +8,7 @@ use PDOException;
 abstract class AbstractRepository
 {
 
-    public function create(AbstractDataObject $object)
+    public function save(AbstractDataObject $object)
     {
         $sql = "INSERT INTO " . $this->getNomTable() . " (";
         foreach ($this->getNomColonnes() as $colonne) {
@@ -27,7 +27,7 @@ abstract class AbstractRepository
         $pdoStatement->execute($object->formatTableau());
     }
 
-    public function read(string $valeurClePrimaire): ?AbstractDataObject
+    public function select(string $valeurClePrimaire): ?AbstractDataObject
     {
         $sql = "SELECT * FROM " . $this->getNomTable() . " WHERE " . $this->getNomClePrimaire() . "=:clePrimaire";
         // Préparation de la requête
@@ -46,7 +46,7 @@ abstract class AbstractRepository
         else return NULL;
     }
 
-    public function readAll(): array
+    public function selectAll(): array
     {
         $pdoStatement = DatabaseConnection::getPdo()->query("SELECT * FROM " . $this->getNomTable());
 

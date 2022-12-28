@@ -1,5 +1,5 @@
 <?php
-use App\Bracket\Lib\ConnexionUtilisateur;
+use App\Bracket\Lib\ConnexionClient;
 /** @var Produit $produit */
 
 ?>
@@ -22,7 +22,7 @@ echo '<div>'. '- ' . $produit->getNom() . '</div>';
 echo '<div>'. '- ' . $produit->getMateriau() . '</div>';
 echo '<div>'. '- ' . $produit->getDescription() . '</div>';
 echo '<div class="lastDesc">' . $produit->getPrix() . ' € </div>';
-if (ConnexionUtilisateur::estAdministrateur()){
+if (ConnexionClient::estAdministrateur()){
     echo "<div><button class='buttonOnForm' id='modification'><a href=\"?action=update&controller=produit&id=".$produit->getId()."\">Modifier le produit</button></div>";
 }
 echo '</section>';

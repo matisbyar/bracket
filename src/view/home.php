@@ -22,7 +22,7 @@
 <?php
 
 use App\Bracket\Lib\MessageFlash;
-use App\Bracket\Lib\ConnexionUtilisateur;
+use App\Bracket\Lib\ConnexionClient;
 
 $messages = MessageFlash::lireTousMessages();
 foreach ($messages as $message) {
@@ -30,7 +30,7 @@ foreach ($messages as $message) {
 }
 require "produit/list.php";
 
-if(ConnexionUtilisateur::estAdministrateur()){
+if(ConnexionClient::estAdministrateur()){
     echo "<a href=\"?action=create&controller=produit\">Créer un bijou</a>";
 }
 ?>

@@ -5,7 +5,7 @@ namespace App\Bracket\Lib;
 use App\Bracket\Model\HTTP\Session;
 use App\Bracket\Model\Repository\ClientRepository;
 
-class ConnexionUtilisateur
+class ConnexionClient
 {
     // L'utilisateur connecté sera enregistré en session associé à la clé suivante
     private static string $cleConnexion = "_utilisateurConnecte";

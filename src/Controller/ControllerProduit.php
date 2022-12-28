@@ -10,26 +10,26 @@ class ControllerProduit extends GenericController
 {
     public static function readAll(): void
     {
-        $produits = (new ProduitRepository())->readAll();
+        $produits = (new ProduitRepository())->selectAll();
         self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket", "cheminVueBody" => "produit/list.php"]);
     }
 
     public static function read(): void
     {
-        $produit = (new ProduitRepository())->read($_GET['id']);
+        $produit = (new ProduitRepository())->select($_GET['id']);
         if ($produit != null) self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Bracket - Détail", "cheminVueBody" => "produit/detail.php"]);
     }
 
     public static function home(): void
     {
-        $produits = (new ProduitRepository())->readAll();
+        $produits = (new ProduitRepository())->selectAll();
         shuffle($produits);
         self::afficheVue("view.php", ["produits" => $produits, "produitALaUne" => $produits[0], "pagetitle" => "Bracket", "cheminVueBody" => "home.php"]);
     }
 
     public static function readAllBracelets(): void
     {
-        $produits = (new ProduitRepository())->readAll();
+        $produits = (new ProduitRepository())->selectAll();
         $produits = array_filter($produits, function ($produit) {
             return $produit->getId() < 200;
         });
@@ -38,7 +38,7 @@ class ControllerProduit extends GenericController
 
     public static function readAllBagues(): void
     {
-        $produits = (new ProduitRepository())->readAll();
+        $produits = (new ProduitRepository())->selectAll();
         $produits = array_filter($produits, function ($produit) {
             return $produit->getId() >= 200;
         });
@@ -68,7 +68,7 @@ class ControllerProduit extends GenericController
             self::redirige("?action=home");
         } else {
             $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
-            $produitRepository->create($produit);
+            $produitRepository->save($produit);
             MessageFlash::ajouter("success", "Le produit a bien été créé");
             self::redirige("?action=readAll");
         }
@@ -76,13 +76,13 @@ class ControllerProduit extends GenericController
 
     public static function update(): void
     {
-        $produit = (new ProduitRepository)->read($_GET["id"]);
+        $produit = (new ProduitRepository)->select($_GET["id"]);
         self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Modifier un produit", "cheminVueBody" => "produit/update.php"]);
     }
 
     public static function updated(): void
     {
-        $produit = (new ProduitRepository)->read($_POST["id"]);
+        $produit = (new ProduitRepository)->select($_POST["id"]);
         $produit->setPrix(floatval($_POST["prix"]));
         $produit->setNom($_POST["nom"]);
         $produit->setDescription($_POST["description"]);
