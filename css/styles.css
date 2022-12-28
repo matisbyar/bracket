@@ -17,6 +17,7 @@ a {
 body {
     margin: 0;
     min-width: 1100px;
+    /*font-family: "WorkSans", sans-serif;*/
 }
 
 /* BARRE DE NAVIGATION */
@@ -254,9 +255,11 @@ a.produit-a {
     margin-left: 150px;
 }
 
-.ClassiqueHome {
+.titres-home {
     margin-left: 10px;
-
+    font-family: 'Unna', monospace;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 /* PAGE DÉTAIL D'UN PRODUIT */
@@ -345,7 +348,6 @@ a.produit-a {
 }
 
 /* FORMULAIRE */
-
 .InputAddOn {
     display: flex;
     margin-bottom: 1.5em;

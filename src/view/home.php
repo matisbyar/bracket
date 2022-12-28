@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<h1 class="ClassiqueHome">Les classiques</h1>
+<h1 class="titres-home">Les classiques</h1>
 <?php
 
 use App\Bracket\Lib\MessageFlash;
