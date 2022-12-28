@@ -20,6 +20,10 @@ body {
     /*font-family: "WorkSans", sans-serif;*/
 }
 
+a img {
+    cursor: pointer;
+}
+
 /* BARRE DE NAVIGATION */
 nav {
     height: 70px;
