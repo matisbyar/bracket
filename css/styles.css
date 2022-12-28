@@ -250,6 +250,7 @@ a.produit-a {
     padding: 15px;
     border: 1px solid transparent;
     border-radius: 4px;
+    font-family: "WorkSans", ui-rounded;
 }
 
 .alert-success {
