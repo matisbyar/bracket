@@ -56,6 +56,14 @@ use App\Bracket\Model\Repository\ClientRepository;
             <label class="InputAddOn-item" for="passwordId">Mot de passe</label>
             <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="password" id="passwordId" required/>
         </p>
+        <?php
+        if(ConnexionUtilisateur::estAdministrateur()){
+            echo '<p class="InputAddOn">
+            <label class="InputAddOn-item" for="estAdmin_id">Administrateur</label>
+            <input class="InputAddOn-field" type="checkbox" placeholder="" name="estAdmin" id="estAdmin_id">
+        </p>';
+        }
+        ?>
         <div class="buttonForm">
             <button class="buttonOnForm" role="button"><input type="submit" value=""/>Mettre à jour le compte</button>
         </div>
