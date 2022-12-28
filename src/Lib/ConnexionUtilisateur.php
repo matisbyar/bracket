@@ -37,9 +37,10 @@ class ConnexionUtilisateur
         return self::getLoginUtilisateurConnecte() === $login;
     }
 
-    public static function estAdministrateur() : bool
+    public static function estAdministrateur(): bool
     {
         return self::estConnecte() && (new ClientRepository())->select(self::getLoginUtilisateurConnecte())->estAdmin();
     }
 }
+
 ?>
