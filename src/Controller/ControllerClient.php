@@ -143,7 +143,7 @@ class ControllerClient extends GenericController
 
     public static function connecter(): void
     {
-        $client = (new ClientRepository())->select($_POST['login']);
+        $client = (new ClientRepository())->select($_POST['email']);
         if ($client == null) {
             MessageFlash::ajouter("Danger", "L'identifiant est incorrect");
             self::redirige("?action=login&controller=client");
