@@ -39,16 +39,7 @@ class ConnexionUtilisateur
 
     public static function estAdministrateur() : bool
     {
-        if(self::estConnecte()){
-            $user = (new ClientRepository)->read(self::getLoginUtilisateurConnecte());
-            if(self::estConnecte() && $user->estAdmin()){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
+        return self::estConnecte() && (new ClientRepository())->select(self::getLoginUtilisateurConnecte())->estAdmin();
     }
 }
 ?>
