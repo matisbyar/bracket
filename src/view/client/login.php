@@ -64,7 +64,7 @@
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="login_id">Mot de passe</label>
-            <input class="InputAddOn-field" type="text" placeholder="***********" name="motdepasse" id="nom_id"
+            <input class="InputAddOn-field" type="password" placeholder="***********" name="motdepasse" id="nom_id"
                    required/><br>
         </p>
         <div class="buttonForm">
