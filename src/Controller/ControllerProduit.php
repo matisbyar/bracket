@@ -52,6 +52,8 @@ class ControllerProduit extends GenericController
 
     public static function created(): void
     {
+        #2132 1190
+
         $type = $_GET["bijou"];
         $prixStr = $_GET["prix"];
         $material = $_GET["materiau"];
@@ -61,11 +63,15 @@ class ControllerProduit extends GenericController
         $prix = floatval($prixStr);
         $produitRepository = new ProduitRepository();
         $id = $produitRepository->getId($type);
-        var_dump(gettype($prix));
-        $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
-        $produitRepository->create($produit);
-        MessageFlash::ajouter("success", "Le produit a bien été créé");
-        self::redirige("?action=readAll");
+        if(getimagesize($image)[0]!=2132 && getimagesize($image)[1]!=1190){
+            MessageFlash::ajouter("warning", "La taille de l'image n'est pas conforme");
+            self::redirige("?action=home");
+        } else {
+            $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
+            $produitRepository->create($produit);
+            MessageFlash::ajouter("success", "Le produit a bien été créé");
+            self::redirige("?action=readAll");
+        }
     }
 
     public static function update(): void
