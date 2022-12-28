@@ -19,7 +19,7 @@ if ($client->estAdmin()) {
 echo "</section>";
 echo "<section>";
 if ($client->estAdmin()) {
-    echo "<div class='infoCompteButton' ><p><button class='buttonOnForm' id='admin'><a href=\"?action=readAll&controller=client\">Accéder au panel admin</button></p></div>";
+    echo "<div class='infoCompteButton' ><p><button class='buttonOnForm' id='admin'><a href=\"?controller=client&action=admin\">Administration</button></p></div>";
 }
 echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=update&controller=client&email=" . rawurldecode(ConnexionClient::getLoginUtilisateurConnecte()) . "\">Modification des informations du compte</button></p></div>";
 echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=updatePassword&controller=client\">Modification du mot de passe</button></p></div>";
