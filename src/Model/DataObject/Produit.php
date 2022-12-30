@@ -150,6 +150,14 @@ class Produit extends AbstractDataObject
     }
 
     public static function construireDepuisFormulaire($formatTableau) : Produit{
-        return null;
+        return new Produit(
+            $formatTableau["idTag"],
+            $formatTableau["typeTag"],
+            $formatTableau["prixTag"],
+            $formatTableau["materiauTag"],
+            $formatTableau["nomTag"],
+            $formatTableau["descriptionTag"],
+            $formatTableau["imageTag"]
+        );
     }
 }
