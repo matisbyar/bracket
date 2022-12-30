@@ -9,6 +9,18 @@ class Client extends AbstractDataObject
     private string $mail, $nom, $prenom, $dateNaissance, $adresse, $password, $nonce;
     private bool $estAdmin, $mailValide;
 
+    /**
+     * Constructeur
+     * @param string $mail
+     * @param string $nom
+     * @param string $prenom
+     * @param string $dateNaissance
+     * @param string $adresse
+     * @param string $password
+     * @param bool $estAdmin
+     * @param bool $mailValide
+     * @param string $nonce
+     */
     public function __construct(string $mail, string $nom, string $prenom, string $dateNaissance, string $adresse, string $password, bool $estAdmin, bool $mailValide, string $nonce)
     {
         $this->mail = $mail;
@@ -22,6 +34,12 @@ class Client extends AbstractDataObject
         $this->nonce = $nonce;
     }
 
+    /**
+     * Construit un objet Client à partir d'un tableau de données
+     * @param array $tableauFormulaire
+     * @return Client
+     * @throws \Exception
+     */
     public static function construireDepuisFormulaire(array $tableauFormulaire): Client
     {
         return new Client(
@@ -37,6 +55,10 @@ class Client extends AbstractDataObject
         );
     }
 
+    /**
+     * Transforme l'objet en tableau associatif
+     * @return array
+     */
     public function formatTableau(): array
     {
         return array(
