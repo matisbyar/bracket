@@ -2,12 +2,19 @@
 
 namespace App\Bracket\Lib;
 
+use Exception;
+
 class MotDePasse
 {
 
-    // Exécutez genererChaineAleatoire() et stockez sa sortie dans le poivre
+    // Le $poivre représente une chaîne de caractères aléatoire qui sera ajoutée au mot de passe avant de le hacher.
     private static string $poivre = "LWQBen/Jdo+L/yybZudJ1p";
 
+    /**
+     * Retourne le mot de passe haché
+     * @param string $mdpClair
+     * @return string
+     */
     public static function hacher(string $mdpClair): string
     {
         $mdpPoivre = hash_hmac("sha256", $mdpClair, MotDePasse::$poivre);
@@ -15,12 +22,24 @@ class MotDePasse
         return $mdpHache;
     }
 
+    /**
+     * Retourne si le mot de passe donner par l'utilisateur est identique au mot de passe haché
+     * @param string $mdpClair
+     * @param string $mdpHache
+     * @return bool
+     */
     public static function verifier(string $mdpClair, string $mdpHache): bool
     {
         $mdpPoivre = hash_hmac("sha256", $mdpClair, MotDePasse::$poivre);
         return password_verify($mdpPoivre, $mdpHache);
     }
 
+    /**
+     * Generer un mot de passe aléatoire
+     * @param int $nbCaracteres
+     * @return string
+     * @throws Exception
+     */
     public static function genererChaineAleatoire(int $nbCaracteres = 22): string
     {
         // 22 caractères par défaut pour avoir au moins 128 bits aléatoires
@@ -30,6 +49,3 @@ class MotDePasse
         return substr(base64_encode($octetsAleatoires), 0, $nbCaracteres);
     }
 }
-
-// Pour créer votre poivre (une seule fois)
-// var_dump(MotDePasse::genererChaineAleatoire());
