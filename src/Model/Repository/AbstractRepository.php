@@ -8,6 +8,11 @@ use PDOException;
 abstract class AbstractRepository
 {
 
+    /**
+     * Sauvegarde un objet dans la base de données
+     * @param AbstractDataObject $object
+     * @return void
+     */
     public function save(AbstractDataObject $object)
     {
         $sql = "INSERT INTO " . $this->getNomTable() . " (";
@@ -27,6 +32,11 @@ abstract class AbstractRepository
         $pdoStatement->execute($object->formatTableau());
     }
 
+    /**
+     * Récupère un objet dans la base de données
+     * @param string $valeurClePrimaire
+     * @return AbstractDataObject|null
+     */
     public function select(string $valeurClePrimaire): ?AbstractDataObject
     {
         $sql = "SELECT * FROM " . $this->getNomTable() . " WHERE " . $this->getNomClePrimaire() . "=:clePrimaire";
@@ -46,6 +56,10 @@ abstract class AbstractRepository
         else return NULL;
     }
 
+    /**
+     * Récupère tous les objets dans la base de données
+     * @return array
+     */
     public function selectAll(): array
     {
         $pdoStatement = DatabaseConnection::getPdo()->query("SELECT * FROM " . $this->getNomTable());
@@ -58,6 +72,11 @@ abstract class AbstractRepository
         return $tableau;
     }
 
+    /**
+     * Met à jour un objet dans la base de données
+     * @param AbstractDataObject $object
+     * @return void
+     */
     public function update(AbstractDataObject $object): void
     {
         $sql = "UPDATE " . $this->getNomTable() . " SET ";
@@ -72,6 +91,11 @@ abstract class AbstractRepository
         $pdoStatement->execute($object->formatTableau());
     }
 
+    /**
+     * Supprime un objet dans la base de données
+     * @param string $valeurClePrimaire
+     * @return bool
+     */
     public function delete(string $valeurClePrimaire): bool
     {
         try {
@@ -90,11 +114,28 @@ abstract class AbstractRepository
         }
     }
 
+    /**
+     * Retourne le nom de la table
+     * @return string
+     */
     protected abstract function getNomTable(): string;
 
+    /**
+     * Construit un objet à partir d'un tableau
+     * @param array $objetFormatTableau
+     * @return AbstractDataObject
+     */
     protected abstract function construire(array $objetFormatTableau): AbstractDataObject;
 
+    /**
+     * Retourne le nom de la clé primaire
+     * @return string
+     */
     protected abstract function getNomClePrimaire(): string;
 
+    /**
+     * Retourne le nom des colonnes
+     * @return array
+     */
     protected abstract function getNomColonnes(): array;
 }
