@@ -8,18 +8,31 @@ use App\Bracket\Model\Repository\ProduitRepository;
 
 class ControllerProduit extends GenericController
 {
+
+    /**
+     * Methode qui permet d'afficher la page d'affichage des produits
+     * @return void
+     */
     public static function readAll(): void
     {
         $produits = (new ProduitRepository())->selectAll();
         self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket", "cheminVueBody" => "produit/list.php"]);
     }
 
+    /**
+     * Methode qui permet de lire le detail d'un produit
+     * @return void
+     */
     public static function read(): void
     {
         $produit = (new ProduitRepository())->select($_GET['id']);
         if ($produit != null) self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Bracket - Détail", "cheminVueBody" => "produit/detail.php"]);
     }
 
+    /**
+     * Methode qui permet d'afficher la page d'accueil
+     * @return void
+     */
     public static function home(): void
     {
         $produits = (new ProduitRepository())->selectAll();
@@ -28,6 +41,10 @@ class ControllerProduit extends GenericController
         self::afficheVue("view.php", ["produits" => $produits, "produitALaUne" => $produits[0], "pagetitle" => "Bracket", "cheminVueBody" => "home.php"]);
     }
 
+    /**
+     * Methode qui permet de voir tout les produits de la categorie bracelet
+     * @return void
+     */
     public static function readAllBracelets(): void
     {
         $produits = (new ProduitRepository())->selectAll();
@@ -37,6 +54,10 @@ class ControllerProduit extends GenericController
         self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket - Bracelets", "cheminVueBody" => "produit/list.php"]);
     }
 
+    /**
+     * Methode qui permet de voir tout les produits de la categorie bagues
+     * @return void
+     */
     public static function readAllBagues(): void
     {
         $produits = (new ProduitRepository())->selectAll();
@@ -46,11 +67,20 @@ class ControllerProduit extends GenericController
         self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket - Bagues", "cheminVueBody" => "produit/list.php"]);
     }
 
+    /**
+     * Methode qui permet de renvoyé sur la page de creation d'un produit
+     * @return void
+     */
     public static function create(): void
     {
         ControllerProduit::afficheVue('view.php', ["pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/create.php"]);
     }
 
+
+    /**
+     * Methode qui permet de creer un produit
+     * @return void
+     */
     public static function created(): void
     {
         #2132 1190
@@ -75,12 +105,20 @@ class ControllerProduit extends GenericController
         }
     }
 
+    /**
+     * Methode qui permet de renvoyé sur la page de modification d'un produit
+     * @return void
+     */
     public static function update(): void
     {
         $produit = (new ProduitRepository)->select($_GET["id"]);
         self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Modifier un produit", "cheminVueBody" => "produit/update.php"]);
     }
 
+    /**
+     * Methode qui permet de modifier un produit
+     * @return void
+     */
     public static function updated(): void
     {
         $produit = (new ProduitRepository)->select($_POST["id"]);
