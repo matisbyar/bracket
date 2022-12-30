@@ -61,7 +61,12 @@ class CarteBancaire extends AbstractDataObject{
     }
 
     public function formatTableau() : array {
-        return null;
+        return [
+            "numero" => $this->numero,
+            "ccv" => $this->ccv,
+            "expiration" => $this->expiration,
+            "proprietaire" => $this->proprietaire
+        ];
     }
 
 }
