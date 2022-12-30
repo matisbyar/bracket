@@ -12,6 +12,10 @@ use App\Bracket\Model\Repository\ClientRepository;
 class ControllerClient extends GenericController
 {
 
+    /**
+     * Methode qui permet de créer un client
+     * @return void
+     */
     public static function create(): void
     {
         if ($_REQUEST['mdp'] != $_REQUEST['mdp2']) {
@@ -28,12 +32,20 @@ class ControllerClient extends GenericController
         }
     }
 
+    /**
+     * Methode qui permet de lire le détail d'un client
+     * @return void
+     */
     public static function read(): void
     {
         $client = (new ClientRepository())->select($_GET['email']);
         if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/detail.php"]);
     }
 
+    /**
+     * Methode qui permet de lire tous les clients
+     * @return void
+     */
     public static function readAll(): void
     {
         if (ConnexionClient::estAdministrateur()) {
@@ -45,6 +57,10 @@ class ControllerClient extends GenericController
         }
     }
 
+    /**
+     * Methode qui permet de renvoyé vers le formulaire de modification d'un client
+     * @return void
+     */
     public static function update(): void
     {
         $client = (new ClientRepository())->select($_GET['email']);
@@ -60,6 +76,10 @@ class ControllerClient extends GenericController
         }
     }
 
+    /**
+     * Methode qui permet de mettre à jour un client
+     * @return void
+     */
     public static function updated(): void
     {
         $mail = $_POST['email'];
@@ -96,6 +116,10 @@ class ControllerClient extends GenericController
         }
     }
 
+    /**
+     * Methode qui permet de renvoyé vers la page de modification du mot de passe d'un client
+     * @return void
+     */
     public static function updatePassword(): void
     {
         $client = (new ClientRepository())->select(ConnexionClient::getLoginUtilisateurConnecte());
@@ -108,6 +132,10 @@ class ControllerClient extends GenericController
         }
     }
 
+    /**
+     * Methode qui permet de mettre à jour le mot de passe d'un client
+     * @return void
+     */
     public static function updatedPassword(): void
     {
         $oldPassword = $_POST["oldPassword"];
@@ -130,17 +158,29 @@ class ControllerClient extends GenericController
         }
     }
 
+    /**
+     * Methode qui permet de renvoyé vers la page de connexion
+     * @return void
+     */
     public static function login(): void
     {
         self::afficheVue("view.php", ["pagetitle" => "Bracket - Connexion", "cheminVueBody" => "client/login.php"]);
     }
 
+    /**
+     * Methode qui permet de renvoyé sur la page du compte client
+     * @return void
+     */
     public static function account(): void
     {
         $client = (new ClientRepository())->select(ConnexionClient::getLoginUtilisateurConnecte());
         if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/account.php"]);
     }
 
+    /**
+     * Methode qui permet connecter un client
+     * @return void
+     */
     public static function connecter(): void
     {
         $client = (new ClientRepository())->select($_POST['email']);
@@ -159,6 +199,10 @@ class ControllerClient extends GenericController
         }
     }
 
+    /**
+     * Methode qui permet de déconnecter un client
+     * @return void
+     */
     public static function logout(): void
     {
         ConnexionClient::deconnecter();
@@ -166,6 +210,10 @@ class ControllerClient extends GenericController
         self::redirige("?action=home");
     }
 
+    /**
+     * Methode qui permet de valider l'email d'un client
+     * @return void
+     */
     public static function validerEmail(): void
     {
         if (isset($_REQUEST['login']) && isset($_REQUEST['nonce'])) {
@@ -187,6 +235,10 @@ class ControllerClient extends GenericController
         self::redirige("?controller=client&action=readAll");
     }
 
+    /**
+     * Methode qui permet de renvoyé vers la page de l'administration des clients
+     * @return void
+     */
     public static function admin(): void {
         if (!ConnexionClient::estAdministrateur()) {
             MessageFlash::ajouter("danger", "Vous n'avez pas accès à cette page.");
