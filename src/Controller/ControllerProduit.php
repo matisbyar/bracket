@@ -76,6 +76,10 @@ class ControllerProduit extends GenericController
         ControllerProduit::afficheVue('view.php', ["pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/create.php"]);
     }
 
+    public static function test(): void
+    {
+        ControllerProduit::afficheVue('view.php', ["pagetitle" => "Bracket - Création", "cheminVueBody" => "test.php"]);
+    }
 
     /**
      * Methode qui permet de creer un produit
@@ -95,12 +99,12 @@ class ControllerProduit extends GenericController
         $produitRepository = new ProduitRepository();
         $id = $produitRepository->getId($type);
         if(getimagesize($image)[0]!=2132 && getimagesize($image)[1]!=1190){
-            MessageFlash::ajouter("warning", "La taille de l'image n'est pas conforme");
+            MessageFlash::ajouter("warning", "La taille de l'image n'est pas conforme.");
             self::redirige("?action=home");
         } else {
             $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
             $produitRepository->save($produit);
-            MessageFlash::ajouter("success", "Le produit a bien été créé");
+            MessageFlash::ajouter("success", "Le produit a bien été créé.");
             self::redirige("?action=readAll");
         }
     }
@@ -128,6 +132,13 @@ class ControllerProduit extends GenericController
         $produit->setImage($_POST["image"]);
         (new ProduitRepository)->update($produit);
         MessageFlash::ajouter("success", "Le produit a été modifié");
+        self::redirige("?action=read&id=" . $produit->getId());
+    }
+
+    public static function ajouterAuPanier(): void
+    {
+        $produit = (new ProduitRepository)->select($_REQUEST["ajouterAuPanier"]);
+        MessageFlash::ajouter("success", "Le produit a été ajouté au panier. Vous pouvez le consulter en cliquant" . "<a href=>ici</a>" . ".");
         self::redirige("?action=read&id=" . $produit->getId());
     }
 }

@@ -4,7 +4,7 @@ namespace App\Bracket\Model\DataObject;
 
 class Produit extends AbstractDataObject
 {
-    private string $id, $type, $materiau, $nom, $description,$image;
+    private string $id, $type, $materiau, $nom, $description, $image;
     private float $prix;
 
     /**

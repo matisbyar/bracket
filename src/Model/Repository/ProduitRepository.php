@@ -2,6 +2,7 @@
 
 namespace App\Bracket\Model\Repository;
 
+use App\Bracket\Model\DataObject\Article;
 use App\Bracket\Model\DataObject\Produit;
 use PDOException;
 
@@ -42,16 +43,16 @@ class ProduitRepository extends AbstractRepository
     protected function getNomColonnes(): array
     {
         return array(
-            "id", "type", "prix", "materiau", "nom", "description","image"
+            "id", "type", "prix", "materiau", "nom", "description", "image"
         );
     }
 
     /**
-     * Retourne le produit par son id
+     * Retourne le produit par son type de bijou
      * @param $typeBijou
      * @return int
      */
-    public function getId ($typeBijou) : int
+    public function getId($typeBijou): int
     {
         try {
             $sql = "SELECT id FROM p_bijoux WHERE type=:typeBijou ORDER BY id DESC LIMIT 1;";
@@ -59,9 +60,38 @@ class ProduitRepository extends AbstractRepository
             $values = array("typeBijou" => $typeBijou);
             $pdoStatement->execute($values);
             return $pdoStatement->fetch()["id"];
-        }catch (PDOException) {
+        } catch (PDOException) {
             echo "La requête a échoué. Merci de réessayer.";
             return false;
+        }
+    }
+
+    /**
+     * Récupère l'ensemble des articles à partir de l'idBijou et les retourne sous forme de tableau d'objets Article
+     * Il prend en compte uniquement les couleurs et les tailles de l'article
+     * Uniquement pour un stock supérieur à 0
+     * @return array
+     */
+    public static function getDisponibles($idBijou): array
+    {
+        try {
+            $sql = "SELECT * FROM p_articles WHERE idBijou=:idBijou AND stock>0;";
+            $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+            $values = array(
+                "idBijou" => $idBijou
+            );
+            $pdoStatement->execute($values);
+
+            $tableauArticles = [];
+
+            foreach ($pdoStatement as $articleFormatTableau) {
+                $tableauArticles[] = (new ArticleRepository)->construire($articleFormatTableau);
+            }
+
+            return $tableauArticles;
+        } catch (PDOException) {
+            echo "La requête a échoué. Merci de réessayer.";
+            return [];
         }
     }
 }

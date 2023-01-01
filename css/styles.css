@@ -236,7 +236,7 @@ a.produit-a {
     align-items: center;
 }
 
-.bottom-product-pane button{
+.bottom-product-pane button {
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -245,7 +245,7 @@ a.produit-a {
     margin-right: 5px;
 }
 
-.bottom-product-pane button img{
+.bottom-product-pane button img {
     height: 22px;
     width: 22px;
     rotate: 180deg;
@@ -268,37 +268,37 @@ a.produit-a {
 /* PAGE DÉTAIL D'UN PRODUIT */
 .type-product-detail {
     font-family: 'WorkSans', ui-rounded;
-    font-size: 30px;
+    font-size: 20px;
     line-height: 16px;
     letter-spacing: -0.1em;
-    margin: 20px 0 0 20px;
+    margin: 20px 0 0 0;
 }
 
 .title-product-detail {
     font-family: "Unna", monospace;
     font-size: 100px;
-    font-weight: 800;
-    margin: 0 0 0 20px;
+    margin: -20px 0 -20px 0;
 }
 
 .detail-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-}
-
-.detail-description-droite{
-    width: 40%;
-    height: 30%;
+    justify-content: space-evenly;
 }
 
 .detail-description-gauche {
+    width: 40%;
+    height: 30%;
+    border: 1px solid #cacaca;
+    border-radius: 20px;
+}
+
+.detail-description-droite {
     font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
     text-align: left;
     height: 40px;
-    margin: 30px 0 0 20px;
+    margin: 0 20px 0 0;
     font-size: 20px;
-    padding-top: 30px;
 }
 
 .detail-image {
@@ -306,14 +306,62 @@ a.produit-a {
     object-fit: cover;
 }
 
-.detail-description-prix{
+.detail-description-droite ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.choice-product-detail {
+    margin: 5px 0 5px 0;
+}
+
+.detail-description-prix {
     font-size: 20px;
     border-radius: 10px;
     border: 2px solid black;
     text-align: center;
-    /* align to right of parent */
     margin-left: 50%;
     margin-top: 20px;
+}
+
+.choice {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 20px 0 0 0;
+}
+
+.list-choice {
+    margin: 0;
+}
+
+.list-choice label {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 0 0 10px 0;
+    border-color: #d2d2d7;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 17px;
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + label,.list-choice:hover label {
+    color: black;
+    border: #111D13 1px solid;
+    transition: color 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+
+input[type="radio"]:not(checked) + label {
+    color: gray;
+    transition: color 0.2s ease-in-out;
+}
+
+input[type="radio"] {
+    display: none;
 }
 
 /* Bootstrap alerts */
@@ -466,17 +514,17 @@ fieldset {
 }
 
 
-.buttonOnForm#modification{
+.buttonOnForm#modification {
     margin-top: 20px;
     margin-left: 150px;
 }
 
-.buttonOnForm#modification a{
+.buttonOnForm#modification a {
     text-decoration: none;
     color: #111827;
 }
 
-.buttonOnForm#admin{
+.buttonOnForm#admin {
     background-color: rgba(169, 68, 66, 0.44);
 }
 
@@ -485,21 +533,21 @@ fieldset {
     font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
 }
 
-.infoCompte#admin{
+.infoCompte#admin {
     color: #a94442;
 }
 
-.infoCompteButton{
+.infoCompteButton {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.infoCompteButton:first-child{
+.infoCompteButton:first-child {
     margin-top: 20px;
 }
 
-.infoCompteButton a{
+.infoCompteButton a {
     text-decoration: none;
     color: #111827;
     padding: 10px;
@@ -513,7 +561,7 @@ fieldset {
     font-size: 13pt;
 }
 
-.back-btn button{
+.back-btn button {
     margin: 20px auto auto 20px;
     width: 50px;
     height: 50px;
@@ -521,17 +569,17 @@ fieldset {
     background: transparent;
 }
 
-.back-btn button img:hover{
-transform: scale(1.1);
+.back-btn button img:hover {
+    transform: scale(1.1);
 }
 
-.back-btn button img{
+.back-btn button img {
     width: 100%;
     height: 100%;
     transition: all 0.3s ease;
 }
 
-.formAccountPlus{
+.formAccountPlus {
     margin: auto;
     width: 50%;
     height: 100%;
