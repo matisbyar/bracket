@@ -14,21 +14,20 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet de créer un client
-     * @return void
      */
     public static function create(): void
     {
-        if(MotDePasse::motDePasseValide($_POST['password'])==false){
+        if (!MotDePasse::motDePasseValide($_POST['password'])) {
             MessageFlash::ajouter("warning", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre");
             self::redirige("?action=login&controller=client");
-        }else if ($_POST['password'] == $_POST['password2']) {
+        } else if ($_POST['password'] == $_POST['password2']) {
             $client = Client::construireDepuisFormulaire($_POST);
+            // TODO: ici, on ne vérifie pas vraiment que le client existe déjà, puisque la méthode Client::construireDepuisFormulaire() construit toujours un objet (existant ou non)
             if ($client == null) {
                 MessageFlash::ajouter("warning", "Le client existe deja");
                 self::redirige("?action=login&controller=client");
             } else {
-                $clientRepository = new ClientRepository();
-                $clientRepository->create($client);
+                (new ClientRepository())->save($client);
                 MessageFlash::ajouter("success", "Votre compte à bien été créé");
                 self::redirige("?action=readAll&controller=produit");
             }
@@ -45,7 +44,6 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet de lire le détail d'un client
-     * @return void
      */
     public static function read(): void
     {
@@ -55,7 +53,6 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet de lire tous les clients
-     * @return void
      */
     public static function readAll(): void
     {
@@ -70,7 +67,6 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet de renvoyé vers le formulaire de modification d'un client
-     * @return void
      */
     public static function update(): void
     {
@@ -89,7 +85,6 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet de mettre à jour un client
-     * @return void
      */
     public static function updated(): void
     {
@@ -100,6 +95,7 @@ class ControllerClient extends GenericController
         $adresse = $_POST['adresse'];
         $estAdmin = $_POST['estAdmin'] ?? "";
         $client = (new CLientRepository())->select($mail);
+
         if (!ConnexionClient::estUtilisateur($mail) && !ConnexionClient::estAdministrateur()) {
             MessageFlash::ajouter("danger", "Hop-hop-hop ! N'allez pas trop loin !");
             self::redirige("?controller=utilisateur&action=readAll");
@@ -129,7 +125,6 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet de renvoyé vers la page de modification du mot de passe d'un client
-     * @return void
      */
     public static function updatePassword(): void
     {
@@ -145,7 +140,6 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet de mettre à jour le mot de passe d'un client
-     * @return void
      */
     public static function updatedPassword(): void
     {
@@ -161,14 +155,13 @@ class ControllerClient extends GenericController
             MessageFlash::ajouter("warning", "Le mot de passe actuel est erroné.");
             self::redirige("?action=updatePassword&controller=client");
         } else {
-            MessageFlash::ajouter("success", "Le mot de passe a bien été modifié");
+            MessageFlash::ajouter("success", "Le mot de passe a bien été modifié.");
             self::redirige("?action=account&controller=client");
         }
     }
 
     /**
      * Methode qui permet de renvoyé vers la page de connexion
-     * @return void
      */
     public static function login(): void
     {
@@ -177,7 +170,6 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet de renvoyé sur la page du compte client
-     * @return void
      */
     public static function account(): void
     {
@@ -187,7 +179,6 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet connecter un client
-     * @return void
      */
     public static function connecter(): void
     {
@@ -209,7 +200,6 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet de déconnecter un client
-     * @return void
      */
     public static function logout(): void
     {
@@ -220,7 +210,6 @@ class ControllerClient extends GenericController
 
     /**
      * Methode qui permet de valider l'email d'un client
-     * @return void
      */
     public static function validerEmail(): void
     {
@@ -244,10 +233,10 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de renvoyé vers la page de l'administration des clients
-     * @return void
+     * Methode qui permet de renvoyer vers la page de l'administration des clients
      */
-    public static function admin(): void {
+    public static function admin(): void
+    {
         if (!ConnexionClient::estAdministrateur()) {
             MessageFlash::ajouter("danger", "Vous n'avez pas accès à cette page.");
             self::redirige("?action=home");

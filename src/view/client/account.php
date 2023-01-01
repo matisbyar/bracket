@@ -7,13 +7,8 @@ use App\Bracket\Model\Repository\ClientRepository;
 echo '<div class="back-btn"><button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../images/backPage.svg" alt="button retour"></i></button></div>';
 
 $client = (new ClientRepository)->select(ConnexionClient::getLoginUtilisateurConnecte());
-?>
-    <div class="back-btn">
-        <button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../images/backPage.svg"
-                                                                            alt="button retour"></i></button>
-    </div>
-<?php
-$client = (new ClientRepository)->read(ConnexionUtilisateur::getLoginUtilisateurConnecte());
+
+$client = (new ClientRepository)->select(ConnexionClient::getLoginUtilisateurConnecte());
 echo "<section class='subInfoCompte'>";
 echo "<div class='infoCompte'><p><strong>Adresse e-mail :</strong> " . htmlspecialchars($client->getMail()) . "</p></div>";
 echo "<div class='infoCompte'><p><strong>Nom :</strong> " . htmlspecialchars($client->getNom()) . "</p></div>";
