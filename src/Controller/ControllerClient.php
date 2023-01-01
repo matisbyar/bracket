@@ -13,7 +13,7 @@ class ControllerClient extends GenericController
 {
 
     /**
-     * Methode qui permet de créer un client
+     * Crée un client
      */
     public static function create(): void
     {
@@ -43,7 +43,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de lire le détail d'un client
+     * Renvoie sur le détail d'un client
      */
     public static function read(): void
     {
@@ -52,7 +52,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de lire tous les clients
+     * Renvoie sur la liste de tous les clients
      */
     public static function readAll(): void
     {
@@ -66,7 +66,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de renvoyé vers le formulaire de modification d'un client
+     * Renvoie vers le formulaire de modification d'un client
      */
     public static function update(): void
     {
@@ -124,7 +124,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de renvoyé vers la page de modification du mot de passe d'un client
+     * Renvoie vers la page de modification du mot de passe d'un client
      */
     public static function updatePassword(): void
     {
@@ -139,7 +139,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de mettre à jour le mot de passe d'un client
+     * Met à jour le mot de passe d'un client
      */
     public static function updatedPassword(): void
     {
@@ -161,7 +161,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de renvoyé vers la page de connexion
+     * Renvoie vers la page de connexion
      */
     public static function login(): void
     {
@@ -169,7 +169,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de renvoyé sur la page du compte client
+     * Renvoie sur la page du compte client
      */
     public static function account(): void
     {
@@ -178,7 +178,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet connecter un client
+     * Connecte un client
      */
     public static function connecter(): void
     {
@@ -199,7 +199,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de déconnecter un client
+     * Déconnecte le client connecté
      */
     public static function logout(): void
     {
@@ -209,7 +209,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de valider l'email d'un client
+     * Effectue la vérification de l'email d'un client. Valide ou non, selon le cas
      */
     public static function validerEmail(): void
     {
@@ -233,7 +233,7 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Methode qui permet de renvoyer vers la page de l'administration des clients
+     * Renvoie vers la page de l'administration des clients
      */
     public static function admin(): void
     {
