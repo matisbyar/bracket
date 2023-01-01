@@ -8,6 +8,7 @@ class Produit extends AbstractDataObject
     private float $prix;
 
     /**
+     * Constructeur
      * @param string $id
      * @param string $type
      * @param float $prix
@@ -27,97 +28,61 @@ class Produit extends AbstractDataObject
         $this->image = $image;
     }
 
-    /**
-     * @return string
-     */
     public function getNom(): string
     {
         return $this->nom;
     }
 
-    /**
-     * @param string $nom
-     */
     public function setNom(string $nom): void
     {
         $this->nom = $nom;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     */
     public function setId(string $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     */
     public function setType(string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return string
-     */
     public function getMateriau(): string
     {
         return $this->materiau;
     }
 
-    /**
-     * @param string $materiau
-     */
     public function setMateriau(string $materiau): void
     {
         $this->materiau = $materiau;
     }
 
-    /**
-     * @return float
-     */
     public function getPrix(): float
     {
         return $this->prix;
     }
 
-    /**
-     * @param float $prix
-     */
     public function setPrix(float $prix): void
     {
         $this->prix = $prix;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
     public function setDescription(string $description): void
     {
         $this->description = $description;
@@ -128,14 +93,15 @@ class Produit extends AbstractDataObject
         return $this->image;
     }
 
-    /**
-     * @param string $image
-     */
     public function setImage(string $image): void
     {
         $this->image = $image;
     }
 
+    /**
+     * Retourne un tableau associatif contenant les propriétés de l'objet
+     * @return array
+     */
     public function formatTableau(): array
     {
         return array(
@@ -149,7 +115,20 @@ class Produit extends AbstractDataObject
         );
     }
 
+    /**
+     * Construit un objet Produit à partir d'un tableau associatif
+     * @param $formatTableau
+     * @return Produit
+     */
     public static function construireDepuisFormulaire($formatTableau) : Produit{
-        return null;
+        return new Produit(
+            $formatTableau["idTag"],
+            $formatTableau["typeTag"],
+            $formatTableau["prixTag"],
+            $formatTableau["materiauTag"],
+            $formatTableau["nomTag"],
+            $formatTableau["descriptionTag"],
+            $formatTableau["imageTag"]
+        );
     }
 }

@@ -9,6 +9,9 @@ class DatabaseConnection {
     private static ?DatabaseConnection $instance = null;
     private PDO $pdo;
 
+    /**
+     * Constructeur
+     */
     private function __construct()
     {
         $hostname = Conf::getHostname();
@@ -28,13 +31,18 @@ class DatabaseConnection {
     }
 
     /**
-     * @return mixed
+     * Retourne l'instance PDO de la classe
+     * @return PDO
      */
     public static function getPdo() : PDO
     {
         return static::getInstance()->pdo;
     }
 
+    /**
+     * Retourne l'instance de la classe
+     * @return DatabaseConnection
+     */
     private static function getInstance() : DatabaseConnection{
         if(is_null(static::$instance)){
             static::$instance = new DatabaseConnection();

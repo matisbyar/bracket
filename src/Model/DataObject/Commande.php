@@ -8,6 +8,7 @@ class Commande extends AbstractDataObject {
     private array $produits;
 
     /**
+     * Constructeur
      * @param int $id
      * @param string $adresse
      * @param string $client
@@ -20,74 +21,52 @@ class Commande extends AbstractDataObject {
         $this->produits = $produits;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getAdresse(): string
     {
         return $this->adresse;
     }
 
-    /**
-     * @param string $adresse
-     */
     public function setAdresse(string $adresse): void
     {
         $this->adresse = $adresse;
     }
 
-    /**
-     * @return string
-     */
     public function getClient(): string
     {
         return $this->client;
     }
 
-    /**
-     * @param string $client
-     */
     public function setClient(string $client): void
     {
         $this->client = $client;
     }
 
-    /**
-     * @return array
-     */
     public function getProduits(): array
     {
         return $this->produits;
     }
 
-    /**
-     * @param array $produits
-     */
     public function setProduits(array $produits): void
     {
         $this->produits = $produits;
     }
 
-	/**
-	 * @return array
-	 */
 	public function formatTableau(): array {
-        return null;
+        return [
+            "id" => $this->id,
+            "adresse" => $this->adresse,
+            "client" => $this->client,
+            "produits" => $this->produits
+        ];
 	}
 }

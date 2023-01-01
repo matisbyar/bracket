@@ -23,9 +23,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="z_img_md/Bracket_logo.png" alt="Logo" width="100" height="100">
-  </a>
+
 
 <h3 align="center">Bracket</h3>
 
