@@ -1,5 +1,6 @@
 <?php
 use App\Bracket\Lib\ConnexionUtilisateur;
+use App\Bracket\Lib\MotDePasse;
 use App\Bracket\Model\Repository\ClientRepository;
 
 ?>
@@ -8,7 +9,6 @@ use App\Bracket\Model\Repository\ClientRepository;
                                                                             alt="button retour"></i></button>
     </div>
 <?php
-
 $client = (new ClientRepository)->read(ConnexionUtilisateur::getLoginUtilisateurConnecte());
 echo "<section class='subInfoCompte'>";
 echo "<div class='infoCompte'><p><strong>Adresse e-mail :</strong> ".htmlspecialchars($client->getMail())."</p></div>";

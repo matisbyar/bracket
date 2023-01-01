@@ -13,7 +13,10 @@ class ControllerClient extends GenericController
 
     public static function creer(): void
     {
-        if ($_POST['password'] == $_POST['password2']) {
+        if(MotDePasse::motDePasseValide($_POST['password'])==false){
+            MessageFlash::ajouter("warning", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre");
+            self::redirige("?action=login&controller=client");
+        }else if ($_POST['password'] == $_POST['password2']) {
             $client = Client::construireDepuisFormulaire($_POST);
             if ($client == null) {
                 MessageFlash::ajouter("warning", "Le client existe deja");
@@ -114,7 +117,10 @@ class ControllerClient extends GenericController
         } else if (!MotDePasse::verifier($oldPassword, $client->getMdpHache())) {
             MessageFlash::ajouter("warning", "Le mot de passe actuel n'est pas correct");
             self::redirige("?action=updatePassword&controller=client");
-        } else {
+        } else if(MotDePasse::motDePasseValide($password)==false){
+            MessageFlash::ajouter("warning", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre");
+            self::redirige("?action=updatePassword&controller=client");
+        }else {
             MessageFlash::ajouter("success", "Le mot de passe a bien été modifié");
             $client->setPassword(MotDePasse::hacher($password));
             (new ClientRepository)->update($client);
