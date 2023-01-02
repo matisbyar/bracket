@@ -17,7 +17,7 @@
         puissiez trouver la pièce parfaite qui correspond à votre style personnel. Que vous cherchiez une necklace de
         statement ou une paire des bagues délicates, nous avons ce qu'il vous faut.</p>
 </div>
-<div class="contact">
+<div class="contact" id="contact">
     <h3>Contactez-nous</h3>
     <p>Vous avez des questions ? Vous pouvez nous contacter à l'adresse suivante : <a href="mailto:bracket@gmail.com">bracket@gmail.com</a> (factice).</p>
 </div>

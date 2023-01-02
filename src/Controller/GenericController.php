@@ -44,6 +44,11 @@ class GenericController
         self::afficheVue("view.php", ["pagetitle" => "À propos", "cheminVueBody" => "a-propos.php"]);
     }
 
+    public static function contact(): void
+    {
+        self::aPropos();
+    }
+
     /**
      * Methode qui permet d'afficher une error
      * @return void
