@@ -36,17 +36,22 @@ class GenericController
      */
     public static function login(): void
     {
-        self::afficheVue("view.php", ["pagetitle" => "Connexion", "cheminVueBody" => "client/login.php"]);
+        self::afficheVue("view.php", ["pagetitle" => "Bracket - Connexion/Inscription", "cheminVueBody" => "client/login.php"]);
     }
 
     public static function aPropos(): void
     {
-        self::afficheVue("view.php", ["pagetitle" => "À propos", "cheminVueBody" => "a-propos.php"]);
+        self::afficheVue("view.php", ["pagetitle" => "Bracket - À propos", "cheminVueBody" => "apropos.php"]);
     }
 
     public static function contact(): void
     {
         self::aPropos();
+    }
+
+    public static function plan(): void
+    {
+        self::afficheVue("view.php", ["pagetitle" => "Bracket - Plan", "cheminVueBody" => "plan.php"]);
     }
 
     /**

@@ -18,10 +18,23 @@ a:hover {
     text-decoration: underline;
 }
 
+html, body {
+    height: 100ù;
+}
+
 body {
     margin: 0;
     min-width: 1100px;
-    /*font-family: "WorkSans", sans-serif;*/
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    height: 50px;
 }
 
 a img, i img {
@@ -840,4 +853,34 @@ div.apropos p, div.mission p, div.contact p {
     font-size: 15px;
     font-family: 'WorkSans', monospace;
     width: 50%;
+}
+
+/* PLAN DU SITE */
+div.plan {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+div.plan h2 {
+    font-size: 30px;
+    font-family: 'Unna', monospace;
+    margin-bottom: 0;
+}
+
+div.plan p {
+    font-size: 15px;
+    font-family: 'WorkSans', monospace;
+    width: 50%;
+}
+
+div.plan ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+div.plan ul li {
+    font-size: 15px;
+    font-family: 'WorkSans', monospace;
 }
