@@ -86,7 +86,7 @@ use App\Bracket\Model\Repository\ProduitRepository;
                 // Affiche les étoiles
                 $etoiles = "";
                 for ($i = 0; $i < 5; $i++) {
-                    $etoiles .= $i > $avis->getNote() - 1 ? '<img class="fas fa-star-empty" src="../../../images/star-empty.svg" alt="Étoile vide"/>' : '<img class="fas fa-star" src="../../images/star-solid.svg" alt="Étoile pleine"/>';
+                    $etoiles .= $i > $avis->getNote() - 1 ? '<img class="fas fa-star-empty" src="../images/star-empty.svg" alt="Étoile vide"/>' : '<img class="fas fa-star" src="../images/star-solid.svg" alt="Étoile pleine"/>';
                 }
                 echo '<p class="avis-product-detail-note">' . $etoiles . '</p>';
 
