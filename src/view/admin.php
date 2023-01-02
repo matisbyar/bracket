@@ -20,8 +20,8 @@ if (!ConnexionClient::estAdministrateur()) {
         <div class="admin-action">
             <a href="?action=readAll&controller=client">
                 <div class="admin-action-icon">
-                    <img class="admin-icon" src="../../images/account_login-alt.svg">
-                    <img class="admin-icon-hover" src="../../images/account_login.svg">
+                    <img class="admin-icon" src="../images/account_login-alt.svg">
+                    <img class="admin-icon-hover" src="../images/account_login.svg">
                 </div>
                 <div class="admin-action-title">
                     <h2>Gestion des clients</h2>
@@ -31,8 +31,8 @@ if (!ConnexionClient::estAdministrateur()) {
         <div class="admin-action">
             <a href="?action=readAll&controller=produit&action=readAllBracelets">
                 <div class="admin-action-icon">
-                    <img class="admin-icon" src="../../images/basket-alt.svg">
-                    <img class="admin-icon-hover" src="../../images/basket.svg">
+                    <img class="admin-icon" src="../images/basket-alt.svg">
+                    <img class="admin-icon-hover" src="../images/basket.svg">
                 </div>
                 <div class="admin-action-title">
                     <h2>Gestion des bracelets</h2>
@@ -42,8 +42,8 @@ if (!ConnexionClient::estAdministrateur()) {
         <div class="admin-action">
             <a href="?action=readAll&controller=produit&action=readAllBagues">
                 <div class="admin-action-icon">
-                    <img class="admin-icon" src="../../images/basket-alt.svg">
-                    <img class="admin-icon-hover" src="../../images/basket.svg">
+                    <img class="admin-icon" src="../images/basket-alt.svg">
+                    <img class="admin-icon-hover" src="../images/basket.svg">
                 </div>
                 <div class="admin-action-title">
                     <h2>Gestion des bagues</h2>
