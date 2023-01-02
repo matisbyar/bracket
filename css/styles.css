@@ -24,6 +24,12 @@ a img, i img {
     cursor: pointer;
 }
 
+hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    width: 96%;
+}
+
 /* BARRE DE NAVIGATION */
 nav {
     height: 70px;
@@ -126,7 +132,6 @@ nav a {
     vertical-align: baseline;
     white-space: nowrap;
     user-select: none;
-    -webkit-user-select: none;
     touch-action: manipulation;
 }
 
@@ -248,7 +253,6 @@ a.produit-a {
 .bottom-product-pane button img {
     height: 22px;
     width: 22px;
-    rotate: 180deg;
 }
 
 .imageAffiche {
@@ -284,6 +288,7 @@ a.produit-a {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    padding-bottom: 20px;
 }
 
 .detail-description-gauche {
@@ -296,7 +301,6 @@ a.produit-a {
 .detail-description-droite {
     font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
     text-align: left;
-    height: 40px;
     margin: 0 20px 0 0;
     font-size: 20px;
 }
@@ -362,6 +366,104 @@ input[type="radio"]:not(checked) + label {
 
 input[type="radio"] {
     display: none;
+}
+
+/* AVIS */
+div.panneau-avis-product-detail {
+    padding-bottom: 20px;
+}
+
+.list-avis-product-detail, .title-avis-product-detail {
+    margin-left: 20px;
+}
+
+.title-avis-product-detail {
+    font-family: "Unna", monospace;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0 0 0 30px;
+}
+
+.subtitle-avis-product-detail {
+    font-family: "WorkSans", monospace;
+    font-size: 15px;
+    margin: 0 0 0 30px;
+    color: gray;
+}
+
+.list-avis-product-detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 0 0 0 20px;
+    overflow-x: scroll;
+}
+
+.avis-product-detail {
+    padding: 10px;
+    border: 1px solid #cacaca;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.avis-product-detail p {
+    margin: 0;
+    padding: 2px 10px 0 10px;
+    font-family: WorkSans, ui-rounded;
+}
+
+.avis-product-detail-nom-prenom {
+    font-family: "Unna", monospace !important;
+    font-size: 30px;
+    margin: 0;
+}
+
+.avis-product-detail-commentaire {
+    padding-bottom: 2px !important;
+    width: 300px;
+}
+
+.fa-star, .fa-star-empty {
+    background-position: center;
+    width: 20px;
+    height: 20px;
+}
+
+.laisser-avis {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 20px 20px;
+}
+
+.laisser-avis .title-avis-product-detail, .laisser-avis .subtitle-avis-product-detail {
+    margin: 0;
+}
+
+.laisser-avis {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    padding: 0 0 20px 0;
+}
+
+.avis-product-detail-form-note-title, .avis-product-detail-form-commentaire-title  {
+    font-family: "WorkSans", monospace;
+    font-size: 20px;
+    margin: 0;
+}
+
+.avis-product-detail-form-note {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-content: center;
+    margin: 0;
+}
+
+.avis-product-detail-form-note-etoiles-select{
+    align-self: center;
+    margin-left: 10px;
+    width: 5%;
 }
 
 /* Bootstrap alerts */
@@ -485,7 +587,7 @@ fieldset {
     border-radius: .5rem;
     box-sizing: border-box;
     color: #111827;
-    font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: "WorkSans", ui-rounded;
     font-size: .875rem;
     font-weight: 600;
     line-height: 1.25rem;
@@ -496,7 +598,6 @@ fieldset {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     cursor: pointer;
     user-select: none;
-    -webkit-user-select: none;
     touch-action: manipulation;
 }
 
@@ -512,7 +613,6 @@ fieldset {
 .buttonOnForm:focus-visible {
     box-shadow: none;
 }
-
 
 .buttonOnForm#modification {
     margin-top: 20px;

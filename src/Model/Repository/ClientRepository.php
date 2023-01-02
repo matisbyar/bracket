@@ -2,6 +2,7 @@
 
 namespace App\Bracket\Model\Repository;
 use App\Bracket\Model\DataObject\Client;
+use PDOException;
 
 class ClientRepository extends AbstractRepository {
 
@@ -39,5 +40,19 @@ class ClientRepository extends AbstractRepository {
         return array(
             "email", "nom", "prenom", "dateNaissance", "adresse", "password", "estAdmin", "mailValide", "nonce"
         );
+    }
+
+    public function getClientByEmail(string $email) : Client {
+        try {
+            $requete = "SELECT * FROM " . $this->getNomTable() . " WHERE email = :email";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $statement->bindParam(":email", $email);
+            $statement->execute();
+            $resultat = $statement->fetch();
+            $statement->closeCursor();
+            return $this->construire($resultat);
+        } catch (PDOException) {
+            throw new PDOException("Désolé ! La récupération du client n'a pu être faite.", 404);
+        }
     }
 }

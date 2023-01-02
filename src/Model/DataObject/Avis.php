@@ -21,9 +21,9 @@ class Avis extends AbstractDataObject
     {
         return array(
             "idBijouTag" => $this->getIdBijou(),
-            "mailClient" => $this->getMailClient(),
+            "mailClientTag" => $this->getMailClient(),
             "noteTag" => $this->getNote(),
-            "avis" => $this->getAvis()
+            "avisTag" => $this->getAvis()
         );
     }
 
