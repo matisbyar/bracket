@@ -4,7 +4,7 @@ use App\Bracket\Lib\ConnexionClient;
 use App\Bracket\Lib\MotDePasse;
 use App\Bracket\Model\Repository\ClientRepository;
 
-echo '<div class="back-btn"><button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../images/backPage.svg" alt="button retour"></i></button></div>';
+echo '<div class="back-btn"><button onclick="history.go(-1);"><img src="../images/backPage.svg" alt="button retour"></i></button></div>';
 
 $client = (new ClientRepository)->select(ConnexionClient::getLoginUtilisateurConnecte());
 
