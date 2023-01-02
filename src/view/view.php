@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <?php use App\Bracket\Lib\ConnexionClient;
-        use App\Bracket\Lib\MessageFlash;?>
+        use App\Bracket\Lib\MessageFlash;
+        /* @var $cheminVueBody
+         * @var $pagetitle*/?>
     <title><?php echo $pagetitle; ?></title>
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <header>
@@ -41,6 +44,26 @@
     ?>
 </main>
 <footer>
+    <div class="footer-container">
+        <div class="footer-links">
+            <ul>
+                <li><a href="../web/frontController.php?action=a-propos">À propos de Bracket</a></li>
+                <li><a href="../web/frontController.php?action=contact">Nous contacter</a></li>
+                <?= ConnexionClient::estConnecte() ? '<li><a href="../web/frontController.php?action=login">Mon compte</a></li>' : '<li><a href="../web/frontController.php?action=login">S\'inscrire/Se connecter</a></li>' ?>
+                <li><a href="../web/frontController.php?action=plan">Plan du site</a></li>
+            </ul>
+        </div>
+        <div class="footer-social">
+            <ul>
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+        </div>
+        <div class="footer-copyright">
+            <p>Bracket© 2023. Tous droits réservés</p>
+        </div>
+    </div>
 </footer>
 </body>
 </html>

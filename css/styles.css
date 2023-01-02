@@ -14,6 +14,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 body {
     margin: 0;
     min-width: 1100px;
@@ -59,6 +63,62 @@ nav a {
     color: white;
     margin-right: 10px;
 }
+
+/* FOOTER */
+
+footer {
+    background-color: #C4DAC6;
+    font-size: 0.9em;
+    padding: 30px 0;
+    text-align: center;
+    font-family: "WorkSans", sans-serif;
+    width: 100%;
+    margin-top: 100px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.footer-links li {
+    margin-right: 20px;
+}
+
+.footer-links a {
+    color: black;
+}
+
+.footer-social ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.footer-social li {
+    margin-right: 10px;
+}
+
+.footer-social a {
+    font-size: 1.3em;
+
+}
+
+.footer-copyright p {
+    margin: 0;
+}
+
 
 /* PAGE D'ACCUEIL: À L'AFFICHE */
 .starred {
@@ -353,7 +413,7 @@ a.produit-a {
     cursor: pointer;
 }
 
-input[type="radio"]:checked + label,.list-choice:hover label {
+input[type="radio"]:checked + label, .list-choice:hover label {
     color: black;
     border: #111D13 1px solid;
     transition: color 0.2s ease-in-out, border 0.2s ease-in-out;
@@ -446,7 +506,7 @@ div.panneau-avis-product-detail {
     padding: 0 0 20px 0;
 }
 
-.avis-product-detail-form-note-title, .avis-product-detail-form-commentaire-title  {
+.avis-product-detail-form-note-title, .avis-product-detail-form-commentaire-title {
     font-family: "WorkSans", monospace;
     font-size: 20px;
     margin: 0;
@@ -460,7 +520,7 @@ div.panneau-avis-product-detail {
     margin: 0;
 }
 
-.avis-product-detail-form-note-etoiles-select{
+.avis-product-detail-form-note-etoiles-select {
     align-self: center;
     margin-left: 10px;
     width: 5%;
@@ -556,9 +616,15 @@ div.panneau-avis-product-detail {
     height: 30px;
 }
 
+/* LOGIN */
+
+div.login-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 fieldset {
-    width: 40%;
-    margin-left: 7%;
     margin-top: 0;
     background-color: white;
     padding: 20px;
@@ -566,10 +632,12 @@ fieldset {
     border-radius: 5px;
 }
 
-.fieldsetLeft {
-    float: left;
-    margin-top: 0;
-    margin-right: 10px;
+.login-container form {
+    width: 40%;
+}
+
+.login-container {
+    margin-bottom: 20px;
 }
 
 .buttonForm {
