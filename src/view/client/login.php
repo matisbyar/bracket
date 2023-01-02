@@ -9,12 +9,12 @@
             <input type='hidden' name='action' value='created'>
             <p class="InputAddOn">
                 <label class="InputAddOn-item" for="nomId">Nom&#42;</label>
-                <input class="InputAddOn-field" type="text" placeholder="nom" name="Nom" id="nomId"
+                <input class="InputAddOn-field" type="text" placeholder="nom" name="nom" id="nomId"
                        required/>
             </p>
             <p class="InputAddOn">
                 <label class="InputAddOn-item" for="prenomId">Prénom&#42;</label>
-                <input class="InputAddOn-field" type="text" placeholder="prenom" name="Prénom" id="nomId" required/>
+                <input class="InputAddOn-field" type="text" placeholder="prenom" name="prenom" id="nomId" required/>
             </p>
             <p class="InputAddOn">
                 <label class="InputAddOn-item" for="naissanceId">Date de naissance&#42;</label>
