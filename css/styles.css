@@ -34,6 +34,13 @@ hr {
     width: 96%;
 }
 
+p.champs-obligatoires {
+    font-size: 0.8em;
+    color: #999;
+    font-family: WorkSans, sans-serif;
+    margin-left: 20px;
+}
+
 /* BARRE DE NAVIGATION */
 nav {
     height: 70px;
@@ -98,23 +105,6 @@ footer {
 .footer-links a {
     color: black;
 }
-
-.footer-social ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-.footer-social li {
-    margin-right: 10px;
-}
-
-.footer-social a {
-    font-size: 1.3em;
-
-}
-
 .footer-copyright p {
     margin: 0;
 }
@@ -622,6 +612,8 @@ div.login-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-top: 20px;
+    font-family: WorkSans, ui-rounded;
 }
 
 fieldset {
@@ -758,13 +750,13 @@ fieldset {
 }
 
 /* PAGE ADMIN */
-div.admin-title {
+div.admin-title, div.login-title {
     background-color: #C4DAC6;
     margin: 0;
     padding: 20px 0;
 }
 
-div.admin-title h1 {
+div.admin-title h1, div.login-title h1 {
     text-align: center;
     margin: 0;
     padding-top: 20px;
@@ -772,7 +764,7 @@ div.admin-title h1 {
     font-family: 'Unna', monospace;
 }
 
-div.admin-title p {
+div.admin-title p, div.login-title p {
     text-align: center;
     margin-top: 0;
     padding-bottom: 20px;

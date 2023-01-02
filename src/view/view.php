@@ -49,15 +49,8 @@
             <ul>
                 <li><a href="../web/frontController.php?action=a-propos">À propos de Bracket</a></li>
                 <li><a href="../web/frontController.php?action=contact">Nous contacter</a></li>
-                <?= ConnexionClient::estConnecte() ? '<li><a href="../web/frontController.php?action=login">Mon compte</a></li>' : '<li><a href="../web/frontController.php?action=login">S\'inscrire/Se connecter</a></li>' ?>
+                <?= ConnexionClient::estConnecte() ? '<li><a href="../web/frontController.php?controller=client&action=account">Mon compte</a></li>' : '<li><a href="../web/frontController.php?controller=client&action=login">S\'inscrire/Se connecter</a></li>' ?>
                 <li><a href="../web/frontController.php?action=plan">Plan du site</a></li>
-            </ul>
-        </div>
-        <div class="footer-social">
-            <ul>
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
             </ul>
         </div>
         <div class="footer-copyright">

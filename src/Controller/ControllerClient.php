@@ -165,7 +165,11 @@ class ControllerClient extends GenericController
      */
     public static function login(): void
     {
-        self::afficheVue("view.php", ["pagetitle" => "Bracket - Connexion", "cheminVueBody" => "client/login.php"]);
+        if (!ConnexionClient::estConnecte()) {
+            self::afficheVue("view.php", ["pagetitle" => "Bracket - Connexion/Inscription", "cheminVueBody" => "client/login.php"]);
+        } else {
+            self::redirige("?action=account&controller=client");
+        }
     }
 
     /**
@@ -173,8 +177,11 @@ class ControllerClient extends GenericController
      */
     public static function account(): void
     {
-        $client = (new ClientRepository())->select(ConnexionClient::getLoginUtilisateurConnecte());
-        if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/account.php"]);
+        if (ConnexionClient::estConnecte()) {
+            $client = (new ClientRepository())->select(ConnexionClient::getLoginUtilisateurConnecte());
+            if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/account.php"]);
+
+        } else self::redirige("?action=login&controller=client");
     }
 
     /**
