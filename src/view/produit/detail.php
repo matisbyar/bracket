@@ -62,40 +62,41 @@ use App\Bracket\Model\Repository\ProduitRepository;
             </div>
         </form>
 
-            <div class="detail-description-prix"><?= $produit->getPrix() ?> €</div>
+        <div class="detail-description-prix"><?= $produit->getPrix() ?> €</div>
 
-            <?php if (ConnexionClient::estAdministrateur()) echo '<div><button class="buttonOnForm" id="modification"><a href="?action=update&controller=produit&id=' . $produit->getId() . '">Modifier le produit</a></button></div>'; ?>
+        <?php if (ConnexionClient::estAdministrateur()) echo '<div><button class="buttonOnForm" id="modification"><a href="?action=update&controller=produit&id=' . $produit->getId() . '">Modifier le produit</a></button></div>'; ?>
     </div>
 </div>
 <hr>
 <div class="panneau-avis-product-detail">
     <h2 class="title-avis-product-detail">Avis</h2>
-    <?php
-    $listeAvis = (new AvisRepository())->getAvisByBijou($produit->getId());
-    $listeEstVide = sizeof($listeAvis) == 0;
-    if ($listeEstVide) {
-        echo '<p class="subtitle-avis-product-detail">Aucun avis pour le moment...</p>';
-    } else {
-        foreach ($listeAvis as $avis) {
-            $client = (new ClientRepository())->getClientByEmail($avis->getMailClient());
-            echo '<p class="subtitle-avis-product-detail">Que disent les autres acheteurs de ce produit ?</p>';
-            echo '<div class="list-avis-product-detail">';
-            echo '<div class="avis-product-detail">';
-            echo '<p class="avis-product-detail-nom-prenom">' . $client->getPrenom() . '</p>';
-            // Affiche les étoiles
-            $etoiles = "";
-            for ($i = 0; $i < 5; $i++) {
-                $etoiles .= $i > $avis->getNote() - 1 ? '<img class="fas fa-star-empty" src="../../../images/star-empty.svg" alt="Étoile vide"/>' : '<img class="fas fa-star" src="../../images/star-solid.svg" alt="Étoile pleine"/>';
-            }
-            echo '<p class="avis-product-detail-note">' . $etoiles . '</p>';
+    <p class="subtitle-avis-product-detail">Que disent les autres acheteurs de ce produit ?</p>
+    <div class="list-avis-product-detail">
+        <?php
+        $listeAvis = (new AvisRepository())->getAvisByBijou($produit->getId());
+        $listeEstVide = sizeof($listeAvis) == 0;
+        if ($listeEstVide) {
+            echo '<p class="subtitle-avis-product-detail">Aucun avis pour le moment...</p>';
+        } else {
+            foreach ($listeAvis as $avis) {
+                $client = (new ClientRepository())->getClientByEmail($avis->getMailClient());
 
-            // Affiche les avis
-            echo '<p class="avis-product-detail-commentaire">' . $avis->getAvis() . '</p>';
-            echo '</div>';
-            echo '</div>';
+                echo '<div class="avis-product-detail">';
+                echo '<p class="avis-product-detail-nom-prenom">' . $client->getPrenom() . '</p>';
+                // Affiche les étoiles
+                $etoiles = "";
+                for ($i = 0; $i < 5; $i++) {
+                    $etoiles .= $i > $avis->getNote() - 1 ? '<img class="fas fa-star-empty" src="../../../images/star-empty.svg" alt="Étoile vide"/>' : '<img class="fas fa-star" src="../../images/star-solid.svg" alt="Étoile pleine"/>';
+                }
+                echo '<p class="avis-product-detail-note">' . $etoiles . '</p>';
+
+                // Affiche les avis
+                echo '<p class="avis-product-detail-commentaire">' . $avis->getAvis() . '</p>';
+                echo '</div>';
+            }
         }
-    }
-    ?>
+        ?>
+    </div>
 </div>
 
 <div class="laisser-avis">
