@@ -47,7 +47,7 @@
     <div class="footer-container">
         <div class="footer-links">
             <ul>
-                <li><a href="../web/frontController.php?action=a-propos">À propos de Bracket</a></li>
+                <li><a href="../web/frontController.php?action=aPropos">À propos de Bracket</a></li>
                 <li><a href="../web/frontController.php?action=contact">Nous contacter</a></li>
                 <?= ConnexionClient::estConnecte() ? '<li><a href="../web/frontController.php?controller=client&action=account">Mon compte</a></li>' : '<li><a href="../web/frontController.php?controller=client&action=login">S\'inscrire/Se connecter</a></li>' ?>
                 <li><a href="../web/frontController.php?action=plan">Plan du site</a></li>

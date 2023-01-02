@@ -822,5 +822,22 @@ div.admin-action:hover .admin-icon, div.admin-action .admin-icon-hover {
     display: inherit;
 }
 
+/* A PROPOS */
+div.apropos, div.mission, div.contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
 
+div.apropos h2, div.mission h3, div.contact h3 {
+    font-size: 30px;
+    font-family: 'Unna', monospace;
+}
 
+div.apropos p, div.mission p, div.contact p {
+    font-size: 15px;
+    font-family: 'WorkSans', monospace;
+    width: 50%;
+}
