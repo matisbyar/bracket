@@ -31,9 +31,9 @@ class ControllerPanier extends GenericController
             $quantite = $_REQUEST['quantite'];
             $panier = Panier::construireDepuisTableau(array(
                 "mailClient" => ConnexionClient::getLoginUtilisateurConnecte(),
-                "idBijou" => (new ArticleRepository())->getIdArticleParClesPrimaires($idBijou, $couleur, $taille),
+                "idArticle" => (new ArticleRepository())->getIdArticleParClesPrimaires($idBijou, $couleur, $taille),
                 "quantite" => $quantite));
-            (new PanierRepository())->ajouterUnArticle($panier);
+            (new PanierRepository())->save($panier);
             MessageFlash::ajouter("success", "Le produit a bien été ajouté au panier.");
             self::basket();
         } else {

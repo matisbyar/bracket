@@ -7,10 +7,10 @@ class Panier extends AbstractDataObject
     private int $idPanier, $idArticle, $quantite;
     private string $mailClient;
 
-    public function __construct(int $idPanier, string $mailClient, int $idBijou, int $quantite)
+    public function __construct(int $idPanier, string $mailClient, int $idArticle, int $quantite)
     {
         $this->idPanier = $idPanier;
-        $this->idArticle = $idBijou;
+        $this->idArticle = $idArticle;
         $this->mailClient = $mailClient;
         $this->quantite = $quantite;
     }
@@ -18,8 +18,9 @@ class Panier extends AbstractDataObject
     public function formatTableau(): array
     {
         return array(
+            "idPanierTag" => 0,
             "mailClientTag" => $this->getMailClient(),
-            "idBijouTag" => $this->getIdArticle(),
+            "idArticleTag" => $this->getIdArticle(),
             "quantiteTag" => $this->getQuantite()
         );
     }
@@ -29,7 +30,7 @@ class Panier extends AbstractDataObject
         return new Panier(
             0,
             $tableau["mailClient"],
-            $tableau["idBijou"],
+            $tableau["idArticle"],
             $tableau["quantite"]
         );
     }
