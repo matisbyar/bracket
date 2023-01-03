@@ -2,6 +2,7 @@
 
 namespace App\Bracket\Model\Repository;
 
+use App\Bracket\Lib\MessageFlash;
 use App\Bracket\Model\DataObject\Article;
 use App\Bracket\Model\DataObject\Produit;
 use PDOException;
@@ -93,5 +94,10 @@ class ProduitRepository extends AbstractRepository
             echo "La requête a échoué. Merci de réessayer.";
             return [];
         }
+    }
+
+    public static function estEnStock($idBijou): bool
+    {
+        return self::getDisponibles($idBijou) != [];
     }
 }

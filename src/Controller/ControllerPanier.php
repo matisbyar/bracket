@@ -33,7 +33,7 @@ class ControllerPanier extends GenericController
                 "mailClient" => ConnexionClient::getLoginUtilisateurConnecte(),
                 "idBijou" => (new ArticleRepository())->getIdArticleParClesPrimaires($idBijou, $couleur, $taille),
                 "quantite" => $quantite));
-            (new PanierRepository())->save($panier);
+            (new PanierRepository())->ajouterUnArticle($panier);
             MessageFlash::ajouter("success", "Le produit a bien été ajouté au panier.");
             self::basket();
         } else {

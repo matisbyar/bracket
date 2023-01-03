@@ -23,6 +23,8 @@ use App\Bracket\Model\Repository\ProduitRepository;
             <li><?= $produit->getDescription() ?></li>
         </ul>
 
+        <?php if ((ProduitRepository::estEnStock($produit->getId()))) { ?>
+            <p class="stock-product-detail">En stock</p>
         <form action="?controller=panier&action=add" method="post" id="ajout-panier">
             <h2 class="choice-product-detail">Choisissez la couleur</h2>
             <div class="choice">
@@ -70,6 +72,9 @@ use App\Bracket\Model\Repository\ProduitRepository;
         </form>
 
         <div class="detail-description-prix"><?= $produit->getPrix() ?> €</div>
+        <?php } else { ?>
+            <p>L'article est victime de son succès...</p>
+        <?php } ?>
 
         <?php if (ConnexionClient::estAdministrateur()) echo '<div><button class="buttonOnForm" id="modification"><a href="?action=update&controller=produit&id=' . $produit->getId() . '">Modifier le produit</a></button></div>'; ?>
     </div>
