@@ -2,6 +2,7 @@
 
 namespace App\Bracket\Controller;
 
+use App\Bracket\Lib\ConnexionClient;
 use App\Bracket\Lib\MessageFlash;
 use App\Bracket\Model\DataObject\Produit;
 use App\Bracket\Model\Repository\ProduitRepository;
@@ -73,7 +74,13 @@ class ControllerProduit extends GenericController
      */
     public static function create(): void
     {
-        ControllerProduit::afficheVue('view.php', ["pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/create.php"]);
+        if (ConnexionClient::estAdministrateur()) {
+            ControllerProduit::afficheVue('view.php', ["pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/create.php"]);
+        } else {
+            MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
+            self::redirige("?action=home");
+
+        }
     }
 
     public static function test(): void
@@ -88,24 +95,28 @@ class ControllerProduit extends GenericController
     public static function created(): void
     {
         #2132 1190
-
-        $type = $_GET["bijou"];
-        $prixStr = $_GET["prix"];
-        $material = $_GET["materiau"];
-        $name = $_GET["nom"];
-        $description = $_GET["description"];
-        $image = $_GET["image"];
-        $prix = floatval($prixStr);
-        $produitRepository = new ProduitRepository();
-        $id = $produitRepository->getId($type);
-        if(getimagesize($image)[0]!=2132 && getimagesize($image)[1]!=1190){
-            MessageFlash::ajouter("warning", "La taille de l'image n'est pas conforme.");
-            self::redirige("?action=home");
+        if (ConnexionClient::estAdministrateur()) {
+            $type = $_GET["bijou"];
+            $prixStr = $_GET["prix"];
+            $material = $_GET["materiau"];
+            $name = $_GET["nom"];
+            $description = $_GET["description"];
+            $image = $_GET["image"];
+            $prix = floatval($prixStr);
+            $produitRepository = new ProduitRepository();
+            $id = $produitRepository->getId($type);
+            if (getimagesize($image)[0] != 2132 && getimagesize($image)[1] != 1190) {
+                MessageFlash::ajouter("warning", "La taille de l'image n'est pas conforme.");
+                self::redirige("?action=home");
+            } else {
+                $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
+                $produitRepository->save($produit);
+                MessageFlash::ajouter("success", "Le produit a bien été créé.");
+                self::redirige("?action=readAll");
+            }
         } else {
-            $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
-            $produitRepository->save($produit);
-            MessageFlash::ajouter("success", "Le produit a bien été créé.");
-            self::redirige("?action=readAll");
+            MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
+            self::redirige("?action=home");
         }
     }
 
@@ -115,8 +126,14 @@ class ControllerProduit extends GenericController
      */
     public static function update(): void
     {
-        $produit = (new ProduitRepository)->select($_GET["id"]);
-        self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Modifier un produit", "cheminVueBody" => "produit/update.php"]);
+        if (ConnexionClient::estAdministrateur()) {
+            @
+            $produit = (new ProduitRepository)->select($_GET["id"]);
+            self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Modifier un produit", "cheminVueBody" => "produit/update.php"]);
+        } else {
+            MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
+            self::redirige("?action=home");
+        }
     }
 
     /**
@@ -125,14 +142,19 @@ class ControllerProduit extends GenericController
      */
     public static function updated(): void
     {
-        $produit = (new ProduitRepository)->select($_POST["id"]);
-        $produit->setPrix(floatval($_POST["prix"]));
-        $produit->setNom($_POST["nom"]);
-        $produit->setDescription($_POST["description"]);
-        $produit->setImage($_POST["image"]);
-        (new ProduitRepository)->update($produit);
-        MessageFlash::ajouter("success", "Le produit a été modifié");
-        self::redirige("?action=read&id=" . $produit->getId());
+        if (ConnexionClient::estAdministrateur()) {
+            $produit = (new ProduitRepository)->select($_POST["id"]);
+            $produit->setPrix(floatval($_POST["prix"]));
+            $produit->setNom($_POST["nom"]);
+            $produit->setDescription($_POST["description"]);
+            $produit->setImage($_POST["image"]);
+            (new ProduitRepository)->update($produit);
+            MessageFlash::ajouter("success", "Le produit a été modifié");
+            self::redirige("?action=read&id=" . $produit->getId());
+        } else {
+            MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
+            self::redirige("?action=home");
+        }
     }
 
     public static function ajouterAuPanier(): void
