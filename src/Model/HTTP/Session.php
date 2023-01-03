@@ -44,7 +44,7 @@ class Session {
      * @return void
      */
     public function enregistrer(string $name, mixed $value): void {
-        session_start();
+        if (!isset($_SESSION)) session_start();
         $_SESSION[$name] = $value;
     }
 
