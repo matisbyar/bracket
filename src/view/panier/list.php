@@ -20,7 +20,7 @@ if (ConnexionClient::estConnecte()) {
     $client = (new ClientRepository)->select(ConnexionClient::getLoginUtilisateurConnecte());
     $panier = (new PanierRepository)->selectPanierFromClient(ConnexionClient::getLoginUtilisateurConnecte());
     if (sizeof($panier) == 0) {
-        echo "<p>Vous n'avez pas encore ajouté d'articles à votre panier !</p>";
+        echo "<p class='panier-alert'>Vous n'avez pas encore ajouté d'articles à votre panier !</p>";
     } else {
         foreach ($panier as $ligne) {
             $article = (new ProduitRepository)->getProduitParId($ligne->getIdArticle());
@@ -32,12 +32,12 @@ if (ConnexionClient::estConnecte()) {
                 <h2>' . $article->getNom() . '</h2>
                 <div class="panier-article-description">
                     <p>' . $article->getDescription() . '</p>
-                <p>Quantité : ' . $ligne["ligne"]["quantite"] . '</p>
+                <p>Quantité : ' . $ligne->getQuantite() . '</p>
                 <p>' . $article->getPrix() . '€</p>
                 </div>
             </div>
             <div class="panier-article-actions">
-                <button><a href="?controller=produit&action=read&id="' . $article->getId() . '">Consulter</a></button>
+                <button><a href="?controller=produit&action=read&id=' . $article->getId() . '">Consulter</a></button>
                 <button><a href="?controller=panier&action=deleteFromBasket&idArticle=' . $article->getId() . '">Supprimer</a></button>
 </div>
         </div>';

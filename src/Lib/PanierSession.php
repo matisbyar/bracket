@@ -37,7 +37,7 @@ class PanierSession
     {
         $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
         foreach ($panier as $articlePanier) {
-            if ($articlePanier["article"]->getIdBijou() === $article->getIdBijou()) return true;
+            if ($articlePanier["ligne"]["article"]->getIdBijou() === $article->getIdBijou()) return true;
         }
         return false;
     }
@@ -60,7 +60,7 @@ class PanierSession
         $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
         $articles = [];
         foreach ($panier as $articlePanier) {
-            $articles[] = $articlePanier["article"];
+            $articles[] = $articlePanier["ligne"]["article"];
         }
         return $articles;
     }
@@ -74,7 +74,7 @@ class PanierSession
         $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
         $quantites = [];
         foreach ($panier as $articlePanier) {
-            $quantites[] = $articlePanier["quantite"];
+            $quantites[] = $articlePanier["ligne"]["quantite"];
         }
         return $quantites;
     }
@@ -88,7 +88,7 @@ class PanierSession
         $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
         $articlesQuantites = [];
         foreach ($panier as $articlePanier) {
-            $articlesQuantites[] = ["article" => $articlePanier["article"], "quantite" => $articlePanier["quantite"]];
+            $articlesQuantites[] = $articlePanier["ligne"];
         }
         return $articlesQuantites;
     }
@@ -110,11 +110,11 @@ class PanierSession
     public static function nombreTotalArticles(): int
     {
         $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
-        $nombreTotal = 0;
+        $nombreTotalArticles = 0;
         foreach ($panier as $articlePanier) {
-            $nombreTotal += $articlePanier["quantite"];
+            $nombreTotalArticles += $articlePanier["ligne"]["quantite"];
         }
-        return $nombreTotal;
+        return $nombreTotalArticles;
     }
 
     /**
@@ -126,7 +126,7 @@ class PanierSession
         $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
         $prixTotal = 0;
         foreach ($panier as $articlePanier) {
-            $prixTotal += $articlePanier["article"]->getPrix() * $articlePanier["quantite"];
+            $prixTotal += $articlePanier["ligne"]["article"]->getPrix() * $articlePanier["ligne"]["quantite"];
         }
         return $prixTotal;
     }
@@ -148,11 +148,13 @@ class PanierSession
     public static function supprimerArticle(Article $article): void
     {
         $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
-        $nouveauPanier = [];
-        foreach ($panier as $articlePanier) {
-            if ($articlePanier["article"]->getIdBijou() !== $article->getIdBijou()) $nouveauPanier[] = $articlePanier;
+        foreach ($panier as $key => $articlePanier) {
+            if ($articlePanier["ligne"]["article"]->getIdBijou() === $article->getIdBijou()) {
+                unset($panier[$key]);
+                break;
+            }
         }
-        Session::getInstance()->enregistrer(self::$clePanier, $nouveauPanier);
+        Session::getInstance()->enregistrer(self::$clePanier, $panier);
     }
 
     /**
@@ -164,14 +166,13 @@ class PanierSession
     public static function modifierQuantiteArticle(Article $article, int $quantite): void
     {
         $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
-        $nouveauPanier = [];
-        foreach ($panier as $articlePanier) {
-            if ($articlePanier["article"]->getIdBijou() === $article->getIdBijou()) {
-                $articlePanier["quantite"] = $quantite;
+        foreach ($panier as $key => $articlePanier) {
+            if ($articlePanier["ligne"]["article"]->getIdBijou() === $article->getIdBijou()) {
+                $panier[$key]["ligne"]["quantite"] += $quantite;
+                break;
             }
-            $nouveauPanier[] = $articlePanier;
         }
-        Session::getInstance()->enregistrer(self::$clePanier, $nouveauPanier);
+        Session::getInstance()->enregistrer(self::$clePanier, $panier);
     }
 
 }

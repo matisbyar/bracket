@@ -2,6 +2,7 @@
 
 namespace App\Bracket\Model\Repository;
 
+use App\Bracket\Controller\GenericController;
 use App\Bracket\Model\DataObject\Panier;
 use PDOException;
 
@@ -36,7 +37,7 @@ class PanierRepository extends AbstractRepository
         );
     }
 
-    public function selectPanierFromClient(string $mail): array
+    public function selectPanierFromClient(string $mail): ?array
     {
         try {
             $requete = "SELECT * FROM p_paniers WHERE mailClient = :mailClient";
@@ -51,7 +52,25 @@ class PanierRepository extends AbstractRepository
             }
             return $panier;
         } catch (PDOException) {
-            throw new PDOException("Désolé ! La récupération du panier n'a pu être faite.", 404);
+            GenericController::error("", "Désolé ! La récupération du panier n'a pu être faite.");
+            return null;
+        }
+    }
+
+    public function selectPanierFromClientEtArticle(string $mail, int $idArticle): ?Panier
+    {
+        try {
+            $requete = "SELECT * FROM p_paniers WHERE mailClient = :mailClient AND idArticle = :idArticle";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $statement->bindParam(":mailClient", $mail);
+            $statement->bindParam(":idArticle", $idArticle);
+            $statement->execute();
+            $resultat = $statement->fetch();
+            $statement->closeCursor();
+            return $this->construire($resultat);
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La récupération du panier n'a pu être faite.");
+            return null;
         }
     }
 
@@ -65,7 +84,40 @@ class PanierRepository extends AbstractRepository
             $statement->execute();
             $statement->closeCursor();
         } catch (PDOException) {
-            throw new PDOException("Désolé ! La suppression du produit du panier n'a pu être faite.", 404);
+            GenericController::error("", "Désolé ! La suppression de l'élément dans panier n'a pu être faite.");
+        }
+    }
+
+    public function contientArticle(string $mailClient, int $idArticle): ?bool
+    {
+        try {
+            $requete = "SELECT * FROM p_paniers WHERE mailClient = :mailClient AND idArticle = :idArticle";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+
+            $statement->bindParam(":mailClient", $mailClient);
+            $statement->bindParam(":idArticle", $idArticle);
+            $statement->execute();
+            $resultat = $statement->fetch();
+            $statement->closeCursor();
+            return $resultat != null;
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La récupération du panier n'a pu être faite.");
+            return null;
+        }
+    }
+
+    public function modifierQuantite(string $mailClient, int $idArticle, int $quantite): void
+    {
+        try {
+            $requete = "UPDATE p_paniers SET quantite = :quantite WHERE mailClient = :mailClient AND idArticle = :idArticle";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $statement->bindParam(":mailClient", $mailClient);
+            $statement->bindParam(":idArticle", $idArticle);
+            $statement->bindParam(":quantite", $quantite);
+            $statement->execute();
+            $statement->closeCursor();
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La modification de la quantité n'a pu être faite.");
         }
     }
 }
