@@ -26,7 +26,7 @@ class PanierRepository extends AbstractRepository
     protected function getNomColonnes(): array
     {
         return array(
-            "idPanier", "mailClient", "idArticle", "quantite"
+            "mailClient", "idArticle", "quantite"
         );
     }
 
@@ -60,6 +60,24 @@ class PanierRepository extends AbstractRepository
             $statement->closeCursor();
         } catch (PDOException) {
             throw new PDOException("Désolé ! La suppression du produit du panier n'a pu être faite.", 404);
+        }
+    }
+
+    public function ajouterUnArticle(Panier $panier): void
+    {
+        try {
+            $requete = "INSERT INTO " . $this->getNomTable() . " (mailClient, idArticle, quantite) VALUES (:mailClient, :idArticle, :quantite)";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $mailClient = $panier->getMailClient();
+            $quantite = $panier->getQuantite();
+            $idArticle = $panier->getIdArticle();
+            $statement->bindParam(":mailClient", $mailClient);
+            $statement->bindParam(":idArticle", $idArticle);
+            $statement->bindParam(":quantite", $quantite);
+            $statement->execute();
+            $statement->closeCursor();
+        } catch (PDOException) {
+            throw new PDOException("Désolé ! L'ajout du produit au panier n'a pu être fait.", 404);
         }
     }
 }
