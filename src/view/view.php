@@ -44,7 +44,7 @@
 <main>
     <?php
     $messages = MessageFlash::lireTousMessages();
-    foreach ($messages as $message) echo '<div class="alert alert-' . $message["type"] . '" role="alert">' . $message["message"] . '</div>';
+    foreach ($messages as $message) echo '<div class="alert alert-' . lcfirst($message["type"]) . '" role="alert">' . $message["message"] . '</div>';
     require __DIR__ . "/{$cheminVueBody}";
     ?>
 </main>
