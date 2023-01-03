@@ -7,6 +7,7 @@ use App\Bracket\Model\DataObject\Panier;
 use App\Bracket\Model\HTTP\Session;
 use App\Bracket\Model\Repository\ArticleRepository;
 use App\Bracket\Model\Repository\PanierRepository;
+use App\Bracket\Model\Repository\ProduitRepository;
 
 /**
  * Un utilisateur non connecté dispose d'un panier en session. Il peut donc ajouter des articles au panier, les supprimer, etc.
@@ -129,7 +130,9 @@ class PanierSession
         $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
         $prixTotal = 0;
         foreach ($panier as $articlePanier) {
-            $prixTotal += $articlePanier["ligne"]["article"]->getPrix() * $articlePanier["ligne"]["quantite"];
+            $produit = (new ProduitRepository())->getProduitParId((new ArticleRepository())->getIdArticleParClesPrimaires($articlePanier["ligne"]["article"]->getIdBijou(), $articlePanier["ligne"]["article"]->getCouleur(), $articlePanier["ligne"]["article"]->getTaille()));
+            $quantite = $articlePanier["ligne"]["quantite"];
+            $prixTotal += $produit->getPrix() * $quantite;
         }
         return $prixTotal;
     }

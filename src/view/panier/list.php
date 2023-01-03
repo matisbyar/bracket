@@ -1,6 +1,7 @@
 <?php
 
 use App\Bracket\Lib\ConnexionClient;
+use App\Bracket\Lib\PanierSession;
 use App\Bracket\Model\DataObject\Panier;
 use App\Bracket\Model\Repository\ArticleRepository;
 use App\Bracket\Model\Repository\ClientRepository;
@@ -10,10 +11,10 @@ use App\Bracket\Model\Repository\ProduitRepository;
 /* @var $panier Panier */
 ?>
 
-<div class="login-title">
-    <h1>Mon panier</h1>
-    <p>Retrouvez les merveilles que vous venez de dénicher.</p>
-</div>
+    <div class="login-title">
+        <h1>Mon panier</h1>
+        <p>Retrouvez les merveilles que vous venez de dénicher.</p>
+    </div>
 
 <?php
 if (ConnexionClient::estConnecte()) {
@@ -60,23 +61,31 @@ if (ConnexionClient::estConnecte()) {
              */
             $idArticle = (new ArticleRepository())->getIdArticleParClesPrimaires($ligne["ligne"]["article"]->getIdBijou(), $ligne["ligne"]["article"]->getCouleur(), $ligne["ligne"]["article"]->getTaille());
             $article = (new ProduitRepository)->getProduitParId($idArticle);
-            echo '<div class="panier-article">
-            <div class="panier-article-image">
-                <img src="' . $article->getImage() . '" alt="' . $article->getNom() . '" class="panier-article-image">
-            </div>
-            <div class="panier-article-info">
-                <h2>' . $article->getNom() . '</h2>
-                <div class="panier-article-description">
-                    <p>' . $article->getDescription() . '</p>
-                <p>Quantité : ' . $ligne["ligne"]["quantite"] . '</p>
-                <p>' . $article->getPrix() . '€</p>
+            echo
+            '<div class="panier-article">
+                <div class="panier-article-image">
+                    <img src="' . $article->getImage() . '" alt="' . $article->getNom() . '" class="panier-article-image">
                 </div>
-            </div>
-            <div class="panier-article-actions">
-                <button><a href="?controller=produit&action=read&id=' . $article->getId() . '">Consulter</a></button>
-                <button><a href="?controller=panier&action=deleteFromBasket&idArticle=' . $article->getId() . '">Supprimer</a></button>
-</div>
-        </div>';
+                <div class="panier-article-info">
+                    <h2>' . $article->getNom() . '</h2>
+                    <div class="panier-article-description">
+                        <p>' . $article->getDescription() . '</p>
+                    <p>Quantité : ' . $ligne["ligne"]["quantite"] . '</p>
+                    <p>' . $article->getPrix() . '€</p>
+                    </div>
+                </div>
+                <div class="panier-article-actions">
+                    <button><a href="?controller=produit&action=read&id=' . $article->getId() . '">Consulter</a></button>
+                    <button><a href="?controller=panier&action=deleteFromBasket&idArticle=' . $article->getId() . '">Supprimer</a></button>
+                </div>
+            </div>';
+
         }
+        $sousTotal = PanierSession::prixTotal();
+        echo '<div class="panier-total">
+            <p>Sous-total : ' . $sousTotal . '€</p>
+            <p>Frais de port : 5€</p>
+            <p>Total : ' . ($sousTotal + 5) . '€</p>
+        </div>';
     }
 } ?>

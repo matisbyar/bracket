@@ -54,7 +54,7 @@ class ProduitRepository extends AbstractRepository
      * @param $typeBijou
      * @return int
      */
-    public function getId($typeBijou): int
+    public static function getId($typeBijou): int
     {
         try {
             $sql = "SELECT id FROM p_bijoux WHERE type=:typeBijou ORDER BY id DESC LIMIT 1;";

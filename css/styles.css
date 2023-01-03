@@ -955,3 +955,16 @@ p.panier-alert {
     font-family: 'WorkSans', monospace;
     color: #666666;
 }
+
+.panier-total {
+    display: flex;
+    flex-direction: column;
+    margin: 100px 20% 0 0;
+    font-family: 'WorkSans', monospace;
+    align-items: end;
+}
+
+.panier-total p {
+    margin: 5px;
+    font-size: 20px;
+}
