@@ -16,18 +16,18 @@ class AvisRepository extends AbstractRepository
 
     protected function construire(array $objetFormatTableau): Avis
     {
-        return new Avis($objetFormatTableau['0'], $objetFormatTableau['1'], $objetFormatTableau['2'], $objetFormatTableau['3']);
+        return new Avis($objetFormatTableau['0'], $objetFormatTableau['1'], $objetFormatTableau['2'], $objetFormatTableau['3'], $objetFormatTableau['4']);
     }
 
     protected function getNomClePrimaire(): string
     {
-        return "idBijou, mailClient";
+        return "idAvis, idBijou, mailClient";
     }
 
     protected function getNomColonnes(): array
     {
         return array(
-            "idBijou", "mailClient", "note", "avis"
+            "idAvis", "idBijou", "mailClient", "note", "avis"
         );
     }
 

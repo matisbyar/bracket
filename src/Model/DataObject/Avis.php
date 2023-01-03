@@ -6,11 +6,12 @@ namespace App\Bracket\Model\DataObject;
 class Avis extends AbstractDataObject
 {
 
-    private int $idBijou, $note;
+    private int $idAvis, $idBijou, $note;
     private string $mailClient, $avis;
 
-    public function __construct(int $idBijou, string $mailClient, int $note, string $avis)
+    public function __construct(int $idAvis, int $idBijou, string $mailClient, int $note, string $avis)
     {
+        $this->idAvis = $idAvis;
         $this->idBijou = $idBijou;
         $this->mailClient = $mailClient;
         $this->note = $note;
@@ -20,6 +21,7 @@ class Avis extends AbstractDataObject
     public function formatTableau(): array
     {
         return array(
+            "idAvisTag" => $this->idAvis,
             "idBijouTag" => $this->getIdBijou(),
             "mailClientTag" => $this->getMailClient(),
             "noteTag" => $this->getNote(),
@@ -30,6 +32,7 @@ class Avis extends AbstractDataObject
     public static function construireDepuisFormulaire(array $tableauFormulaire): Avis
     {
         return new Avis(
+            0,
             $tableauFormulaire["idBijou"],
             $tableauFormulaire["mailClient"],
             $tableauFormulaire["note"],
