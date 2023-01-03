@@ -54,7 +54,7 @@ class Session {
      * @return mixed
      */
     public function lire(string $name): mixed {
-        return isset($_SESSION[$name]) && $_SESSION[$name];
+        return $_SESSION[$name] ?? null;
     }
 
     /**
