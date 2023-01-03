@@ -15,7 +15,7 @@ class ControllerClient extends GenericController
     /**
      * Crée un client
      */
-    public static function creer(): void
+    public static function create(): void
     {
         if (!MotDePasse::motDePasseValide($_POST['password'])) {
             MessageFlash::ajouter("warning", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre");
@@ -250,5 +250,10 @@ class ControllerClient extends GenericController
         } else {
             self::afficheVue("view.php", ["pagetitle" => "Administration", "cheminVueBody" => "admin.php"]);
         }
+    }
+
+    public static function basket(): void
+    {
+        self::afficheVue("view.php", ["pagetitle" => "Administration", "cheminVueBody" => "panier/list.php"]);
     }
 }

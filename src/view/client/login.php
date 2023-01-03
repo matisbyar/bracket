@@ -3,7 +3,7 @@
     <p>Connectez-vous ou inscrivez-vous pour avoir le <strong>meilleur de Bracket</strong>. Vous verrez, vous adorerez.</p>
 </div>
 <div class="login-container">
-    <form method="post" action="../web/frontController.php?controller=client&action=creer">
+    <form method="post" action="../web/frontController.php?controller=client&action=create">
         <fieldset>
             <legend>Je n'ai pas encore de compte</legend>
             <input type='hidden' name='action' value='created'>
