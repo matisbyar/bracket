@@ -894,7 +894,7 @@ div.panier-article {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin: auto;
     width: 60%;
     padding-top: 20px;

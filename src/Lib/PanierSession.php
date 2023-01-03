@@ -3,7 +3,10 @@
 namespace App\Bracket\Lib;
 
 use App\Bracket\Model\DataObject\Article;
+use App\Bracket\Model\DataObject\Panier;
 use App\Bracket\Model\HTTP\Session;
+use App\Bracket\Model\Repository\ArticleRepository;
+use App\Bracket\Model\Repository\PanierRepository;
 
 /**
  * Un utilisateur non connecté dispose d'un panier en session. Il peut donc ajouter des articles au panier, les supprimer, etc.
@@ -175,4 +178,36 @@ class PanierSession
         Session::getInstance()->enregistrer(self::$clePanier, $panier);
     }
 
+    /**
+     * Permet de migrer les données du panier de la session vers la base de données.
+     * @return array Tableau contenant chaque ligne sous forme de Panier.
+     */
+    public static function migrerVersCompte(): void
+    {
+        $lignes = [];
+
+        if (ConnexionClient::estConnecte()) {
+            $idClient = ConnexionClient::getLoginUtilisateurConnecte();
+            $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
+            foreach ($panier as $articlePanier) {
+                $article = $articlePanier["ligne"]["article"];
+                $quantite = $articlePanier["ligne"]["quantite"];
+                $idArticle = (new ArticleRepository)->getIdArticleParClesPrimaires($article->getIdBijou(), $article->getCouleur(), $article->getTaille());
+                $panier = Panier::construireDepuisTableau(["mailClient" => $idClient, "idArticle" => $idArticle, "quantite" => $quantite]);
+                $lignes[] = $panier;
+            }
+            foreach ($lignes as $ligne) {
+                var_dump($ligne);
+                echo '<br><br>';
+
+                if ((new PanierRepository())->contientArticle($idClient, $ligne->getIdArticle())) {
+                    $ligneExistante = (new PanierRepository())->selectPanierFromClientEtArticle($idClient, $ligne->getIdArticle());
+                    (new PanierRepository())->modifierQuantite($idClient, $ligne->getIdArticle(), $ligneExistante->getQuantite() + $ligne->getQuantite());
+                } else {
+                    (new PanierRepository())->save($ligne);
+                }
+            }
+            self::vider();
+        }
+    }
 }

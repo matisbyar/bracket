@@ -19,7 +19,6 @@ class ConnexionClient
     {
         // À compléter
         Session::getInstance()->enregistrer(self::$cleConnexion, $loginUtilisateur);
-        var_dump(Session::getInstance()->lire(self::$cleConnexion));
     }
 
     /**

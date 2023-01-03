@@ -5,9 +5,12 @@ namespace App\Bracket\Controller;
 use App\Bracket\Lib\ConnexionClient;
 use App\Bracket\Lib\MessageFlash;
 use App\Bracket\Lib\MotDePasse;
+use App\Bracket\Lib\PanierSession;
 use App\Bracket\Lib\VerificationEmail;
 use App\Bracket\Model\DataObject\Client;
+use App\Bracket\Model\DataObject\Panier;
 use App\Bracket\Model\Repository\ClientRepository;
+use App\Bracket\Model\Repository\PanierRepository;
 
 class ControllerClient extends GenericController
 {
@@ -190,17 +193,18 @@ class ControllerClient extends GenericController
     }
 
     /**
-     * Connecte un client
+     * Connecte un client et ajoute son panier de session à son panier en base de données
      */
     public static function connecter(): void
     {
         $client = (new ClientRepository())->select($_POST['email']);
         if ($client == null) {
-            MessageFlash::ajouter("Danger", "L'identifiant est incorrect");
+            MessageFlash::ajouter("Danger", "L'identifiant est incorrect.");
             self::redirige("?action=login&controller=client");
         } else {
             if ($_POST['password'] == MotDePasse::verifier($_POST['password'], $client->getMdpHache())) {
                 ConnexionClient::connecter($client->getMail());
+                PanierSession::migrerVersCompte();
                 MessageFlash::ajouter("success", "Bienvenue, " . $client->getPrenom() . ".");
                 self::redirige("?action=home");
             } else {
