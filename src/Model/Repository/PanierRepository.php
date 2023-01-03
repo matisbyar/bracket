@@ -5,6 +5,12 @@ namespace App\Bracket\Model\Repository;
 use App\Bracket\Model\DataObject\Panier;
 use PDOException;
 
+/**
+ * Un utilisateur connecté possède "plusieurs paniers". Chacun contient un article et une quantité donnée.
+ * Un utilisateur connecté peut avoir plusieurs paniers. Ceci est dû aux contraintes d'intégrité de la base de données.
+ *
+ * ATTENTION : Le mode de fonctionnement n'est pas le même que pour un utilisateur non connecté.
+ */
 class PanierRepository extends AbstractRepository
 {
 

@@ -5,6 +5,12 @@ namespace App\Bracket\Lib;
 use App\Bracket\Model\DataObject\Article;
 use App\Bracket\Model\HTTP\Session;
 
+/**
+ * Un utilisateur non connecté dispose d'un panier en session. Il peut donc ajouter des articles au panier, les supprimer, etc.
+ *
+ * ATTENTION : Le mode de fonctionnement est différent de celui d'un panier en base de données.
+ * En effet, un panier en base de données est associé à un utilisateur et n'est pas unique pour des raisons de contraintes d'intégrité.
+ */
 class PanierSession
 {
     // Les articles du panier sont enregistrés en session associée à la clé suivante
@@ -18,7 +24,7 @@ class PanierSession
     public static function ajouter(Article $article, int $quantite): void
     {
         $panier = Session::getInstance()->contient(self::$clePanier) ? Session::getInstance()->lire(self::$clePanier) : [];
-        $panier[] = ["article" => $article, "quantite" => $quantite];
+        $panier[] = ["ligne" => ["article" => $article, "quantite" => $quantite]];
         Session::getInstance()->enregistrer(self::$clePanier, $panier);
     }
 

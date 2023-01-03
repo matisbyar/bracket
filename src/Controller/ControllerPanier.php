@@ -54,10 +54,9 @@ class ControllerPanier extends GenericController
         if (ConnexionClient::estConnecte()) {
             (new PanierRepository)->deleteElementFromPanier(ConnexionClient::getLoginUtilisateurConnecte(), $_REQUEST["id"]);
             MessageFlash::ajouter("success", "Le produit a bien été supprimé du panier.");
-            self::redirige("?action=home");
         } else {
             MessageFlash::ajouter("warning", "Vous devez être connecté pour supprimer un produit du panier.");
-            self::redirige("?action=home");
         }
+        self::redirige("?action=home");
     }
 }
