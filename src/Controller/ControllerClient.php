@@ -49,9 +49,13 @@ class ControllerClient extends GenericController
     public static function read(): void
     {
         $client = (new ClientRepository())->select($_GET['email']);
-        if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/detail.php"]);
+        if ($client != null && ConnexionClient::estAdministrateur()) {
+            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/detail.php"]);
+        }else{
+            MessageFlash::ajouter("danger", "Vous n'avez pas accès à cette page");
+            self::redirige("?action=account&controller=client");
+        }
     }
-
     /**
      * Renvoie sur la liste de tous les clients
      */
