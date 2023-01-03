@@ -2,6 +2,7 @@
 
 namespace App\Bracket\Model\Repository;
 
+use App\Bracket\Controller\GenericController;
 use App\Bracket\Lib\MessageFlash;
 use App\Bracket\Model\DataObject\Article;
 use App\Bracket\Model\DataObject\Produit;
@@ -99,5 +100,21 @@ class ProduitRepository extends AbstractRepository
     public static function estEnStock($idBijou): bool
     {
         return self::getDisponibles($idBijou) != [];
+    }
+
+    public function getProduitParId(int $idArticle): ?Produit
+    {
+        try {
+            $requete = "SELECT * FROM p_bijoux b JOIN p_articles a ON a.idBijou = b.id WHERE a.idArticle = :idArticle";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $statement->bindParam(":idArticle", $idArticle);
+            $statement->execute();
+            $resultat = $statement->fetch();
+            $statement->closeCursor();
+            return $this->construire($resultat);
+        } catch (PDOException) {
+           GenericController::error("", "Une erreur est survenue, merci de réessayer.");
+           return null;
+        }
     }
 }

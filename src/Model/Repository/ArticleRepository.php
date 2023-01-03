@@ -2,6 +2,7 @@
 
 namespace App\Bracket\Model\Repository;
 
+use App\Bracket\Controller\GenericController;
 use App\Bracket\Model\DataObject\AbstractDataObject;
 use App\Bracket\Model\DataObject\Article;
 use PDOException;
@@ -35,7 +36,7 @@ class ArticleRepository extends AbstractRepository
         return array("idArticle", "idBijou", "couleur", "taille", "quantite");
     }
 
-    public function getIdArticleParClesPrimaires(int $idBijou, string $couleur, string $taille): int
+    public function getIdArticleParClesPrimaires(int $idBijou, string $couleur, string $taille): ?int
     {
         try {
             $requete = "SELECT idArticle FROM " . $this->getNomTable() . " WHERE idBijou = :idBijou AND couleur = :couleur AND taille = :taille";
@@ -48,7 +49,8 @@ class ArticleRepository extends AbstractRepository
             $statement->closeCursor();
             return $resultat["idArticle"];
         } catch (PDOException) {
-            throw new PDOException("Désolé ! La récupération de l'id de l'article n'a pu être faite.", 404);
+            GenericController::error("", "Désolé ! La récupération de l'id de l'article n'a pu être faite.");
+            return null;
         }
     }
 }

@@ -31,18 +31,6 @@ class ControllerProduit extends GenericController
     }
 
     /**
-     * Methode qui permet d'afficher la page d'accueil
-     * @return void
-     */
-    public static function home(): void
-    {
-        $produits = (new ProduitRepository())->selectAll();
-        shuffle($produits);
-        $produits = array_slice($produits, 0, 8);
-        self::afficheVue("view.php", ["produits" => $produits, "produitALaUne" => $produits[0], "pagetitle" => "Bracket", "cheminVueBody" => "home.php"]);
-    }
-
-    /**
      * Methode qui permet de voir tout les produits de la categorie bracelet
      * @return void
      */

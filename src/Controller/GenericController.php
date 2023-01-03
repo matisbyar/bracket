@@ -3,6 +3,7 @@
 namespace App\Bracket\Controller;
 
 use App\Bracket\Lib\MessageFlash;
+use App\Bracket\Model\Repository\ProduitRepository;
 
 class GenericController
 {
@@ -31,7 +32,19 @@ class GenericController
     }
 
     /**
-     * Methode qui permet de renvoyé sur la page de connexion
+     * Methode qui permet d'afficher la page d'accueil
+     * @return void
+     */
+    public static function home(): void
+    {
+        $produits = (new ProduitRepository())->selectAll();
+        shuffle($produits);
+        $produits = array_slice($produits, 0, 8);
+        self::afficheVue("view.php", ["produits" => $produits, "produitALaUne" => $produits[0], "pagetitle" => "Bracket", "cheminVueBody" => "home.php"]);
+    }
+
+    /**
+     * Renvoie sur la page de connexion
      * @return void
      */
     public static function login(): void
@@ -58,8 +71,9 @@ class GenericController
      * Methode qui permet d'afficher une error
      * @return void
      */
-    public static function error(string $action): void
+    public static function error(string $action = "", string $message = ""): void
     {
-        MessageFlash::ajouter("danger", "L'action " . $action . " est impossible.");
+        MessageFlash::ajouter("danger", $action === "" ? $message : "L'action " . $action . " est impossible.");
+        self::redirige("?action=home");
     }
 }
