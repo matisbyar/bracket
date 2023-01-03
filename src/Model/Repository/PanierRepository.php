@@ -48,4 +48,18 @@ class PanierRepository extends AbstractRepository
             throw new PDOException("Désolé ! La récupération du panier n'a pu être faite.", 404);
         }
     }
+
+    public function deleteElementFromPanier(string $mail, int $idArticle): void
+    {
+        try {
+            $requete = "DELETE FROM p_paniers WHERE mailClient = :mailClient AND idArticle = :idArticle";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $statement->bindParam(":mailClient", $mail);
+            $statement->bindParam(":idArticle", $idArticle);
+            $statement->execute();
+            $statement->closeCursor();
+        } catch (PDOException) {
+            throw new PDOException("Désolé ! La suppression du produit du panier n'a pu être faite.", 404);
+        }
+    }
 }

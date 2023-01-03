@@ -25,7 +25,7 @@ class Panier extends AbstractDataObject
         );
     }
 
-    public static function construireDepuisFormulaire(array $tableauFormulaire): Panier
+    public static function construireDepuisTableau(array $tableauFormulaire): Panier
     {
         return new Panier(
             0,

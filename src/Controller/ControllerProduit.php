@@ -83,11 +83,6 @@ class ControllerProduit extends GenericController
         }
     }
 
-    public static function test(): void
-    {
-        ControllerProduit::afficheVue('view.php', ["pagetitle" => "Bracket - Création", "cheminVueBody" => "test.php"]);
-    }
-
     /**
      * Methode qui permet de creer un produit
      * @return void
