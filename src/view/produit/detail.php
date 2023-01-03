@@ -23,7 +23,7 @@ use App\Bracket\Model\Repository\ProduitRepository;
             <li><?= $produit->getDescription() ?></li>
         </ul>
 
-        <form action="?frontController.php?controller=produit&action=test" method="post" id="ajout-panier">
+        <form action="?controller=panier&action=add" method="post" id="ajout-panier">
             <h2 class="choice-product-detail">Choisissez la couleur</h2>
             <div class="choice">
                 <?php
@@ -33,7 +33,7 @@ use App\Bracket\Model\Repository\ProduitRepository;
                 foreach ($articles as $articlesDispo) {
                     if (!in_array($articlesDispo->getCouleur(), $couleurs)) {
                         echo '<div class="list-choice">
-                            <input type="radio" id="' . $articlesDispo->getCouleur() . '" name="color" value="' . $articlesDispo->getCouleur() . '" checked="' . $checked . '">
+                            <input type="radio" id="' . $articlesDispo->getCouleur() . '" name="couleur" value="' . $articlesDispo->getCouleur() . '" checked="' . $checked . '">
                             <label for="' . $articlesDispo->getCouleur() . '">' . $articlesDispo->getCouleur() . '</label>
                         </div>';
                     }
@@ -50,15 +50,22 @@ use App\Bracket\Model\Repository\ProduitRepository;
                 foreach ($articles as $articlesDispo) {
                     if (!in_array($articlesDispo->getTaille(), $tailles)) {
                         echo '<div class="list-choice">
-                            <input type="radio" id="' . $articlesDispo->getTaille() . '" name="size" value="' . $articlesDispo->getTaille() . '" checked ="' . $checked . '">
+                            <input type="radio" id="' . $articlesDispo->getTaille() . '" name="taille" value="' . $articlesDispo->getTaille() . '" checked ="' . $checked . '">
                             <label for="' . $articlesDispo->getTaille() . '">' . $articlesDispo->getTaille() . '</label>
                         </div>';
                     }
                 }
                 ?>
             </div>
+            <h2 class="choice-product-detail">Choisissez la quantité</h2>
+            <div class="choice">
+                <div class="list-choice">
+                    <input type="number" id="quantite" name="quantite" min="1" max="10" value="1">
+                    <label for="quantite"></label>
+                </div>
+            </div>
             <div class="detail-btn">
-                <button type="submit" name="ajouterAuPanier" value="<?= $produit->getId() ?>">Ajouter au panier</button>
+                <button type="submit" name="idBijou" value="<?= $produit->getId() ?>">Ajouter au panier</button>
             </div>
         </form>
 
@@ -67,7 +74,9 @@ use App\Bracket\Model\Repository\ProduitRepository;
         <?php if (ConnexionClient::estAdministrateur()) echo '<div><button class="buttonOnForm" id="modification"><a href="?action=update&controller=produit&id=' . $produit->getId() . '">Modifier le produit</a></button></div>'; ?>
     </div>
 </div>
+
 <hr>
+
 <div class="panneau-avis-product-detail">
     <h2 class="title-avis-product-detail">Avis</h2>
     <p class="subtitle-avis-product-detail">Que disent les autres acheteurs de ce produit ?</p>

@@ -21,7 +21,7 @@ class Avis extends AbstractDataObject
     public function formatTableau(): array
     {
         return array(
-            "idAvisTag" => $this->idAvis,
+            "idAvisTag" => $this->getAvis(),
             "idBijouTag" => $this->getIdBijou(),
             "mailClientTag" => $this->getMailClient(),
             "noteTag" => $this->getNote(),

@@ -6,7 +6,7 @@ use App\Bracket\Lib\Panier;
 
 $client = (new ClientRepository)->select(ConnexionClient::getLoginUtilisateurConnecte());
 
-var_dump(Panier::getNbProduits());
+var_dump($panier);
 
 ?>
 

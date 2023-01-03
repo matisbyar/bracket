@@ -10,7 +10,7 @@ class PanierRepository extends AbstractRepository
 
     protected function getNomTable(): string
     {
-        return "p_panier";
+        return "p_paniers";
     }
 
     protected function construire(array $objetFormatTableau): Panier

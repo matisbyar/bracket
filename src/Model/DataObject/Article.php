@@ -4,17 +4,12 @@ namespace App\Bracket\Model\DataObject;
 
 class Article extends AbstractDataObject
 {
-    private int $idBijou, $stock;
+    private int $idArticle, $idBijou, $stock;
     private string $couleur, $taille;
 
-    /**
-     * @param int $idBijou
-     * @param int $stock
-     * @param string $couleur
-     * @param string $taille
-     */
-    public function __construct(int $idBijou, int $stock, string $couleur, string $taille)
+    public function __construct(int $idArticle, int $idBijou, int $stock, string $couleur, string $taille)
     {
+        $this->idArticle = $idArticle;
         $this->idBijou = $idBijou;
         $this->stock = $stock;
         $this->couleur = $couleur;
@@ -34,6 +29,7 @@ class Article extends AbstractDataObject
     public static function construireDepuisTableau(array $tableau): Article
     {
         return new Article(
+            0,
             $tableau["idBijou"],
             $tableau["stock"],
             $tableau["couleur"],
@@ -105,4 +101,22 @@ class Article extends AbstractDataObject
     {
         $this->taille = $taille;
     }
+
+    /**
+     * @return int
+     */
+    public function getIdArticle(): int
+    {
+        return $this->idArticle;
+    }
+
+    /**
+     * @param int $idArticle
+     */
+    public function setIdArticle(int $idArticle): void
+    {
+        $this->idArticle = $idArticle;
+    }
+
+
 }

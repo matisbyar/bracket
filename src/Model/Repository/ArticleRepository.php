@@ -4,6 +4,7 @@ namespace App\Bracket\Model\Repository;
 
 use App\Bracket\Model\DataObject\AbstractDataObject;
 use App\Bracket\Model\DataObject\Article;
+use PDOException;
 
 class ArticleRepository extends AbstractRepository
 {
@@ -16,6 +17,7 @@ class ArticleRepository extends AbstractRepository
     protected function construire(array $objetFormatTableau): Article
     {
         return new Article(
+            $objetFormatTableau['idArticle'],
             $objetFormatTableau["idBijou"],
             $objetFormatTableau["stock"],
             $objetFormatTableau["couleur"],
@@ -25,11 +27,28 @@ class ArticleRepository extends AbstractRepository
 
     protected function getNomClePrimaire(): string
     {
-        return "idBijou";
+        return "idArticle, idBijou, couleur, taille";
     }
 
     protected function getNomColonnes(): array
     {
-        return array("idBijou", "stock", "couleur", "taille");
+        return array("idArticle", "idBijou", "couleur", "taille", "quantite");
+    }
+
+    public function getIdArticleParClesPrimaires(int $idBijou, string $couleur, string $taille): int
+    {
+        try {
+            $requete = "SELECT idArticle FROM " . $this->getNomTable() . " WHERE idBijou = :idBijou AND couleur = :couleur AND taille = :taille";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $statement->bindParam(":idBijou", $idBijou);
+            $statement->bindParam(":couleur", $couleur);
+            $statement->bindParam(":taille", $taille);
+            $statement->execute();
+            $resultat = $statement->fetch();
+            $statement->closeCursor();
+            return $resultat["idArticle"];
+        } catch (PDOException) {
+            throw new PDOException("Désolé ! La récupération de l'id de l'article n'a pu être faite.", 404);
+        }
     }
 }
