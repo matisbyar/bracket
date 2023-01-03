@@ -13,7 +13,8 @@ class ControllerPanier extends GenericController
     {
         if (ConnexionClient::estConnecte()) {
             $panier = (new PanierRepository)->selectPanierFromClient(ConnexionClient::getLoginUtilisateurConnecte());
-            var_dump($panier);
+
+            self::afficheVue("view.php", ["panier" => $panier, "pagetitle" => "Bracket - Panier", "cheminVueBody" => "panier/list.php"]);
         } else {
             MessageFlash::ajouter("warning", "Vous devez être connecté pour accéder à votre panier.");
             self::redirige("?action=home");
@@ -23,10 +24,10 @@ class ControllerPanier extends GenericController
     public static function add(): void
     {
         if (ConnexionClient::estConnecte()) {
-            $panier = Panier::construireDepuisTableau((new PanierRepository)->selectPanierFromClient(ConnexionClient::getLoginUtilisateurConnecte()));
+            $panier = Panier::construireDepuisTableau($_REQUEST);
             (new PanierRepository())->save($panier);
             MessageFlash::ajouter("success", "Le produit a bien été ajouté au panier.");
-            self::redirige("?action=home");
+            self::basket();
         } else {
             MessageFlash::ajouter("warning", "Vous devez être connecté pour ajouter un produit au panier.");
             self::redirige("?action=home");

@@ -431,6 +431,10 @@ input[type="radio"] {
     display: none;
 }
 
+label[for="quantity"] {
+    display: none;
+}
+
 /* AVIS */
 div.panneau-avis-product-detail {
     padding-bottom: 20px;

@@ -13,7 +13,7 @@ class ArticleRepository extends AbstractRepository
         return "p_articles";
     }
 
-    protected function construire(array $objetFormatTableau): AbstractDataObject
+    protected function construire(array $objetFormatTableau): Article
     {
         return new Article(
             $objetFormatTableau["idBijou"],
