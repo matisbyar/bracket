@@ -18,19 +18,20 @@ class ControllerClient extends GenericController
     public static function create(): void
     {
         if (!MotDePasse::motDePasseValide($_POST['password'])) {
-            MessageFlash::ajouter("warning", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre");
+            MessageFlash::ajouter("warning", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial");
             self::redirige("?action=login&controller=client");
         } else if ($_POST['password'] == $_POST['password2']) {
             $client = Client::construireDepuisFormulaire($_POST);
-            // TODO: ici, on ne vérifie pas vraiment que le client existe déjà, puisque la méthode Client::construireDepuisFormulaire() construit toujours un objet (existant ou non)
-            if ($client == null) {
-                MessageFlash::ajouter("warning", "Le client existe deja");
-                self::redirige("?action=login&controller=client");
-            } else {
-                (new ClientRepository())->save($client);
-                MessageFlash::ajouter("success", "Votre compte à bien été créé");
-                self::redirige("?action=readAll&controller=produit");
+            $clients = (new ClientRepository())->selectAll();
+            foreach ($clients as $c) {
+                if ($c->getMail() == $_POST['mail']) {
+                    MessageFlash::ajouter("warning", "Le client existe deja");
+                    self::redirige("?action=login&controller=client");
+                }
             }
+            (new ClientRepository())->save($client);
+            MessageFlash::ajouter("success", "Votre compte à bien été créé");
+            self::redirige("?action=readAll&controller=produit");
         } else {
             if (!ConnexionClient::estAdministrateur() && $_REQUEST['estAdmin']) MessageFlash::ajouter("warning", "Vous n'avez pas le droit de créer un administrateur. Le compte a été créé sans droits administrateur.");
             $client = Client::construireDepuisFormulaire($_REQUEST);
