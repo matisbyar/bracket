@@ -9,26 +9,25 @@
             <input type='hidden' name='action' value='created'>
             <p class="InputAddOn">
                 <label class="InputAddOn-item" for="nomId">Nom&#42;</label>
-                <input class="InputAddOn-field" type="text" placeholder="Nom" name="nom" id="nomId"
+                <input class="InputAddOn-field" value="<?php if(isset($_POST['nom'])) echo $_POST['nom']; ?>" type="text" placeholder="Nom" name="nom" id="nomId"
                        required/>
             </p>
             <p class="InputAddOn">
                 <label class="InputAddOn-item" for="prenomId">Prénom&#42;</label>
-                <input class="InputAddOn-field" type="text" placeholder="Prénom" name="prenom" id="nomId" required/>
+                <input class="InputAddOn-field" value="<?php if(isset($_POST['prenom'])) echo $_POST['prenom']; ?>" type="text" placeholder="Prénom" name="prenom" id="nomId" required/>
             </p>
             <p class="InputAddOn">
                 <label class="InputAddOn-item" for="naissanceId">Date de naissance&#42;</label>
-                <input class="InputAddOn-field" type="date" name="naissance" id="naissanceId"
-                       required/>
+                <input class="InputAddOn-field" value="<?php if(isset($_POST['naissance'])) echo $_POST['naissance']; ?>" type="date" name="naissance" id="naissanceId" required/>
             </p>
             <p class="InputAddOn">
                 <label class="InputAddOn-item" for="mailId">Adresse e-mail&#42;</label>
-                <input class="InputAddOn-field" type="email" placeholder="Adresse e-mail" name="mail" id="mailId"
+                <input class="InputAddOn-field" value="<?php if(isset($_POST['mail'])) echo $_POST['mail']; ?>" type="email" placeholder="Adresse e-mail" name="mail" id="mailId"
                        required/>
             </p>
             <p class="InputAddOn">
                 <label class="InputAddOn-item" for="adresseId">Adresse postale</label>
-                <input class="InputAddOn-field" type="text" placeholder="Adresse postale" name="adresse"
+                <input class="InputAddOn-field" value="<?php if(isset($_POST['adresse'])) echo $_POST['adresse']; ?>" type="text" placeholder="Adresse postale" name="adresse"
                        id="adresseId">
             </p>
             <p class="InputAddOn">

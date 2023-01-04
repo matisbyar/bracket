@@ -8,9 +8,7 @@ use App\Bracket\Lib\MotDePasse;
 use App\Bracket\Lib\PanierSession;
 use App\Bracket\Lib\VerificationEmail;
 use App\Bracket\Model\DataObject\Client;
-use App\Bracket\Model\DataObject\Panier;
 use App\Bracket\Model\Repository\ClientRepository;
-use App\Bracket\Model\Repository\PanierRepository;
 
 class ControllerClient extends GenericController
 {
@@ -22,14 +20,14 @@ class ControllerClient extends GenericController
     {
         if (!MotDePasse::motDePasseValide($_POST['password'])) {
             MessageFlash::ajouter("warning", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial");
-            self::redirige("?action=login&controller=client");
+            self::afficheVue('view.php', ['nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'date' => $_POST['naissance'], 'email' => $_POST['mail'], 'adresse' => $_POST['adresse'], 'pagetitle' => 'Login', 'cheminVueBody' => 'client/login.php']);
         } else if ($_POST['password'] == $_POST['password2']) {
             $client = Client::construireDepuisFormulaire($_POST);
             $clients = (new ClientRepository())->selectAll();
             foreach ($clients as $c) {
                 if ($c->getMail() == $_POST['mail']) {
                     MessageFlash::ajouter("warning", "Le client existe deja");
-                    self::redirige("?action=login&controller=client");
+                    self::afficheVue('view.php', ['nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'naissance' => $_POST['naissance'], 'mail' => $_POST['mail'], 'adresse' => $_POST['adresse'], 'pagetitle' => 'Login', 'cheminVueBody' => 'client/login.php']);
                 }
             }
             (new ClientRepository())->create($client);
@@ -40,9 +38,9 @@ class ControllerClient extends GenericController
             $client = Client::construireDepuisFormulaire($_REQUEST);
             (new ClientRepository())->create($client);
             VerificationEmail::envoiEmailValidation($client);
-
             MessageFlash::ajouter("success", "Votre compte a été créé.");
             self::redirige("?controller=client&action=readAll");
+
         }
     }
 
@@ -54,11 +52,12 @@ class ControllerClient extends GenericController
         $client = (new ClientRepository())->select($_GET['email']);
         if ($client != null && ConnexionClient::estAdministrateur()) {
             self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/detail.php"]);
-        }else{
+        } else {
             MessageFlash::ajouter("danger", "Vous n'avez pas accès à cette page");
             self::redirige("?action=account&controller=client");
         }
     }
+
     /**
      * Renvoie sur la liste de tous les clients
      */
