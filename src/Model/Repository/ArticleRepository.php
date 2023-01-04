@@ -28,7 +28,7 @@ class ArticleRepository extends AbstractRepository
 
     protected function getNomClePrimaire(): string
     {
-        return "idArticle, idBijou, couleur, taille";
+        return "idArticle";
     }
 
     protected function getNomColonnes(): array

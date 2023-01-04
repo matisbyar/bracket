@@ -41,7 +41,6 @@ abstract class AbstractRepository
         $sql = "SELECT * FROM " . $this->getNomTable() . " WHERE " . $this->getNomClePrimaire() . "=:clePrimaire";
         // Préparation de la requête
         $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-
         $values = array(
             "clePrimaire" => $valeurClePrimaire
         );

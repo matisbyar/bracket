@@ -27,4 +27,5 @@ if ($client->estAdmin()) {
 echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=update&controller=client&email=" . rawurldecode(ConnexionClient::getLoginUtilisateurConnecte()) . "\">Modification des informations du compte</button></p></div>";
 echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=updatePassword&controller=client\">Modification du mot de passe</button></p></div>";
 echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?controller=client&action=logout\">Se déconnecter</button></p></div>";
+echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?controller=commande&action=readAll\">Voir commandes</button></p></div>";
 echo "</section>";
