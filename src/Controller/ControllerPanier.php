@@ -45,7 +45,6 @@ class ControllerPanier extends GenericController
                     (new PanierRepository())->create($panier);
                 }
                 MessageFlash::ajouter("success", "Le produit a bien été ajouté au panier.");
-                self::basket();
             } else {
                 $article = Article::construireDepuisTableau(array(
                     "idBijou" => $idBijou,

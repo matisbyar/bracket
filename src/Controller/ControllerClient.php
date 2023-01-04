@@ -266,11 +266,6 @@ class ControllerClient extends GenericController
         }
     }
 
-    public static function basket(): void
-    {
-        self::afficheVue("view.php", ["pagetitle" => "Administration", "cheminVueBody" => "panier/list.php"]);
-    }
-
     /**
      * Cette méthode oblige l'utilisateur à être connecté pour accéder à la page
      */
