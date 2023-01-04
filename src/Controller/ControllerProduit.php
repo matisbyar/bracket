@@ -104,13 +104,44 @@ class ControllerProduit extends GenericController
     }
 
     /**
+     * Supprime un produit
+     * @return void
+     */
+    public static function delete(): void
+    {
+        if (ConnexionClient::estAdministrateur()) {
+            $produits = (new ProduitRepository())->selectAll();
+            ControllerProduit::afficheVue('view.php', ["produits" => $produits, "pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/delete.php"]);
+        } else {
+            MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
+            self::redirige("?action=home");
+
+        }
+    }
+    // TODO : Probléme suppression
+    /**
+     * Suppression d'un produit
+     * @return void
+     */
+    public static function deleted(): void
+    {
+        if (ConnexionClient::estAdministrateur()) {
+            (new ProduitRepository())->delete($_GET["Produit"]);
+            MessageFlash::ajouter("success", "Le produit a bien été supprimé.");
+            self::redirige("?action=readAll");
+        } else {
+            MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
+            self::redirige("?action=home");
+        }
+    }
+
+    /**
      * Methode qui permet de renvoyé sur la page de modification d'un produit
      * @return void
      */
     public static function update(): void
     {
         if (ConnexionClient::estAdministrateur()) {
-            @
             $produit = (new ProduitRepository)->select($_GET["id"]);
             self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Modifier un produit", "cheminVueBody" => "produit/update.php"]);
         } else {
