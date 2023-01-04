@@ -15,7 +15,7 @@ class ControllerCommande extends GenericController
     public static function readAll()
     {
         $mail = ConnexionClient::getLoginUtilisateurConnecte();
-        $commandes = (new CommandeRepository())->getCommandeParId($mail);
+        $commandes = (new CommandeRepository())->getCommandeParIdClient($mail);
         self::afficheVue("view.php", ["commandes" => $commandes, "pagetitle" => "Bracket - Mes commandes", "cheminVueBody" => "commande/list.php"]);
     }
 
