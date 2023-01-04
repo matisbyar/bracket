@@ -33,40 +33,37 @@ class CommandeRepository extends AbstractRepository
      */
     public function ajouterCommande(array $panier): void
     {
-        try {
-            $mail = ConnexionClient::getLoginUtilisateurConnecte();
-            $client = (new ClientRepository())->getClientByEmail($mail);
-            $adresse = $client->getAdresse();
+        $mail = ConnexionClient::getLoginUtilisateurConnecte();
+        $client = (new ClientRepository())->getClientByEmail($mail);
+        $adresse = $client->getAdresse();
 
-            $requete = "INSERT INTO p_commandes (id, adresse, client, statut) VALUES (NULL, :adresse, :client, 'en traitement')";
-            $statement = DatabaseConnection::getPdo()->prepare($requete);
-            $statement->bindParam(":adresse", $adresse);
-            $statement->bindParam(":client", $mail);
+        $requete = "SELECT id FROM p_commandes ORDER BY id DESC LIMIT 1";
+        $statement = DatabaseConnection::getPdo()->prepare($requete);
+        $statement->execute();
+        $idCommande = $statement->fetch();
+        $statement->closeCursor();
+        $idCommande = $idCommande['id']+1;
+
+        $requete = "INSERT INTO p_commandes (id, adresse, client, statut) VALUES (:idCommande, :adresse, :client, 'en traitement')";
+        $statement = DatabaseConnection::getPdo()->prepare($requete);
+        $statement->bindParam(":adresse", $adresse);
+        $statement->bindParam(":client", $mail);
+        $statement->bindParam(":idCommande", $idCommande);
+        $statement->execute();
+        $statement->closeCursor();
+
+        $requete = "INSERT INTO p_contient (idCommande, idArticle, quantite) VALUES (:idCommande, :idArticle, :quantite)";
+        $statement = DatabaseConnection::getPdo()->prepare($requete);
+        $statement->bindParam(":idCommande", $idCommande);
+        foreach ($panier as $article) {
+            $idArticle = $article->getIdArticle();
+            $quantite = $article->getQuantite();
+            $statement->bindParam(":idArticle", $idArticle);
+            $statement->bindParam(":quantite", $quantite);
             $statement->execute();
-            $statement->closeCursor();
-
-            $requete = "SELECT id FROM p_commandes WHERE client = :client";
-            $statement = DatabaseConnection::getPdo()->prepare($requete);
-            $statement->bindParam(":client", $mail);
-            $statement->execute();
-            $idCommande = $statement->fetch();
-            $statement->closeCursor();
-            $idCommande = $idCommande['id'];
-
-            $requete = "INSERT INTO p_contient (idCommande, idArticle, quantite) VALUES (:idCommande, :idArticle, :quantite)";
-            $statement = DatabaseConnection::getPdo()->prepare($requete);
-            $statement->bindParam(":idCommande", $idCommande);
-            foreach ($panier as $article) {
-                $idArticle = $article->getIdArticle();
-                $quantite = $article->getQuantite();
-                $statement->bindParam(":idArticle", $idArticle);
-                $statement->bindParam(":quantite", $quantite);
-                $statement->execute();
-            }
-            $statement->closeCursor();
-        } catch (PDOException) {
-            GenericController::error("", "Désolé ! La commande n'a pu être effectuée.");
         }
+        $statement->closeCursor();
+        
     }
 
     public function getCommandeParId(string $mail): ?array
