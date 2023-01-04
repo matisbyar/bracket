@@ -19,8 +19,7 @@
 
 <div class="titres-home">
     <h1 class="titre-home">Les classiques</h1>
-    <a class="sous-titre-home" href="?controller=produit&action=readAll">Voir plus</a>
-    <i class="fa-solid fa-arrow-left"></i>
+    <a class="sous-titre-home" href="?controller=produit&action=readAll">Voir plus ></a>
 </div>
 <?php
 

@@ -33,45 +33,64 @@ class CommandeRepository extends AbstractRepository
      */
     public function ajouterCommande(array $panier): void
     {
-        try {
-            $mail = ConnexionClient::getLoginUtilisateurConnecte();
-            $client = (new ClientRepository())->getClientByEmail($mail);
-            $adresse = $client->getAdresse();
+        $mail = ConnexionClient::getLoginUtilisateurConnecte();
+        $client = (new ClientRepository())->getClientByEmail($mail);
+        $adresse = $client->getAdresse();
 
-            $requete = "INSERT INTO p_commandes (id, adresse, client, statut) VALUES (NULL, :adresse, :client, 'en traitement')";
-            $statement = DatabaseConnection::getPdo()->prepare($requete);
-            $statement->bindParam(":adresse", $adresse);
-            $statement->bindParam(":client", $mail);
+        $requete = "SELECT id FROM p_commandes ORDER BY id DESC LIMIT 1";
+        $statement = DatabaseConnection::getPdo()->prepare($requete);
+        $statement->execute();
+        $idCommande = $statement->fetch();
+        $statement->closeCursor();
+        $idCommande = $idCommande['id']+1;
+
+        $requete = "INSERT INTO p_commandes (id, adresse, client, statut) VALUES (:idCommande, :adresse, :client, 'en traitement')";
+        $statement = DatabaseConnection::getPdo()->prepare($requete);
+        $statement->bindParam(":adresse", $adresse);
+        $statement->bindParam(":client", $mail);
+        $statement->bindParam(":idCommande", $idCommande);
+        $statement->execute();
+        $statement->closeCursor();
+
+        $requete = "INSERT INTO p_contient (idCommande, idArticle, quantite) VALUES (:idCommande, :idArticle, :quantite)";
+        $statement = DatabaseConnection::getPdo()->prepare($requete);
+        $statement->bindParam(":idCommande", $idCommande);
+        foreach ($panier as $article) {
+            $idArticle = $article->getIdArticle();
+            $quantite = $article->getQuantite();
+            $statement->bindParam(":idArticle", $idArticle);
+            $statement->bindParam(":quantite", $quantite);
             $statement->execute();
-            $statement->closeCursor();
-
-            $requete = "SELECT id FROM p_commandes WHERE client = :client";
-            $statement = DatabaseConnection::getPdo()->prepare($requete);
-            $statement->bindParam(":client", $mail);
-            $statement->execute();
-            $idCommande = $statement->fetch();
-            $statement->closeCursor();
-            $idCommande = $idCommande['id'];
-
-            $requete = "INSERT INTO p_contient (idCommande, idArticle, quantite) VALUES (:idCommande, :idArticle, :quantite)";
-            $statement = DatabaseConnection::getPdo()->prepare($requete);
-            $statement->bindParam(":idCommande", $idCommande);
-            foreach ($panier as $article) {
-                $idArticle = $article->getIdArticle();
-                $quantite = $article->getQuantite();
-                $statement->bindParam(":idArticle", $idArticle);
-                $statement->bindParam(":quantite", $quantite);
-                $statement->execute();
-            }
-            $statement->closeCursor();
-        } catch (PDOException) {
-            GenericController::error("", "Désolé ! La commande n'a pu être effectuée.");
         }
+        $statement->closeCursor();
+        
     }
 
-    public function getCommandeParId(string $mail): ?array
+    public function getCommandeParId(int $id) : ?Commande
     {
-        $sql = "SELECT * FROM " . $this->getNomTable() . " com JOIN p_contient con ON com.id=con.idCommande WHERE client = :mail ORDER BY com.id DESC;";
+        $sql = "SELECT * FROM " . $this->getNomTable() . "com JOIN p_contient con ON com.id=con.idCommande WHERE id = :id";
+        echo $sql;
+        $statement = DatabaseConnection::getPdo()->prepare($sql);
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $resulats = $statement->fetchAll();
+        $statement->closeCursor();
+        $listeBijoux = array();
+        foreach ($resulats as $commandeFormatTableau) {
+            $bijou = (new ProduitRepository())->getProduitParId($commandeFormatTableau['idArticle']);
+            $listeBijoux[] = $bijou;
+        }
+        $commandeFormatTableauFinal = array();
+        $commandeFormatTableauFinal[] = $resulats['id'];
+        $commandeFormatTableauFinal[] = $resulats['adresse'];
+        $commandeFormatTableauFinal[] = $resulats['client'];
+        $commandeFormatTableauFinal[] = $listeBijoux;
+        return $this->construire($commandeFormatTableauFinal);
+    }
+
+    public function getCommandeParIdClient(string $mail): ?array
+    {
+        $sql = "SELECT * FROM " . $this->getNomTable() . " com JOIN p_contient con ON com.id=con.idCommande WHERE client = :mail ORDER BY com.id DESC   ;";
         //echo $sql;
         $statement = DatabaseConnection::getPdo()->prepare($sql);
         $statement->bindParam(":mail", $mail);
@@ -82,16 +101,15 @@ class CommandeRepository extends AbstractRepository
         $resultat = $statement->fetchAll();
         foreach ($resultat as $commandeFormatTableau) {
             if ($save['id'] == $commandeFormatTableau['id']) {
-                echo " here";
-                $bijou = (new ProduitRepository())->getProduitParId($save['idBijou']);
+                $bijou = (new ProduitRepository())->getProduitParId($save['idArticle']);
                 $listeBijoux[] = $bijou;
-                echo " enregistrement";
-
             } else {
+                $bijou = (new ProduitRepository())->getProduitParId($save['idArticle']);
+                $listeBijoux[] = $bijou;
                 $commandeFormatTableauFinal = array();
-                $commandeFormatTableauFinal[] = $commandeFormatTableau['id'];
-                $commandeFormatTableauFinal[] = $commandeFormatTableau['adresse'];
-                $commandeFormatTableauFinal[] = $commandeFormatTableau['client'];
+                $commandeFormatTableauFinal[] = $save['id'];
+                $commandeFormatTableauFinal[] = $save['adresse'];
+                $commandeFormatTableauFinal[] = $save['client'];
                 $commandeFormatTableauFinal[] = $listeBijoux;
                 $listeBijoux = array();
                 $commandes[] = $this->construire($commandeFormatTableauFinal);
@@ -102,7 +120,7 @@ class CommandeRepository extends AbstractRepository
         $commandeFormatTableauFinal[] = $save['id'];
         $commandeFormatTableauFinal[] = $save['adresse'];
         $commandeFormatTableauFinal[] = $save['client'];
-        $listeBijoux[] = (new ProduitRepository())->getProduitParId($save['idBijou']);
+        $listeBijoux[] = (new ProduitRepository())->getProduitParId($save['idArticle']);
         $commandeFormatTableauFinal[] = $listeBijoux;
         $commandes[] = $this->construire($commandeFormatTableauFinal);
         return $commandes;
