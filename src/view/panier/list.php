@@ -43,19 +43,18 @@ if (ConnexionClient::estConnecte()) {
                     <button><a href="?controller=panier&action=delete&idArticle=' . $idArticle . '">Supprimer</a></button>
                 </div>
             </div>';
-
-            $sousTotal = (new PanierRepository)->prixTotal($client->getMail());
-            echo '<div class="panier-total">
+        }
+        $sousTotal = (new PanierRepository)->prixTotal($client->getMail());
+        echo '<div class="panier-total">
             <p>Sous-total : ' . $sousTotal . '€</p>
             <p>Frais de port : 5€</p>
             <p>Total : ' . ($sousTotal + 5) . '€</p>
         </div>';
 
-            echo '<div class="panier-actions">
+        echo '<div class="panier-actions">
             <button><a href="?action=home">Poursuivre mes emplètes</a></button>
             <button><a href="?controller=commande&action=commander">Commander</a></button>
         </div>';
-        }
         ?>
         <div>
 

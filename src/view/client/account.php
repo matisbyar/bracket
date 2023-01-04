@@ -10,7 +10,7 @@ $client = (new ClientRepository)->select(ConnexionClient::getLoginUtilisateurCon
 
 <div class="admin-title">
         <h1>Mon Compte</h1>
-        <p>Retrouvez sur cette page, toutes les fonctions administratrices dont vous disposez pour rendre Bracket meilleur.</p>
+        <p>Psst ! Retrouvez sur cette page, toutes les fonctions vous concernant. </p>
     </div>
 <?php
 echo "<h2 class='InfoAccount'> " . htmlspecialchars($client->getPrenom()) . " " . htmlspecialchars($client->getNom()) . " </h2>";
