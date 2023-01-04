@@ -15,13 +15,13 @@ class ControllerCommande extends GenericController
     public static function readAll()
     {
         $mail = ConnexionClient::getLoginUtilisateurConnecte();
-        $commandes = (new CommandeRepository())->getCommandeParId($mail);
+        $commandes = (new CommandeRepository())->getCommandeParIdClient($mail);
         self::afficheVue("view.php", ["commandes" => $commandes, "pagetitle" => "Bracket - Mes commandes", "cheminVueBody" => "commande/list.php"]);
     }
 
     public static function read()
     {
-        $commande = (new CommandeRepository())->select($_GET["id"]);
+        $commande = (new CommandeRepository())->getCommandeParId($_GET["id"]);
         self::afficheVue("view.php", ["commande" => $commande, "pagetitle" => "Bracket - Détail de la commande", "cheminVueBody" => "commande/detail.php"]);
     }
 

@@ -68,8 +68,7 @@ class CommandeRepository extends AbstractRepository
 
     public function getCommandeParId(int $id) : ?Commande
     {
-        $sql = "SELECT * FROM " . $this->getNomTable() . "com JOIN p_contient con ON com.id=con.idCommande WHERE id = :id";
-        echo $sql;
+        $sql = "SELECT * FROM " . $this->getNomTable() . " com JOIN p_contient con ON com.id=con.idCommande WHERE id = :id";
         $statement = DatabaseConnection::getPdo()->prepare($sql);
         $statement->bindParam(":id", $id);
         $statement->execute();
@@ -79,18 +78,20 @@ class CommandeRepository extends AbstractRepository
         foreach ($resulats as $commandeFormatTableau) {
             $bijou = (new ProduitRepository())->getProduitParId($commandeFormatTableau['idArticle']);
             $listeBijoux[] = $bijou;
+            $save = $commandeFormatTableau;
         }
         $commandeFormatTableauFinal = array();
-        $commandeFormatTableauFinal[] = $resulats['id'];
-        $commandeFormatTableauFinal[] = $resulats['adresse'];
-        $commandeFormatTableauFinal[] = $resulats['client'];
+        $commandeFormatTableauFinal[] = $save['id'];
+        $commandeFormatTableauFinal[] = $save['adresse'];
+        $commandeFormatTableauFinal[] = $save['client'];
         $commandeFormatTableauFinal[] = $listeBijoux;
         return $this->construire($commandeFormatTableauFinal);
     }
 
     public function getCommandeParIdClient(string $mail): ?array
     {
-        $sql = "SELECT * FROM " . $this->getNomTable() . " com JOIN p_contient con ON com.id=con.idCommande WHERE client = :mail ORDER BY com.id DESC   ;";
+        try{
+            $sql = "SELECT * FROM " . $this->getNomTable() . " com JOIN p_contient con ON com.id=con.idCommande WHERE client = :mail ORDER BY com.id DESC   ;";
         //echo $sql;
         $statement = DatabaseConnection::getPdo()->prepare($sql);
         $statement->bindParam(":mail", $mail);
@@ -99,31 +100,39 @@ class CommandeRepository extends AbstractRepository
         $listeBijoux = array();
         $save = $statement->fetch();
         $resultat = $statement->fetchAll();
-        foreach ($resultat as $commandeFormatTableau) {
-            if ($save['id'] == $commandeFormatTableau['id']) {
-                $bijou = (new ProduitRepository())->getProduitParId($save['idArticle']);
-                $listeBijoux[] = $bijou;
-            } else {
-                $bijou = (new ProduitRepository())->getProduitParId($save['idArticle']);
-                $listeBijoux[] = $bijou;
-                $commandeFormatTableauFinal = array();
-                $commandeFormatTableauFinal[] = $save['id'];
-                $commandeFormatTableauFinal[] = $save['adresse'];
-                $commandeFormatTableauFinal[] = $save['client'];
-                $commandeFormatTableauFinal[] = $listeBijoux;
-                $listeBijoux = array();
-                $commandes[] = $this->construire($commandeFormatTableauFinal);
+        if(sizeof($resultat) == 0){
+            return array();
+        }else{
+            foreach ($resultat as $commandeFormatTableau) {
+                if ($save['id'] == $commandeFormatTableau['id']) {
+                    $bijou = (new ProduitRepository())->getProduitParId($save['idArticle']);
+                    $listeBijoux[] = $bijou;
+                } else {
+                    $bijou = (new ProduitRepository())->getProduitParId($save['idArticle']);
+                    $listeBijoux[] = $bijou;
+                    $commandeFormatTableauFinal = array();
+                    $commandeFormatTableauFinal[] = $save['id'];
+                    $commandeFormatTableauFinal[] = $save['adresse'];
+                    $commandeFormatTableauFinal[] = $save['client'];
+                    $commandeFormatTableauFinal[] = $listeBijoux;
+                    $listeBijoux = array();
+                    $commandes[] = $this->construire($commandeFormatTableauFinal);
+                }
+                $save = $commandeFormatTableau;
             }
-            $save = $commandeFormatTableau;
+            $commandeFormatTableauFinal = array();
+            $commandeFormatTableauFinal[] = $save['id'];
+            $commandeFormatTableauFinal[] = $save['adresse'];
+            $commandeFormatTableauFinal[] = $save['client'];
+            $listeBijoux[] = (new ProduitRepository())->getProduitParId($save['idArticle']);
+            $commandeFormatTableauFinal[] = $listeBijoux;
+            $commandes[] = $this->construire($commandeFormatTableauFinal);
+            return $commandes;
         }
-        $commandeFormatTableauFinal = array();
-        $commandeFormatTableauFinal[] = $save['id'];
-        $commandeFormatTableauFinal[] = $save['adresse'];
-        $commandeFormatTableauFinal[] = $save['client'];
-        $listeBijoux[] = (new ProduitRepository())->getProduitParId($save['idArticle']);
-        $commandeFormatTableauFinal[] = $listeBijoux;
-        $commandes[] = $this->construire($commandeFormatTableauFinal);
-        return $commandes;
+        }catch (PDOException) {
+            GenericController::error("", "Désolé ! La récupération de l'id de l'article n'a pu être faite.");
+            return null;
+        }
     }
 
     /**
