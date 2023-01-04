@@ -61,6 +61,17 @@ if (!ConnexionClient::estAdministrateur()) {
                 </div>
             </a>
         </div>
+        <div class="admin-action">
+            <a href="?action=readAll&controller=produit&action=delete">
+                <div class="admin-action-icon">
+                    <img class="admin-icon" src="../images/delete-alt.svg">
+                    <img class="admin-icon-hover" src="../images/delete.svg">
+                </div>
+                <div class="admin-action-title">
+                    <h2>Supprimer un produit</h2>
+                </div>
+            </a>
+        </div>
     </div>
 </body>
 
