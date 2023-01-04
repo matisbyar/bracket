@@ -26,13 +26,13 @@
                 <label for="braceletId">Bracelet</label>
             </div>
         </fieldset>
-        <p>
-            <label for="prixId">Prix</label> :
-            <input type="number" placeholder="150" name="prix" id="prixId" required/>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="prixId">Prix</label>
+            <input class="InputAddOn-field" type="number" placeholder="150" name="prix" id="prixId" required/>
         </p>
-        <p>
-            <label for="materiauId">Matériau</label> :
-            <select name="materiau" size="1" id="materiauId">
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="materiauId">Matériau</label>
+            <select class="InputAddOn-field" name="materiau" size="1" id="materiauId">
                 <option>Acier Inoxydable</option>
                 <option>Argent</option>
                 <option>Or</option>
@@ -40,17 +40,17 @@
                 <option>Tissus</option>
             </select>
         </p>
-        <p>
-            <label for="nomId">Nom</label> :
-            <input type="text" placeholder="Bracelet Georges" name="nom" id="nomId" required/>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="nomId">Nom</label>
+            <input class="InputAddOn-field" type="text" placeholder="Bracelet Georges" name="nom" id="nomId" required/>
         </p>
-        <p>
-            <label for="descriptionId">Description</label> :
-            <input type="text" placeholder="" name="description" id="descriptionId" required/>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="descriptionId">Description</label>
+            <input class="InputAddOn-field" type="text" placeholder="" name="description" id="descriptionId" required/>
         </p>
-        <p>
-            <label for="imageId">Lien de l'image</label> :
-            <input type="text" placeholder="" name="image" id="imageId" required/>
+        <p class="InputAddOn">
+            <label class="InputAddOn-item" for="imageId">Lien de l'image</label>
+            <input class="InputAddOn-field" type="text" placeholder="" name="image" id="imageId" required/>
         </p>
         <p>
             <input type="submit" value="Envoyer"/>
