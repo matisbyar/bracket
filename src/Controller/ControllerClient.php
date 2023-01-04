@@ -265,4 +265,18 @@ class ControllerClient extends GenericController
     {
         self::afficheVue("view.php", ["pagetitle" => "Administration", "cheminVueBody" => "panier/list.php"]);
     }
+
+    /**
+     * Cette méthode oblige l'utilisateur à être connecté pour accéder à la page
+     */
+    public static function commander(): void
+    {
+        if (ConnexionClient::estConnecte()) {
+            $client = (new ClientRepository())->select(ConnexionClient::getLoginUtilisateurConnecte());
+            if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/commander.php"]);
+        } else {
+            MessageFlash::ajouter("warning", "Connectez-vous pour passer une commande.");
+            self::redirige("?action=login&controller=client");
+        }
+    }
 }
