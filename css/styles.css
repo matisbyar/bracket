@@ -1031,11 +1031,17 @@ p.panier-alert {
 }
 
 .InfoAccount#admin {
-    font-family: "unna", "WorkSans", Helvetica, Arial, sans-serif;
     font-size: 30px;
-    font-weight: bold;
-    text-align: right;
     color: #a94442;
     margin: -30px 30px 0 0;
+}
+
+.InfoAccount#info{
+    font-size: 15px;
+    margin: 0 30px 0 0;
+}
+
+.commande_action{
+    margin-left: 10px;
 }
 

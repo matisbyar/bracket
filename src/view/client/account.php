@@ -16,19 +16,22 @@ $client = (new ClientRepository)->select(ConnexionClient::getLoginUtilisateurCon
 <?php
 echo "<h2 class='InfoAccount'> " . htmlspecialchars($client->getPrenom()) . " " . htmlspecialchars($client->getNom()) . " </h2>";
 if ($client->estAdmin()) {
-    echo "<div class='' id='admin'><p><strInfoAccountong>Administrateur</strong></p></div>";
+    echo "<div class='InfoAccount' id='admin'><p><strInfoAccountong>Administrateur</strong></p></div>";
 }
+echo "<h2 class='InfoAccount' id='info'> " . htmlspecialchars($client->getAdresse()) . " • "  . htmlspecialchars($client->getDateNaissance()) . " </h2>";
 echo "<hr>";
-echo "<h2>Mes commandes</h2>";
-echo "<p>Vous pouvez retrouver ici, l'historique de vos commandes.</p>";
+echo "<h2 class='commande_action'>Mes commandes</h2>";
+echo "<p class='commande_action'>Vous pouvez retrouver ici, l'historique de vos commandes.</p>";
 $commandes = (new CommandeRepository())->getCommandeParIdClient($client->getMail());
 if (sizeof($commandes) == 0) {
     echo "<p class='panier-alert'>Vous n'avez pas encore passé de commande !</p>";
 } else {
+    echo "<div class='commande_action'>";
     require(__DIR__ . "/../commande/list.php");
+    echo "</div>";
 }
 echo "<hr>";
-echo "<h2>Actions</h2>";
+echo "<h2 class='commande_action'>Actions</h2>";
 echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=update&controller=client&email=" . rawurldecode(ConnexionClient::getLoginUtilisateurConnecte()) . "\">Modification des informations du compte</button></p></div>";
 echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=updatePassword&controller=client\">Modification du mot de passe</button></p></div>";
 echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?controller=client&action=logout\">Se déconnecter</button></p></div>";
