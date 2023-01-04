@@ -82,10 +82,8 @@ class CommandeRepository extends AbstractRepository
         $resultat = $statement->fetchAll();
         foreach ($resultat as $commandeFormatTableau) {
             if ($save['id'] == $commandeFormatTableau['id']) {
-                echo " here";
-                $bijou = (new ProduitRepository())->getProduitParId($save['idBijou']);
+                $bijou = (new ProduitRepository())->getProduitParId($save['idArticle']);
                 $listeBijoux[] = $bijou;
-                echo " enregistrement";
 
             } else {
                 $commandeFormatTableauFinal = array();
@@ -102,7 +100,7 @@ class CommandeRepository extends AbstractRepository
         $commandeFormatTableauFinal[] = $save['id'];
         $commandeFormatTableauFinal[] = $save['adresse'];
         $commandeFormatTableauFinal[] = $save['client'];
-        $listeBijoux[] = (new ProduitRepository())->getProduitParId($save['idBijou']);
+        $listeBijoux[] = (new ProduitRepository())->getProduitParId($save['idArticle']);
         $commandeFormatTableauFinal[] = $listeBijoux;
         $commandes[] = $this->construire($commandeFormatTableauFinal);
         return $commandes;
