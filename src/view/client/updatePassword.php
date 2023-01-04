@@ -12,7 +12,7 @@
                                                                         alt="button retour"></i></button>
 </div>
 
-<form method="post" action="../web/frontController.php?controller=client&action=updatedPassword">
+<form method="post" action="../web/index.php?controller=client&action=updatedPassword">
     <fieldset class="formAccountPlus">
         <legend>Mise à jour du mot de passe</legend>
         <input type='hidden' name='action' value='created'>

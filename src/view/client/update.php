@@ -9,7 +9,7 @@ use App\Bracket\Model\Repository\ClientRepository;
                                                                         alt="button retour"></i></button>
 </div>
 
-<form method="post" action="../web/frontController.php?controller=client&action=updated">
+<form method="post" action="../web/index.php?controller=client&action=updated">
     <fieldset class="formAccountPlus">
         <legend>Mise à jour des informations</legend>
         <input type='hidden' name='action' value='created'>

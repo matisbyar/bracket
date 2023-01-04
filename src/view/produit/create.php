@@ -11,7 +11,7 @@
     <button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../images/backPage.svg" alt="button retour"></i></button>
 </div>
 
-<form action="../web/frontController.php">
+<form action="../web/index.php">
     <fieldset>
         <legend>Création d'un bijou</legend>
         <input type='hidden' name='action' value='created'>

@@ -12,7 +12,7 @@
                                                                         alt="button retour"></i></button>
 </div>
 
-<form method="post" action="../web/frontController.php?controller=produit&action=updated">
+<form method="post" action="../web/index.php?controller=produit&action=updated">
     <fieldset>
         <legend>Création d'un bijou</legend>
         <p>

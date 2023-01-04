@@ -16,26 +16,26 @@
 <body>
 <header>
     <nav>
-        <a href="../web/frontController.php?action=home"><p class="logo">Bracket.</p></a>
+        <a href="../web/index.php?action=home"><p class="logo">Bracket.</p></a>
         <div class="nav-raccourcis">
-            <a href="../web/frontController.php?action=readAllBracelets"><p>Bracelets</p></a>
-            <a href="../web/frontController.php?action=readAllBagues"><p>Bagues</p></a>
+            <a href="../web/index.php?action=readAllBracelets"><p>Bracelets</p></a>
+            <a href="../web/index.php?action=readAllBagues"><p>Bagues</p></a>
             <?php if (ConnexionClient::estConnecte()) { ?>
-                <a href="../web/frontController.php?controller=client&action=account">
+                <a href="../web/index.php?controller=client&action=account">
                     <button class="lien"><img src="../images/account_login.svg" alt="Fav"></button>
                 </a>
-                <a href="../web/frontController.php?controller=client&action=account">
+                <a href="../web/index.php?controller=client&action=account">
                     <p><?php echo (new ClientRepository())->getClientByEmail(ConnexionClient::getLoginUtilisateurConnecte())->getPrenom(); ?></p>
                 </a>
-                <a href="../web/frontController.php?controller=client&action=logout">
+                <a href="../web/index.php?controller=client&action=logout">
                         <button class="lien"><img src="../images/logout.svg" alt="Fav" ></button>
                     </a>
             <?php } else { ?>
-               <a href="../web/frontController.php?controller=client&action=login">
+               <a href="../web/index.php?controller=client&action=login">
                         <button class="lien"><img src="../images/account_login.svg" alt="Fav"></button>
                     </a>
             <?php } ?>
-            <a href="../web/frontController.php?controller=panier&action=basket">
+            <a href="../web/index.php?controller=panier&action=basket">
                 <button class="lien"><img src="../images/basket.svg" alt="Fav"></button>
             </a>
         </div>
@@ -52,10 +52,10 @@
     <div class="footer-container">
         <div class="footer-links">
             <ul>
-                <li><a href="../web/frontController.php?action=aPropos">À propos de Bracket</a></li>
-                <li><a href="../web/frontController.php?action=contact">Nous contacter</a></li>
-                <?= ConnexionClient::estConnecte() ? '<li><a href="../web/frontController.php?controller=client&action=account">Mon compte</a></li>' : '<li><a href="../web/frontController.php?controller=client&action=login">S\'inscrire/Se connecter</a></li>' ?>
-                <li><a href="../web/frontController.php?action=plan">Plan du site</a></li>
+                <li><a href="../web/index.php?action=aPropos">À propos de Bracket</a></li>
+                <li><a href="../web/index.php?action=contact">Nous contacter</a></li>
+                <?= ConnexionClient::estConnecte() ? '<li><a href="../web/index.php?controller=client&action=account">Mon compte</a></li>' : '<li><a href="../web/index.php?controller=client&action=login">S\'inscrire/Se connecter</a></li>' ?>
+                <li><a href="../web/index.php?action=plan">Plan du site</a></li>
             </ul>
         </div>
         <div class="footer-copyright">
