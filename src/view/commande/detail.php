@@ -6,7 +6,7 @@ echo "<h2>Commande n°" . htmlspecialchars($commande->getId()) . "</h2>";
 echo "Livré à : " . htmlspecialchars($commande->getAdresse()) . "<br>";
 echo "Liste des produits : ";
 echo "<ul>";
-foreach ($commande->getProduits() as $article) {
+foreach ($commande->getArticles() as $article) {
     $bijou = (new ProduitRepository)->select($article->getIdBijou());
     echo "<li>" . htmlspecialchars($bijou->getNom()) . " : " . htmlspecialchars($bijou->getPrix()) . "€</li>";
 }

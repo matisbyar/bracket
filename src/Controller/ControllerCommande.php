@@ -69,12 +69,12 @@ class ControllerCommande extends GenericController
     public static function recommander() : void 
     {
         $commande = (new CommandeRepository())->getCommandeParId($_GET["id"]);
-        foreach($commande->getArticles() as $produit){
+        foreach($commande->getArticles() as $article){
             $panier = Panier::construireDepuisTableau(
                 array(
                     "mailClient" => ConnexionClient::getLoginUtilisateurConnecte(),
-                    "idArticle" => $produit->getId(),
-                    "quantite" => (new CommandeRepository())->getQuantiteProduitCommande($commande->getId(), $produit->getIdArticle())
+                    "idArticle" => $article->getIdArticle(),
+                    "quantite" => (new CommandeRepository())->getQuantiteProduitCommande($commande->getId(), $article->getIdArticle())
                 )
             );
             (new PanierRepository())->create($panier);

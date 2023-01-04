@@ -103,7 +103,6 @@ class CommandeRepository extends AbstractRepository
             $statement->execute();
             $resulats = $statement->fetch();
             $statement->closeCursor();
-            exit();
             return $resulats['quantite'];
         } catch (PDOException) {
             GenericController::error("", "Désolé ! La récupération de l'id de l'article n'a pu être faite.");
