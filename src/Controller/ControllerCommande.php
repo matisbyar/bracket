@@ -5,6 +5,7 @@ namespace App\Bracket\Controller;
 use App\Bracket\Lib\ConnexionClient;
 use App\Bracket\Lib\MessageFlash;
 use App\Bracket\Model\DataObject\Commande;
+use App\Bracket\Model\DataObject\Panier;
 use App\Bracket\Model\Repository\ClientRepository;
 use App\Bracket\Model\Repository\CommandeRepository;
 use App\Bracket\Model\Repository\PanierRepository;
@@ -62,6 +63,23 @@ class ControllerCommande extends GenericController
     public static function annulerCommande(): void{
         self::updateStatutCommande("annulée.");
         MessageFlash::ajouter("success", "Commande annulée.");
+        self::home();
+    }
+
+    public static function recommander() : void 
+    {
+        $commande = (new CommandeRepository())->getCommandeParId($_GET["id"]);
+        foreach($commande->getArticles() as $produit){
+            $panier = Panier::construireDepuisTableau(
+                array(
+                    "mailClient" => ConnexionClient::getLoginUtilisateurConnecte(),
+                    "idArticle" => $produit->getId(),
+                    "quantite" => (new CommandeRepository())->getQuantiteProduitCommande($commande->getId(), $produit->getIdArticle())
+                )
+            );
+            (new PanierRepository())->create($panier);
+        }
+        MessageFlash::ajouter("success", "Commande recommandée.");
         self::home();
     }
 
