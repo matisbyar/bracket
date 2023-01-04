@@ -32,44 +32,52 @@ class ControllerPanier extends GenericController
         $couleur = $_REQUEST['couleur'];
         $quantite = $_REQUEST['quantite'];
         $idArticle = (new ArticleRepository())->getIdArticleParClesPrimaires($idBijou, $couleur, $taille);
-        if (ConnexionClient::estConnecte()) {
-            if ((new PanierRepository())->contientArticle(ConnexionClient::getLoginUtilisateurConnecte(), $idArticle)) {
-                $panier = (new PanierRepository())->selectPanierFromClientEtArticle(ConnexionClient::getLoginUtilisateurConnecte(), $idArticle);
-                (new PanierRepository())->modifierQuantite(ConnexionClient::getLoginUtilisateurConnecte(), $idArticle, $panier->getQuantite() + $quantite);
+        if (isset($_REQUEST['idBijou']) && $_REQUEST['taille'] && $_REQUEST['couleur'] & $_REQUEST['quantite'] && $idArticle != null) {
+            if (ConnexionClient::estConnecte()) {
+                if ((new PanierRepository())->contientArticle(ConnexionClient::getLoginUtilisateurConnecte(), $idArticle)) {
+                    $panier = (new PanierRepository())->selectPanierFromClientEtArticle(ConnexionClient::getLoginUtilisateurConnecte(), $idArticle);
+                    (new PanierRepository())->modifierQuantite(ConnexionClient::getLoginUtilisateurConnecte(), $idArticle, $panier->getQuantite() + $quantite);
+                } else {
+                    $panier = Panier::construireDepuisTableau(array(
+                        "mailClient" => ConnexionClient::getLoginUtilisateurConnecte(),
+                        "idArticle" => $idArticle,
+                        "quantite" => $quantite));
+                    (new PanierRepository())->create($panier);
+                }
+                MessageFlash::ajouter("success", "Le produit a bien été ajouté au panier.");
+                self::basket();
             } else {
-                $panier = Panier::construireDepuisTableau(array(
-                    "mailClient" => ConnexionClient::getLoginUtilisateurConnecte(),
-                    "idArticle" => $idArticle,
-                    "quantite" => $quantite));
-                (new PanierRepository())->create($panier);
+                $article = Article::construireDepuisTableau(array(
+                    "idBijou" => $idBijou,
+                    "stock" => $quantite,
+                    "couleur" => $couleur,
+                    "taille" => $taille
+                ));
+                if (PanierSession::contientArticle($article)) {
+                    PanierSession::modifierQuantiteArticle($article, $quantite);
+                } else {
+                    PanierSession::ajouter($article, $quantite);
+                }
+                MessageFlash::ajouter("success", "Le produit a bien été ajouté au panier.");
             }
-            MessageFlash::ajouter("success", "Le produit a bien été ajouté au panier.");
-            self::basket();
         } else {
-            $article = Article::construireDepuisTableau(array(
-                "idBijou" => $idBijou,
-                "stock" => $quantite,
-                "couleur" => $couleur,
-                "taille" => $taille
-            ));
-            if (PanierSession::contientArticle($article)) {
-                PanierSession::modifierQuantiteArticle($article, $quantite);
-            } else {
-                PanierSession::ajouter($article, $quantite);
-            }
-            MessageFlash::ajouter("success", "Le produit a bien été ajouté au panier.");
-            self::redirige("?controller=panier&action=basket");
+            MessageFlash::ajouter("danger", "Une erreur est survenue lors de l'ajout au panier.");
         }
+        self::basket();
     }
 
     public static function delete(): void
     {
-        if (ConnexionClient::estConnecte()) {
-            (new PanierRepository)->deleteElementFromPanier(ConnexionClient::getLoginUtilisateurConnecte(), $_REQUEST["idArticle"]);
+        if (isset($_REQUEST["idArticle"])) {
+            if (ConnexionClient::estConnecte()) {
+                (new PanierRepository)->deleteElementFromPanier(ConnexionClient::getLoginUtilisateurConnecte(), $_REQUEST["idArticle"]);
+            } else {
+                PanierSession::supprimerArticle((new ArticleRepository)->getArticleParIdArticle($_REQUEST["idArticle"]));
+            }
+            MessageFlash::ajouter("success", "Le produit a bien été supprimé du panier.");
         } else {
-            PanierSession::supprimerArticle((new ArticleRepository)->getArticleParIdArticle($_REQUEST["idArticle"]));
+            MessageFlash::ajouter("danger", "Une erreur est survenue lors de la suppression du produit du panier.");
         }
-        MessageFlash::ajouter("success", "Le produit a bien été supprimé du panier.");
-        self::redirige("?controller=panier&action=basket");
+        self::basket();
     }
 }

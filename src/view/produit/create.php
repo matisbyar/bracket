@@ -2,9 +2,10 @@
     <button onclick="history.go(-1);"><img src="../images/backPage.svg" alt="button retour"></i></button>
 </div>
 
-<form action="../web/index.php">
+<form>
     <fieldset>
         <legend>Création d'un bijou</legend>
+        <input type="hidden" name="controller" value="produit">
         <input type='hidden' name='action' value='created'>
         <fieldset>
             <legend>Choix du type</legend>

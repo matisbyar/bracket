@@ -25,4 +25,6 @@ if (class_exists($controllerClassName)) {
     } else {
         $controllerClassName::$action();
     }
+} else {
+    \App\Bracket\Controller\GenericController::error("", "Ce que vous cherchez n'existe pas...");
 }

@@ -34,11 +34,10 @@ class ControllerCommande extends GenericController
             (new CommandeRepository())->ajouterCommande($panier);
             MessageFlash::ajouter("success", "Commande effectuée avec succès.");
             (new PanierRepository())->viderPanierParClient($mail);
-            self::home();
         } else {
             MessageFlash::ajouter("danger", "Votre panier est vide.");
-            self::home();
         }
+        self::home();
     }
 
     public static function updateStatutCommande(string $statut): void
