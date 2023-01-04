@@ -22,7 +22,11 @@ echo "<hr>";
 echo "<h2>Mes commandes</h2>";
 echo "<p>Vous pouvez retrouver ici, l'historique de vos commandes.</p>";
 $commandes = (new CommandeRepository())->getCommandeParIdClient($client->getMail());
-require(__DIR__."/../commande/list.php");
+if (sizeof($commandes) == 0) {
+    echo "<p class='panier-alert'>Vous n'avez pas encore passé de commande !</p>";
+} else {
+    require(__DIR__ . "/../commande/list.php");
+}
 echo "<hr>";
 echo "<h2>Actions</h2>";
 echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=update&controller=client&email=" . rawurldecode(ConnexionClient::getLoginUtilisateurConnecte()) . "\">Modification des informations du compte</button></p></div>";
