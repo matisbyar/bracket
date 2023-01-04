@@ -118,7 +118,7 @@ class ControllerProduit extends GenericController
 
         }
     }
-
+    // TODO : Probléme suppression
     /**
      * Suppression d'un produit
      * @return void

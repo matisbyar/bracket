@@ -16,6 +16,7 @@ a {
 
 a:hover {
     text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 html, body {
@@ -68,6 +69,10 @@ nav {
     font-family: "WorkSans", "ui-rounded";
     display: flex;
     flex-direction: row;
+}
+
+.navAdmin{
+ background-color: #1a231c;
 }
 
 /* Correspond au logo "Bracket." */
@@ -712,18 +717,10 @@ fieldset {
     background-color: rgba(169, 68, 66, 0.44);
 }
 
-.infoCompte {
-    font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
-}
-
-.infoCompte#admin {
-    color: #a94442;
-}
-
 .infoCompteButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
+
+
 }
 
 .infoCompteButton:first-child {
@@ -974,3 +971,21 @@ p.panier-alert {
     margin: 5px;
     font-size: 20px;
 }
+
+.InfoAccount {
+    font-family: "unna", "WorkSans" , Helvetica, Arial, sans-serif;
+    font-size: 70px;
+    font-weight: bold;
+    text-align: right;
+    margin: 20px 30px 0 0;
+}
+
+.InfoAccount#admin{
+    font-family: "unna", "WorkSans", Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: right;
+    color: #a94442;
+    margin: -30px 30px 0 0;
+}
+

@@ -6,6 +6,7 @@
 <form action="../web/index.php">
     <fieldset>
         <legend>Suppression d'un bijou</legend>
+        <input type="hidden" name="controller" value="produit">
         <input type='hidden' name='action' value='deleted'>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="produitId">Produit</label>

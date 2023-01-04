@@ -15,6 +15,11 @@
 </head>
 <body>
 <header>
+    <nav class="navAdmin">
+        <?php if (ConnexionClient::estAdministrateur()) { ?>
+            <div class='infoCompteButton' ><p><button id='admin'><a href="../web/index.php?controller=client&action=admin">Administration</a></button></p></div>
+        <?php } ?>
+    </nav>
     <nav>
         <a href="../web/index.php?action=home"><p class="logo">Bracket.</p></a>
         <div class="nav-raccourcis">
