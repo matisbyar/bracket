@@ -19,6 +19,12 @@ class ControllerCommande extends GenericController
         self::afficheVue("view.php", ["commandes" => $commandes, "pagetitle" => "Bracket - Mes commandes", "cheminVueBody" => "commande/list.php"]);
     }
 
+    public static function read()
+    {
+        $commande = (new CommandeRepository())->select($_GET["id"]);
+        self::afficheVue("view.php", ["commande" => $commande, "pagetitle" => "Bracket - Détail de la commande", "cheminVueBody" => "commande/detail.php"]);
+    }
+
     public static function commander(): void
     {
         $mail = ConnexionClient::getLoginUtilisateurConnecte();
