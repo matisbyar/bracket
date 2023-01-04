@@ -39,7 +39,7 @@ class ControllerProduit extends GenericController
     }
 
     /**
-     * Methode qui permet de voir tout les produits de la categorie bracelet
+     * Methode qui permet de voir tous les produits de la catégorie bracelet
      * @return void
      */
     public static function readAllBracelets(): void
@@ -52,7 +52,7 @@ class ControllerProduit extends GenericController
     }
 
     /**
-     * Methode qui permet de voir tout les produits de la categorie bagues
+     * Methode qui permet de voir tous les produits de la categorie bagues
      * @return void
      */
     public static function readAllBagues(): void
@@ -97,7 +97,7 @@ class ControllerProduit extends GenericController
                 $id = $produitRepository->getId($type);
 
                 if (!filter_var($image, FILTER_VALIDATE_URL)) {
-                    MessageFlash::ajouter("warning", "veuillez entrée un URL valide.");
+                    MessageFlash::ajouter("warning", "Veuillez entrez un lien valide.");
                     self::afficheVue('view.php', ['prix' => $_GET['prix'], 'materiau' => $_GET['materiau'], 'nom' => $_GET['nom'], 'description' => $_GET['description'], "pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/create.php"]);
                 } else if (getimagesize($image)[0] != 2132 && getimagesize($image)[1] != 1190) {
                     MessageFlash::ajouter("warning", "La taille de l'image n'est pas conforme.");
