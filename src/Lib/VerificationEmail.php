@@ -22,9 +22,12 @@ class VerificationEmail
         $lienValidationEmail = "$absoluteURL?action=validerEmail&controller=client&login=$loginURL&nonce=$nonceURL";
         $corpsEmail = "<a href=\"$lienValidationEmail\">Validation de votre email</a>";
 
-        // Temporairement avant d'envoyer un vrai mail
-        MessageFlash::ajouter("info", $corpsEmail);
-        // mail($utilisateur->getEmail(), "Validation de votre email", "Votre email a été validé.");
+        if (substr($client->getMail(), -10) == "@yopmail.com") {
+            MessageFlash::ajouter("info", "Un lien de validation a été envoyé à l'adresse $lienValidationEmail");
+            mail($client->getMail(), "Validation de votre email", wordwrap("Bonjour très cher(e) Validez votre email ici:" . $corpsEmail, 70, "\r\n"));
+        } else {
+            MessageFlash::ajouter("info", $corpsEmail);
+        }
     }
 
     /**
