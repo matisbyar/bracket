@@ -17,11 +17,11 @@ class ControllerProduit extends GenericController
     public static function readAll(): void
     {
         $produits = (new ProduitRepository())->selectAll();
-         if (sizeof($produits) > 0) self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket", "cheminVueBody" => "produit/list.php"]);
-         else {
-             MessageFlash::ajouter("info", "Oh oh... Il y a quelque chose de cassé... Revenez plus tard ;)");
-             self::home();
-         }
+        if (sizeof($produits) > 0) self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket", "cheminVueBody" => "produit/list.php"]);
+        else {
+            MessageFlash::ajouter("info", "Oh oh... Il y a quelque chose de cassé... Revenez plus tard ;)");
+            self::home();
+        }
     }
 
     /**
@@ -95,15 +95,20 @@ class ControllerProduit extends GenericController
                 $prix = floatval($prixStr);
                 $produitRepository = new ProduitRepository();
                 $id = $produitRepository->getId($type);
-                if (getimagesize($image)[0] != 2132 && getimagesize($image)[1] != 1190) {
+
+                if (!filter_var($image, FILTER_VALIDATE_URL)) {
+                    MessageFlash::ajouter("warning", "veuillez entrée un URL valide.");
+                    self::afficheVue('view.php', ['prix' => $_GET['prix'], 'materiau' => $_GET['materiau'], 'nom' => $_GET['nom'], 'description' => $_GET['description'], "pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/create.php"]);
+                } else if (getimagesize($image)[0] != 2132 && getimagesize($image)[1] != 1190) {
                     MessageFlash::ajouter("warning", "La taille de l'image n'est pas conforme.");
-                    self::home();
+                    self::afficheVue('view.php', ['prix' => $_GET['prix'], 'materiau' => $_GET['materiau'], 'nom' => $_GET['nom'], 'description' => $_GET['description'], "pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/create.php"]);
                 } else {
                     $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
                     $produitRepository->create($produit);
                     MessageFlash::ajouter("success", "Le produit a bien été créé.");
                     self::readAll();
                 }
+
             } else {
                 MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
                 self::home();
@@ -127,6 +132,7 @@ class ControllerProduit extends GenericController
         }
     }
     // TODO : Probléme suppression
+
     /**
      * Suppression d'un produit
      * @return void
