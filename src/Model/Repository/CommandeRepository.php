@@ -69,6 +69,7 @@ class CommandeRepository extends AbstractRepository
     public function getCommandeParId(int $id) : ?Commande
     {
         $sql = "SELECT * FROM " . $this->getNomTable() . "com JOIN p_contient con ON com.id=con.idCommande WHERE id = :id";
+        echo $sql;
         $statement = DatabaseConnection::getPdo()->prepare($sql);
         $statement->bindParam(":id", $id);
         $statement->execute();
@@ -84,9 +85,7 @@ class CommandeRepository extends AbstractRepository
         $commandeFormatTableauFinal[] = $resulats['adresse'];
         $commandeFormatTableauFinal[] = $resulats['client'];
         $commandeFormatTableauFinal[] = $listeBijoux;
-        var_dump($commandeFormatTableauFinal);
-        exit();
-        return null;
+        return $this->construire($commandeFormatTableauFinal);
     }
 
     public function getCommandeParIdClient(string $mail): ?array
