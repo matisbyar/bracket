@@ -32,13 +32,13 @@ class ControllerClient extends GenericController
                     self::redirige("?action=login&controller=client");
                 }
             }
-            (new ClientRepository())->save($client);
+            (new ClientRepository())->create($client);
             MessageFlash::ajouter("success", "Votre compte à bien été créé");
             self::redirige("?action=readAll&controller=produit");
         } else {
             if (!ConnexionClient::estAdministrateur() && $_REQUEST['estAdmin']) MessageFlash::ajouter("warning", "Vous n'avez pas le droit de créer un administrateur. Le compte a été créé sans droits administrateur.");
             $client = Client::construireDepuisFormulaire($_REQUEST);
-            (new ClientRepository())->save($client);
+            (new ClientRepository())->create($client);
             VerificationEmail::envoiEmailValidation($client);
 
             MessageFlash::ajouter("success", "Votre compte a été créé.");

@@ -12,7 +12,7 @@
         </p>
         <div class="starred-buttons">
             <button id="enSavoirPlus"><a href="?action=read&id=<?php echo $produitALaUne->getId(); ?>">EN SAVOIR PLUS</a></button>
-            <button id="acheter">ACHETER</button>
+            <button id="acheter"><a href="?action=read&id=<?php echo $produitALaUne->getId(); ?>">ACHETER</a></button>
         </div>
     </div>
 </div>

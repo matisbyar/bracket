@@ -14,7 +14,7 @@ class ControllerAvis extends GenericController
         if (ConnexionClient::estConnecte()) {
             $tableauFormulaire = $_REQUEST;
             $avis = Avis::construireDepuisFormulaire($tableauFormulaire);
-            (new AvisRepository())->save($avis);
+            (new AvisRepository())->create($avis);
             MessageFlash::ajouter("success", "Votre avis a bien été ajouté, merci !");
             self::redirige("?controller=produit&action=read&id=" . $avis->getIdBijou());
         } else {

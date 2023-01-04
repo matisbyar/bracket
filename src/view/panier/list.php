@@ -53,7 +53,7 @@ if (ConnexionClient::estConnecte()) {
 
             echo '<div class="panier-actions">
             <button><a href="?action=home">Poursuivre mes emplètes</a></button>
-            <button><a href="?controller=panier&action=commander">Commander</a></button>
+            <button><a href="?controller=commande&action=commander">Commander</a></button>
         </div>';
         }
         ?>

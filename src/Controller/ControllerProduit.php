@@ -93,7 +93,7 @@ class ControllerProduit extends GenericController
                 self::redirige("?action=home");
             } else {
                 $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
-                $produitRepository->save($produit);
+                $produitRepository->create($produit);
                 MessageFlash::ajouter("success", "Le produit a bien été créé.");
                 self::redirige("?action=readAll");
             }

@@ -88,6 +88,19 @@ class PanierRepository extends AbstractRepository
         }
     }
 
+    public function viderPanierParClient(string $mail): void
+    {
+        try {
+            $requete = "DELETE FROM p_paniers WHERE mailClient = :mailClient";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $statement->bindParam(":mailClient", $mail);
+            $statement->execute();
+            $statement->closeCursor();
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La suppression de l'élément dans panier n'a pu être faite.");
+        }
+    }
+
     public function contientArticle(string $mailClient, int $idArticle): ?bool
     {
         try {
@@ -131,6 +144,22 @@ class PanierRepository extends AbstractRepository
             $resultat = $statement->fetch();
             $statement->closeCursor();
             return $resultat['total'];
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La récupération du panier n'a pu être faite.");
+            return null;
+        }
+    }
+
+    public function getIdPanier(string $mailClient): ?int
+    {
+        try {
+            $requete = "SELECT idPanier FROM p_paniers WHERE mailClient = :mailClient";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $statement->bindParam(":mailClient", $mailClient);
+            $statement->execute();
+            $resultat = $statement->fetch();
+            $statement->closeCursor();
+            return $resultat['idPanier'];
         } catch (PDOException) {
             GenericController::error("", "Désolé ! La récupération du panier n'a pu être faite.");
             return null;

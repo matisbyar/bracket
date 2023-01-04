@@ -204,7 +204,7 @@ class PanierSession
                     $ligneExistante = (new PanierRepository())->selectPanierFromClientEtArticle($idClient, $ligne->getIdArticle());
                     (new PanierRepository())->modifierQuantite($idClient, $ligne->getIdArticle(), $ligneExistante->getQuantite() + $ligne->getQuantite());
                 } else {
-                    (new PanierRepository())->save($ligne);
+                    (new PanierRepository())->create($ligne);
                 }
             }
             self::vider();

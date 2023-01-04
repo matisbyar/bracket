@@ -240,8 +240,17 @@ button#enSavoirPlus a {
     color: #000000;
 }
 
+button#acheter a {
+    color: #ffffff;
+}
+
 .starred-buttons > button#enSavoirPlus:hover, .starred-buttons > button#acheter:hover {
     box-shadow: 0 0 0 2px black;
+    color: black;
+    background: transparent;
+}
+
+.starred-buttons > button#acheter a:hover{
     color: black;
     background: transparent;
 }
@@ -342,8 +351,8 @@ a.produit-a {
 }
 
 .imageAffiche {
-    width: 70%;
-    height: 70%;
+    width: 60%;
+    height: 60%;
     object-fit: cover;
     margin-left: 150px;
 }

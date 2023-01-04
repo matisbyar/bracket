@@ -13,7 +13,7 @@ abstract class AbstractRepository
      * @param AbstractDataObject $object
      * @return void
      */
-    public function save(AbstractDataObject $object)
+    public function create(AbstractDataObject $object)
     {
         $sql = "INSERT INTO " . $this->getNomTable() . " (";
         foreach ($this->getNomColonnes() as $colonne) {
