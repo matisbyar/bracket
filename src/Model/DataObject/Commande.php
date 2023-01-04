@@ -6,7 +6,7 @@ class Commande extends AbstractDataObject {
 
     private int $id;
     private string $adresse, $client, $statut;
-    private array $produits;
+    private array $articles;
 
     /**
      * Constructeur
@@ -21,7 +21,7 @@ class Commande extends AbstractDataObject {
         $this->id = $id;
         $this->adresse = $adresse;
         $this->client = $client;
-        $this->produits = $produits;
+        $this->articles = $produits;
         $this->statut = "en attente";
     }
 
@@ -73,14 +73,14 @@ class Commande extends AbstractDataObject {
         $this->client = $client;
     }
 
-    public function getProduits(): array
+    public function getArticles(): array
     {
-        return $this->produits;
+        return $this->articles;
     }
 
-    public function setProduits(array $produits): void
+    public function setArticles(array $articles): void
     {
-        $this->produits = $produits;
+        $this->articles = $articles;
     }
 
 	public function formatTableau(): array {
@@ -88,7 +88,7 @@ class Commande extends AbstractDataObject {
             "id" => $this->getId(),
             "adresse" => $this->getAdresse(),
             "client" => $this->getClient(),
-            "produits" => $this->getProduits(),
+            "produits" => $this->getArticles(),
             "statut" => $this->getStatut()
         ];
 	}
