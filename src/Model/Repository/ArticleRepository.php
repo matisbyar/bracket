@@ -53,4 +53,20 @@ class ArticleRepository extends AbstractRepository
             return null;
         }
     }
+
+    public function getArticleParIdArticle(int $idArticle): ?Article
+    {
+        try {
+            $requete = "SELECT * FROM p_articles WHERE idArticle = :idArticle";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $statement->bindParam(":idArticle", $idArticle);
+            $statement->execute();
+            $resultat = $statement->fetch();
+            $statement->closeCursor();
+            return $this->construire($resultat);
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La récupération de l'article n'a pu être faite.");
+            return null;
+        }
+    }
 }

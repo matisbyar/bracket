@@ -200,9 +200,6 @@ class PanierSession
                 $lignes[] = $panier;
             }
             foreach ($lignes as $ligne) {
-                var_dump($ligne);
-                echo '<br><br>';
-
                 if ((new PanierRepository())->contientArticle($idClient, $ligne->getIdArticle())) {
                     $ligneExistante = (new PanierRepository())->selectPanierFromClientEtArticle($idClient, $ligne->getIdArticle());
                     (new PanierRepository())->modifierQuantite($idClient, $ligne->getIdArticle(), $ligneExistante->getQuantite() + $ligne->getQuantite());

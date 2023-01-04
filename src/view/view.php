@@ -15,33 +15,31 @@
 </head>
 <body>
 <header>
-    <nav class="navAdmin">
-        <?php if (ConnexionClient::estAdministrateur()) { ?>
-            <div class='infoCompteButton' ><p><button id='admin'><a href="../web/index.php?controller=client&action=admin">Administration</a></button></p></div>
-        <?php } ?>
-    </nav>
     <nav>
         <a href="../web/index.php?action=home"><p class="logo">Bracket.</p></a>
         <div class="nav-raccourcis">
+            <?php if (ConnexionClient::estAdministrateur()) { ?>
+                <a href="../web/index.php?controller=client&action=admin"><p>Panel d'administration</p></a>
+            <?php } ?>
             <a href="../web/index.php?action=readAllBracelets"><p>Bracelets</p></a>
             <a href="../web/index.php?action=readAllBagues"><p>Bagues</p></a>
             <?php if (ConnexionClient::estConnecte()) { ?>
                 <a href="../web/index.php?controller=client&action=account">
-                    <button class="lien"><img src="../images/account_login.svg" alt="Fav"></button>
+                    <button class="lien"><img src="../images/account_login.svg" alt="Mon compte"></button>
                 </a>
                 <a href="../web/index.php?controller=client&action=account">
                     <p><?php echo (new ClientRepository())->getClientByEmail(ConnexionClient::getLoginUtilisateurConnecte())->getPrenom(); ?></p>
                 </a>
                 <a href="../web/index.php?controller=client&action=logout">
-                        <button class="lien"><img src="../images/logout.svg" alt="Fav" ></button>
-                    </a>
+                    <button class="lien"><img src="../images/logout.svg" alt="Se déconnecter" ></button>
+                </a>
             <?php } else { ?>
                <a href="../web/index.php?controller=client&action=login">
-                        <button class="lien"><img src="../images/account_login.svg" alt="Fav"></button>
+                        <button class="lien"><img src="../images/account_login.svg" alt="Se connecter/S'inscrire"></button>
                     </a>
             <?php } ?>
             <a href="../web/index.php?controller=panier&action=basket">
-                <button class="lien"><img src="../images/basket.svg" alt="Fav"></button>
+                <button class="lien"><img src="../images/basket.svg" alt="Panier"></button>
             </a>
         </div>
     </nav>

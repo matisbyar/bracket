@@ -1,4 +1,6 @@
 <?php
+
+use App\Bracket\Model\DataObject\Produit;
 /** @var Produit $produits */
 echo '<div class="wrapper">';
 foreach ($produits as $produit) {

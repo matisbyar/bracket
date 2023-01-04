@@ -65,11 +65,11 @@ class ControllerPanier extends GenericController
     public static function delete(): void
     {
         if (ConnexionClient::estConnecte()) {
-            (new PanierRepository)->deleteElementFromPanier(ConnexionClient::getLoginUtilisateurConnecte(), $_REQUEST["id"]);
-            MessageFlash::ajouter("success", "Le produit a bien été supprimé du panier.");
+            (new PanierRepository)->deleteElementFromPanier(ConnexionClient::getLoginUtilisateurConnecte(), $_REQUEST["idArticle"]);
         } else {
-            MessageFlash::ajouter("warning", "Vous devez être connecté pour supprimer un produit du panier.");
+            PanierSession::supprimerArticle((new ArticleRepository)->getArticleParIdArticle($_REQUEST["idArticle"]));
         }
-        self::redirige("?action=home");
+        MessageFlash::ajouter("success", "Le produit a bien été supprimé du panier.");
+        self::redirige("?controller=panier&action=basket");
     }
 }

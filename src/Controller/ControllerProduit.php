@@ -170,11 +170,4 @@ class ControllerProduit extends GenericController
             self::redirige("?action=home");
         }
     }
-
-    public static function ajouterAuPanier(): void
-    {
-        $produit = (new ProduitRepository)->select($_REQUEST["ajouterAuPanier"]);
-        MessageFlash::ajouter("success", "Le produit a été ajouté au panier. Vous pouvez le consulter en cliquant" . "<a href=>ici</a>" . ".");
-        self::redirige("?action=read&id=" . $produit->getId());
-    }
 }

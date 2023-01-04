@@ -57,7 +57,7 @@ if (!ConnexionClient::estAdministrateur()) {
                     <img class="admin-icon-hover" src="../images/add.svg">
                 </div>
                 <div class="admin-action-title">
-                    <h2>Ajouter un produit</h2>
+                    <h2>Créer une fiche produit</h2>
                 </div>
             </a>
         </div>
@@ -68,7 +68,19 @@ if (!ConnexionClient::estAdministrateur()) {
                     <img class="admin-icon-hover" src="../images/delete.svg">
                 </div>
                 <div class="admin-action-title">
-                    <h2>Supprimer un produit</h2>
+                    <h2>Supprimer une fiche produit</h2>
+                    <p><strong>Attention !</strong> Cette action supprimera tous les articles définis.</p>
+                </div>
+            </a>
+        </div>
+        <div class="admin-action">
+            <a href="?action=readAll&controller=article&action=create">
+                <div class="admin-action-icon">
+                    <img class="admin-icon" src="../images/add-alt.svg">
+                    <img class="admin-icon-hover" src="../images/add.svg">
+                </div>
+                <div class="admin-action-title">
+                    <h2>Ajouter un article</h2>
                 </div>
             </a>
         </div>
