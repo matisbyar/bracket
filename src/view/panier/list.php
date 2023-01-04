@@ -45,15 +45,15 @@ if (ConnexionClient::estConnecte()) {
             </div>';
         }
         $sousTotal = (new PanierRepository)->prixTotal($client->getMail());
-        echo '<div class="panier-total">
+        echo '<hr><div class="panier-total">
             <p>Sous-total : ' . $sousTotal . '€</p>
             <p>Frais de port : 5€</p>
             <p>Total : ' . ($sousTotal + 5) . '€</p>
         </div>';
 
         echo '<div class="panier-actions">
-            <button><a href="?action=home">Poursuivre mes emplètes</a></button>
-            <button><a href="?controller=commande&action=commander">Commander</a></button>
+            <button id="retourHome"><a href="?action=home">Poursuivre mes emplètes</a></button>
+            <button id="acheter"><a href="?controller=commande&action=commander">Commander</a></button>
         </div>';
         ?>
         <div>
@@ -90,19 +90,20 @@ if (ConnexionClient::estConnecte()) {
                     <button><a href="?controller=produit&action=read&id=' . $produit->getId() . '">Consulter</a></button>
                     <button><a href="?controller=panier&action=delete&idArticle=' . $idArticle . '">Supprimer</a></button>
                 </div>
-            </div>';
+            </div>
+            ';
 
         }
         $sousTotal = PanierSession::prixTotal();
-        echo '<div class="panier-total">
+        echo '<hr><div class="panier-total">
             <p>Sous-total : ' . $sousTotal . '€</p>
             <p>Frais de port : 5€</p>
             <p>Total : ' . ($sousTotal + 5) . '€</p>
         </div>';
 
         echo '<div class="panier-actions">
-            <button><a href="?action=home">Poursuivre mes emplètes</a></button>
-            <button><a href="?controller=client&action=commander">Commander</a></button>
+            <button id="retourHome"><a href="?action=home">Poursuivre mes emplètes</a></button>
+            <button id="acheter"><a href="?controller=client&action=commander">Commander</a></button>
         </div>';
     }
 } ?>

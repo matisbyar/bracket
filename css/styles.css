@@ -115,7 +115,7 @@ footer {
     text-align: center;
     font-family: "WorkSans", sans-serif;
     width: 100%;
-    margin-top: 100px;
+    margin-top: 20px;
 }
 
 .footer-container {
@@ -199,7 +199,7 @@ footer {
     filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.25));
 }
 
-.starred-buttons > button {
+.starred-buttons > button, .panier-actions > button {
     background-color: rgba(51, 51, 51, 0.05);
     border-radius: 8px;
     border-width: 0;
@@ -229,14 +229,14 @@ button#acheter {
     font-size: 12px;
 }
 
-button#enSavoirPlus {
+button#enSavoirPlus, button#retourHome {
     color: white;
     padding: 10px;
     cursor: pointer;
     font-size: 12px;
 }
 
-button#enSavoirPlus a {
+button#enSavoirPlus a, button#retourHome a {
     color: #000000;
 }
 
@@ -244,13 +244,13 @@ button#acheter a {
     color: #ffffff;
 }
 
-.starred-buttons > button#enSavoirPlus:hover, .starred-buttons > button#acheter:hover {
+.starred-buttons > button#enSavoirPlus:hover, .starred-buttons > button#acheter:hover, .panier-actions > button#retourHome:hover, .panier-actions > button#acheter:hover {
     box-shadow: 0 0 0 2px black;
     color: black;
     background: transparent;
 }
 
-.starred-buttons > button#acheter a:hover{
+.starred-buttons > button#acheter a:hover, .panier-actions > button#acheter:hover a {
     color: black;
     background: transparent;
 }
@@ -367,7 +367,18 @@ a.produit-a {
 div.titres-home {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
+}
+
+a.sous-titre-home {
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+    font-family: "WorkSans", monospace;
+}
+
+a.sous-titre-home:hover {
+    text-decoration: underline;
 }
 
 /* PAGE DÉTAIL D'UN PRODUIT */
@@ -986,9 +997,24 @@ p.panier-alert {
 .panier-total {
     display: flex;
     flex-direction: column;
-    margin: 100px 20% 0 0;
+    margin: 0 20% 0 0;
     font-family: 'WorkSans', monospace;
     align-items: end;
+}
+
+.panier-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin: 0 20% 0 0;
+}
+
+.panier-actions button {
+    border: none;
+    border-radius: 5px;
+    font-family: 'WorkSans', monospace;
+    font-size: 20px;
+    margin: 20px 10px 0 0;
 }
 
 .panier-total p {

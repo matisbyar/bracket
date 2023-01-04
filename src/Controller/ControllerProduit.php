@@ -17,7 +17,11 @@ class ControllerProduit extends GenericController
     public static function readAll(): void
     {
         $produits = (new ProduitRepository())->selectAll();
-        self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket", "cheminVueBody" => "produit/list.php"]);
+         if (sizeof($produits) > 0) self::afficheVue("view.php", ["produits" => $produits, "pagetitle" => "Bracket", "cheminVueBody" => "produit/list.php"]);
+         else {
+             MessageFlash::ajouter("info", "Oh oh... Il y a quelque chose de cassé... Revenez plus tard ;)");
+             self::home();
+         }
     }
 
     /**
@@ -28,6 +32,10 @@ class ControllerProduit extends GenericController
     {
         $produit = (new ProduitRepository())->select($_GET['id']);
         if ($produit != null) self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Bracket - Détail", "cheminVueBody" => "produit/detail.php"]);
+        else {
+            MessageFlash::ajouter("danger", "Le produit n'existe pas.");
+            self::home();
+        }
     }
 
     /**
@@ -57,7 +65,7 @@ class ControllerProduit extends GenericController
     }
 
     /**
-     * Methode qui permet de renvoyé sur la page de creation d'un produit
+     * Renvoie sur la page de creation d'un produit
      * @return void
      */
     public static function create(): void
@@ -67,39 +75,39 @@ class ControllerProduit extends GenericController
         } else {
             MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
             self::redirige("?action=home");
-
         }
     }
 
     /**
-     * Methode qui permet de creer un produit
+     * Crée un produit
      * @return void
      */
     public static function created(): void
     {
-        #2132 1190
-        if (ConnexionClient::estAdministrateur()) {
-            $type = $_GET["bijou"];
-            $prixStr = $_GET["prix"];
-            $material = $_GET["materiau"];
-            $name = $_GET["nom"];
-            $description = $_GET["description"];
-            $image = $_GET["image"];
-            $prix = floatval($prixStr);
-            $produitRepository = new ProduitRepository();
-            $id = $produitRepository->getId($type);
-            if (getimagesize($image)[0] != 2132 && getimagesize($image)[1] != 1190) {
-                MessageFlash::ajouter("warning", "La taille de l'image n'est pas conforme.");
-                self::redirige("?action=home");
+        if (isset($_GET['bijou']) && isset($_GET['prix']) && isset($_GET['materiau']) && isset($_GET['nom']) && isset($_GET['description']) && isset($_GET['image'])) {
+            if (ConnexionClient::estAdministrateur()) {
+                $type = $_GET["bijou"];
+                $prixStr = $_GET["prix"];
+                $material = $_GET["materiau"];
+                $name = ucfirst($_GET["nom"]);
+                $description = $_GET["description"];
+                $image = $_GET["image"];
+                $prix = floatval($prixStr);
+                $produitRepository = new ProduitRepository();
+                $id = $produitRepository->getId($type);
+                if (getimagesize($image)[0] != 2132 && getimagesize($image)[1] != 1190) {
+                    MessageFlash::ajouter("warning", "La taille de l'image n'est pas conforme.");
+                    self::home();
+                } else {
+                    $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
+                    $produitRepository->create($produit);
+                    MessageFlash::ajouter("success", "Le produit a bien été créé.");
+                    self::readAll();
+                }
             } else {
-                $produit = new Produit($id + 1, $type, $prix, $material, $name, $description, $image);
-                $produitRepository->create($produit);
-                MessageFlash::ajouter("success", "Le produit a bien été créé.");
-                self::redirige("?action=readAll");
+                MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
+                self::home();
             }
-        } else {
-            MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
-            self::redirige("?action=home");
         }
     }
 
@@ -156,17 +164,22 @@ class ControllerProduit extends GenericController
      */
     public static function updated(): void
     {
-        if (ConnexionClient::estAdministrateur()) {
-            $produit = (new ProduitRepository)->select($_POST["id"]);
-            $produit->setPrix(floatval($_POST["prix"]));
-            $produit->setNom($_POST["nom"]);
-            $produit->setDescription($_POST["description"]);
-            $produit->setImage($_POST["image"]);
-            (new ProduitRepository)->update($produit);
-            MessageFlash::ajouter("success", "Le produit a été modifié");
-            self::redirige("?action=read&id=" . $produit->getId());
+        if (isset($_POST["id"]) && isset($_POST["prix"]) && isset($_POST["nom"]) && isset($_POST["description"]) && isset($_POST["image"])) {
+            if (ConnexionClient::estAdministrateur()) {
+                $produit = (new ProduitRepository)->select($_POST["id"]);
+                $produit->setPrix(floatval($_POST["prix"]));
+                $produit->setNom($_POST["nom"]);
+                $produit->setDescription($_POST["description"]);
+                $produit->setImage($_POST["image"]);
+                (new ProduitRepository)->update($produit);
+                MessageFlash::ajouter("success", "Le produit a été modifié");
+                self::redirige("?action=read&id=" . $produit->getId());
+            } else {
+                MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
+                self::redirige("?action=home");
+            }
         } else {
-            MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
+            MessageFlash::ajouter("warning", "Une erreur est survenue.");
             self::redirige("?action=home");
         }
     }

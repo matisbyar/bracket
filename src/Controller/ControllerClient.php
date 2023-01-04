@@ -20,6 +20,10 @@ class ControllerClient extends GenericController
      */
     public static function create(): void
     {
+        if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+            MessageFlash::ajouter("danger", "L'adresse mail n'est pas valide.");
+            self::redirige("?action=login&controller=client");
+        }
         if (!MotDePasse::motDePasseValide($_POST['password'])) {
             MessageFlash::ajouter("warning", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
             self::redirige("?action=login&controller=client");
