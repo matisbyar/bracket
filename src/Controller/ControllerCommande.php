@@ -79,8 +79,8 @@ class ControllerCommande extends GenericController
             );
             (new PanierRepository())->create($panier);
         }
-        MessageFlash::ajouter("success", "Commande recommandée.");
-        self::home();
+        MessageFlash::ajouter("success", "Commande ajoutée dans votre panier.");
+        ControllerPanier::basket();
     }
 
 
