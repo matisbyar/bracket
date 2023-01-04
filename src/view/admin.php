@@ -29,7 +29,7 @@ if (!ConnexionClient::estAdministrateur()) {
             </a>
         </div>
         <div class="admin-action">
-            <a href="?action=readAll&controller=produit&action=readAllBracelets">
+            <a href="?controller=produit&action=readAllBracelets">
                 <div class="admin-action-icon">
                     <img class="admin-icon" src="../images/edit-alt.svg">
                     <img class="admin-icon-hover" src="../images/edit.svg">
@@ -40,7 +40,7 @@ if (!ConnexionClient::estAdministrateur()) {
             </a>
         </div>
         <div class="admin-action">
-            <a href="?action=readAll&controller=produit&action=readAllBagues">
+            <a href="?controller=produit&action=readAllBagues">
                 <div class="admin-action-icon">
                     <img class="admin-icon" src="../images/edit-alt.svg">
                     <img class="admin-icon-hover" src="../images/edit.svg">
@@ -51,7 +51,7 @@ if (!ConnexionClient::estAdministrateur()) {
             </a>
         </div>
         <div class="admin-action">
-            <a href="?action=readAll&controller=produit&action=create">
+            <a href="?controller=produit&action=create">
                 <div class="admin-action-icon">
                     <img class="admin-icon" src="../images/add-alt.svg">
                     <img class="admin-icon-hover" src="../images/add.svg">
@@ -62,7 +62,7 @@ if (!ConnexionClient::estAdministrateur()) {
             </a>
         </div>
         <div class="admin-action">
-            <a href="?action=readAll&controller=produit&action=delete">
+            <a href="?controller=produit&action=delete">
                 <div class="admin-action-icon">
                     <img class="admin-icon" src="../images/delete-alt.svg">
                     <img class="admin-icon-hover" src="../images/delete.svg">
@@ -74,13 +74,24 @@ if (!ConnexionClient::estAdministrateur()) {
             </a>
         </div>
         <div class="admin-action">
-            <a href="?action=readAll&controller=article&action=create">
+            <a href="?controller=article&action=create">
                 <div class="admin-action-icon">
                     <img class="admin-icon" src="../images/add-alt.svg">
                     <img class="admin-icon-hover" src="../images/add.svg">
                 </div>
                 <div class="admin-action-title">
                     <h2>Ajouter un article</h2>
+                </div>
+            </a>
+        </div>
+        <div class="admin-action">
+            <a href="?controller=commande&action=commande">
+                <div class="admin-action-icon">
+                    <img class="admin-icon" src="../images/basket-alt.svg">
+                    <img class="admin-icon-hover" src="../images/basket.svg">
+                </div>
+                <div class="admin-action-title">
+                    <h2>Commande</h2>
                 </div>
             </a>
         </div>
