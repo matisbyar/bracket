@@ -20,11 +20,11 @@
         </fieldset>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="prixId">Prix</label>
-            <input class="InputAddOn-field" type="number" placeholder="150" name="prix" id="prixId" required/>
+            <input class="InputAddOn-field" value="<?php if (isset($_REQUEST['prix'])) echo $_REQUEST['prix']; ?>" type="number" placeholder="150" name="prix" id="prixId" required/>
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="materiauId">Matériau</label>
-            <select class="InputAddOn-field" name="materiau" size="1" id="materiauId">
+            <select class="InputAddOn-field" value="<?php if (isset($_REQUEST['materiau'])) echo $_REQUEST['materiau']; ?>" name="materiau" size="1" id="materiauId">
                 <option>Acier Inoxydable</option>
                 <option>Argent</option>
                 <option>Or</option>
@@ -34,11 +34,11 @@
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="nomId">Nom</label>
-            <input class="InputAddOn-field" type="text" placeholder="Bracelet Georges" name="nom" id="nomId" required/>
+            <input class="InputAddOn-field" value="<?php if (isset($_REQUEST['nom'])) echo $_REQUEST['nom']; ?>" type="text" placeholder="Bracelet Georges" name="nom" id="nomId" required/>
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="descriptionId">Description</label>
-            <input class="InputAddOn-field" type="text" placeholder="" name="description" id="descriptionId" required/>
+            <input class="InputAddOn-field" value="<?php if (isset($_REQUEST['description'])) echo $_REQUEST['description']; ?>" type="text" placeholder="" name="description" id="descriptionId" required/>
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="imageId">Lien de l'image</label>
