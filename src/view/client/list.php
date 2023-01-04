@@ -1,5 +1,5 @@
 <?php
-/** @var Client $cleints;*/
+/** @var Client $clients;*/
 echo '<p><strong>Client avec login/prénom/nom :</strong><ul>';
 foreach ($clients as $client)
     echo '<li><p><a href="../web/index.php?controller=client&action=read&email='.

@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Connexion</title>
-    <link rel="stylesheet" href="../../../css/styles.css"/>
-</head>
-<body>
-
 <div class="back-btn">
-    <button onclick="history.go(-1);"><i class="fas fa-arrow-left"><img src="../images/backPage.svg" alt="button retour"></i></button>
+    <button onclick="history.go(-1);"><img src="../images/backPage.svg" alt="button retour"></i></button>
 </div>
 
 <form action="../web/index.php">

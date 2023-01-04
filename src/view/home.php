@@ -17,7 +17,11 @@
     </div>
 </div>
 
-<h1 class="titres-home">Les classiques</h1>
+<div class="titres-home">
+    <h1 class="titre-home">Les classiques</h1>
+    <a class="sous-titre-home" href="?controller=produit&action=readAll">Voir plus</a>
+    <i class="fa-solid fa-arrow-left"></i>
+</div>
 <?php
 
 use App\Bracket\Lib\MessageFlash;
@@ -29,6 +33,3 @@ foreach ($messages as $message) {
 }
 require "produit/list.php";
 ?>
-<h1>Les nouveautés</h1>
-<small><a href="?action=readAll">VOIR PLUS ></a></small>
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Logo-Test.png" alt="Test">

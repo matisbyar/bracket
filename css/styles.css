@@ -326,11 +326,17 @@ a.produit-a {
     margin-left: 150px;
 }
 
-.titres-home {
-    margin-left: 10px;
+.titre-home {
+    margin-left: 30px;
     font-family: 'Unna', monospace;
     font-size: 40px;
     font-weight: bold;
+}
+
+div.titres-home {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 /* PAGE DÉTAIL D'UN PRODUIT */
