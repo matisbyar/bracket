@@ -68,8 +68,7 @@ class CommandeRepository extends AbstractRepository
 
     public function getCommandeParId(int $id) : ?Commande
     {
-        $sql = "SELECT * FROM " . $this->getNomTable() . "com JOIN p_contient con ON com.id=con.idCommande WHERE id = :id";
-        echo $sql;
+        $sql = "SELECT * FROM " . $this->getNomTable() . " com JOIN p_contient con ON com.id=con.idCommande WHERE id = :id";
         $statement = DatabaseConnection::getPdo()->prepare($sql);
         $statement->bindParam(":id", $id);
         $statement->execute();
@@ -79,11 +78,12 @@ class CommandeRepository extends AbstractRepository
         foreach ($resulats as $commandeFormatTableau) {
             $bijou = (new ProduitRepository())->getProduitParId($commandeFormatTableau['idArticle']);
             $listeBijoux[] = $bijou;
+            $save = $commandeFormatTableau;
         }
         $commandeFormatTableauFinal = array();
-        $commandeFormatTableauFinal[] = $resulats['id'];
-        $commandeFormatTableauFinal[] = $resulats['adresse'];
-        $commandeFormatTableauFinal[] = $resulats['client'];
+        $commandeFormatTableauFinal[] = $save['id'];
+        $commandeFormatTableauFinal[] = $save['adresse'];
+        $commandeFormatTableauFinal[] = $save['client'];
         $commandeFormatTableauFinal[] = $listeBijoux;
         return $this->construire($commandeFormatTableauFinal);
     }
