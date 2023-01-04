@@ -27,21 +27,33 @@ if (ConnexionClient::estConnecte()) {
             $idArticle = $ligne->getIdArticle();
             $produit = (new ProduitRepository)->getProduitParId($ligne->getIdArticle());
             echo '<div class="panier-article">
-            <div class="panier-article-image">
-                <img src="' . $produit->getImage() . '" alt="' . $produit->getNom() . '" class="panier-article-image">
-            </div>
-            <div class="panier-article-info">
-                <h2>' . $produit->getNom() . '</h2>
-                <div class="panier-article-description">
-                    <p>' . $produit->getDescription() . '</p>
-                <p>Quantité : ' . $ligne->getQuantite() . '</p>
-                <p>' . $produit->getPrix() . '€</p>
+                <div class="panier-article-image">
+                    <img src="' . $produit->getImage() . '" alt="' . $produit->getNom() . '" class="panier-article-image">
                 </div>
-            </div>
-            <div class="panier-article-actions">
-                <button><a href="?controller=produit&action=read&id=' . $produit->getId() . '">Consulter</a></button>
-                <button><a href="?controller=panier&action=delete&idArticle=' . $idArticle . '">Supprimer</a></button>
-</div>
+                <div class="panier-article-info">
+                    <h2>' . $produit->getNom() . '</h2>
+                    <div class="panier-article-description">
+                        <p>' . $produit->getDescription() . '</p>
+                    <p>Quantité : ' . $ligne->getQuantite() . '</p>
+                    <p>' . $produit->getPrix() . '€</p>
+                    </div>
+                </div>
+                <div class="panier-article-actions">
+                    <button><a href="?controller=produit&action=read&id=' . $produit->getId() . '">Consulter</a></button>
+                    <button><a href="?controller=panier&action=delete&idArticle=' . $idArticle . '">Supprimer</a></button>
+                </div>
+            </div>';
+
+            $sousTotal = (new PanierRepository)->prixTotal($client->getMail());
+            echo '<div class="panier-total">
+            <p>Sous-total : ' . $sousTotal . '€</p>
+            <p>Frais de port : 5€</p>
+            <p>Total : ' . ($sousTotal + 5) . '€</p>
+        </div>';
+
+            echo '<div class="panier-actions">
+            <button><a href="?action=home">Poursuivre mes emplètes</a></button>
+            <button><a href="?controller=panier&action=commander">Commander</a></button>
         </div>';
         }
         ?>
@@ -87,6 +99,11 @@ if (ConnexionClient::estConnecte()) {
             <p>Sous-total : ' . $sousTotal . '€</p>
             <p>Frais de port : 5€</p>
             <p>Total : ' . ($sousTotal + 5) . '€</p>
+        </div>';
+
+        echo '<div class="panier-actions">
+            <button><a href="?action=home">Poursuivre mes emplètes</a></button>
+            <button><a href="?controller=panier&action=commander">Commander</a></button>
         </div>';
     }
 } ?>

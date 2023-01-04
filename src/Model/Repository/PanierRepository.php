@@ -120,4 +120,20 @@ class PanierRepository extends AbstractRepository
             GenericController::error("", "Désolé ! La modification de la quantité n'a pu être faite.");
         }
     }
+
+    public function prixTotal(string $mailClient): ?float
+    {
+        try {
+            $requete = "SELECT SUM(quantite * prix) AS total FROM p_paniers JOIN p_articles ON p_paniers.idArticle = p_articles.idArticle JOIN p_bijoux ON p_articles.idBijou = p_bijoux.id WHERE p_paniers.mailClient = :mailClient";
+            $statement = DatabaseConnection::getPdo()->prepare($requete);
+            $statement->bindParam(":mailClient", $mailClient);
+            $statement->execute();
+            $resultat = $statement->fetch();
+            $statement->closeCursor();
+            return $resultat['total'];
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La récupération du panier n'a pu être faite.");
+            return null;
+        }
+    }
 }
