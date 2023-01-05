@@ -15,9 +15,14 @@ class ControllerCommande extends GenericController
 
     public static function readAll()
     {
+
         $mail = ConnexionClient::getLoginUtilisateurConnecte();
         $commandes = (new CommandeRepository())->getCommandeParIdClient($mail);
-        self::afficheVue("view.php", ["commandes" => $commandes, "pagetitle" => "Bracket - Mes commandes", "cheminVueBody" => "commande/list.php"]);
+        if(sizeof($commandes) > 0) self::afficheVue("view.php", ["commandes" => $commandes, "pagetitle" => "Bracket - Mes commandes", "cheminVueBody" => "commande/list.php"]);
+        else {
+            MessageFlash::ajouter("info", "Vous n'avez pas encore passé aucune commande.");
+            self::redirige("index.php?controller=client&action=account");
+        }
     }
 
     public static function read()
@@ -49,7 +54,7 @@ class ControllerCommande extends GenericController
             (new CommandeRepository)->update($commande);
         } else {
             MessageFlash::ajouter("warning", "Erreur de mises à jour.");
-            self::redirige("?action=home");
+            self::home();
         }
     }
 
