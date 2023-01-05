@@ -10,7 +10,7 @@
         <input type='hidden' name='action' value='deleted'>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="produitId">Produit</label>
-            <select class="InputAddOn-field" name="Produit" size="1" id="produitId">
+            <select class="InputAddOn-field" name="produit" size="1" id="produitId">
                 <?php foreach ($produits as $produit) : ?>
                     <option value="<?= $produit->getId() ?>"><?= $produit->getNom() ?></option>
                 <?php endforeach; ?>

@@ -20,34 +20,39 @@ class ControllerClient extends GenericController
      */
     public static function create(): void
     {
-        if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
-            MessageFlash::ajouter("danger", "L'adresse mail n'est pas valide.");
-            self::afficheVue('view.php', ['nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'date' => $_POST['naissance'], 'email' => $_POST['mail'], 'adresse' => $_POST['adresse'], 'pagetitle' => 'Login', 'cheminVueBody' => 'client/login.php']);
-        }
-        if (!MotDePasse::motDePasseValide($_POST['password'])) {
-            MessageFlash::ajouter("warning", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
-            self::afficheVue('view.php', ['nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'date' => $_POST['naissance'], 'email' => $_POST['mail'], 'adresse' => $_POST['adresse'], 'pagetitle' => 'Login', 'cheminVueBody' => 'client/login.php']);
-        } else if ($_POST['password'] == $_POST['password2']) {
-            $client = Client::construireDepuisFormulaire($_POST);
-            $clients = (new ClientRepository())->selectAll();
-            foreach ($clients as $c) {
-                if ($c->getMail() == $_POST['mail']) {
-                    MessageFlash::ajouter("warning", "Le client existe déjà.");
-                    self::afficheVue('view.php', ['nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'naissance' => $_POST['naissance'], 'mail' => $_POST['mail'], 'adresse' => $_POST['adresse'], 'pagetitle' => 'Login', 'cheminVueBody' => 'client/login.php']);
-                }
+        if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['naissance']) && isset($_POST['mail'])) {
+            if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+                MessageFlash::ajouter("danger", "L'adresse mail n'est pas valide.");
+                self::afficheVue('view.php', ['nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'date' => $_POST['naissance'], 'email' => $_POST['mail'], 'adresse' => $_POST['adresse'], 'pagetitle' => 'Login', 'cheminVueBody' => 'client/login.php']);
             }
-            (new ClientRepository())->create($client);
-            MessageFlash::ajouter("success", "Votre compte a été créé. Vous allez par ailleurs recevoir un courriel pour valider votre adresse mail.");
-            VerificationEmail::envoiEmailValidation($client);
-            self::home();
-        } else {
-            if (!ConnexionClient::estAdministrateur() && $_REQUEST['estAdmin']) MessageFlash::ajouter("warning", "Vous n'avez pas le droit de créer un administrateur. Le compte a été créé sans droits administrateur.");
-            $client = Client::construireDepuisFormulaire($_REQUEST);
-            (new ClientRepository())->create($client);
-            VerificationEmail::envoiEmailValidation($client);
+            if (!MotDePasse::motDePasseValide($_POST['password'])) {
+                MessageFlash::ajouter("warning", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
+                self::afficheVue('view.php', ['nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'date' => $_POST['naissance'], 'email' => $_POST['mail'], 'adresse' => $_POST['adresse'], 'pagetitle' => 'Login', 'cheminVueBody' => 'client/login.php']);
+            } else if ($_POST['password'] == $_POST['password2']) {
+                $client = Client::construireDepuisFormulaire($_POST);
+                $clients = (new ClientRepository())->selectAll();
+                foreach ($clients as $c) {
+                    if ($c->getMail() == $_POST['mail']) {
+                        MessageFlash::ajouter("warning", "Le client existe déjà.");
+                        self::afficheVue('view.php', ['nom' => $_POST['nom'], 'prenom' => $_POST['prenom'], 'naissance' => $_POST['naissance'], 'mail' => $_POST['mail'], 'adresse' => $_POST['adresse'], 'pagetitle' => 'Login', 'cheminVueBody' => 'client/login.php']);
+                    }
+                }
+                (new ClientRepository())->create($client);
+                MessageFlash::ajouter("success", "Votre compte a été créé. Vous allez par ailleurs recevoir un courriel pour valider votre adresse mail.");
+                VerificationEmail::envoiEmailValidation($client);
+                self::home();
+            } else {
+                if (!ConnexionClient::estAdministrateur() && $_REQUEST['estAdmin']) MessageFlash::ajouter("warning", "Vous n'avez pas le droit de créer un administrateur. Le compte a été créé sans droits administrateur.");
+                $client = Client::construireDepuisFormulaire($_REQUEST);
+                (new ClientRepository())->create($client);
+                VerificationEmail::envoiEmailValidation($client);
 
-            MessageFlash::ajouter("success", "Votre compte a été créé.");
-            self::redirige("?controller=client&action=readAll");
+                MessageFlash::ajouter("success", "Votre compte a été créé.");
+                self::redirige("?controller=client&action=readAll");
+            }
+        } else {
+            MessageFlash::ajouter("warning", "Tous les champs doivent être remplis.");
+            self::login();
         }
     }
 
@@ -83,16 +88,21 @@ class ControllerClient extends GenericController
      */
     public static function update(): void
     {
-        $client = (new ClientRepository())->select($_GET['email']);
+        if (ConnexionClient::estConnecte()) {
+            $client = (new ClientRepository())->select($_GET['email']);
 
-        if ($client == null) {
-            MessageFlash::ajouter("danger", "Le client n'existe pas");
-            self::redirige("?action=readAll&controller=client");
-        } else if (ConnexionClient::estUtilisateur($_GET['email']) || ConnexionClient::estAdministrateur()) {
-            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Modifier client", "cheminVueBody" => "client/update.php"]);
+            if ($client == null) {
+                MessageFlash::ajouter("danger", "Le client n'existe pas");
+                self::redirige("?action=readAll&controller=client");
+            } else if (ConnexionClient::estUtilisateur($_GET['email']) || ConnexionClient::estAdministrateur()) {
+                self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Modifier client", "cheminVueBody" => "client/update.php"]);
+            } else {
+                MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte.");
+                self::redirige("?action=account&controller=client");
+            }
         } else {
-            MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte.");
-            self::redirige("?action=account&controller=client");
+            MessageFlash::ajouter("danger", "Vous devez être connecté pour accéder à cette page.");
+            self::redirige("?action=login&controller=client");
         }
     }
 
@@ -101,38 +111,43 @@ class ControllerClient extends GenericController
      */
     public static function updated(): void
     {
-        $mail = $_POST['email'];
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
-        $naissance = $_POST['naissance'];
-        $adresse = $_POST['adresse'];
-        $estAdmin = $_POST['estAdmin'] ?? "";
-        $client = (new CLientRepository())->select($mail);
+        if (ConnexionClient::estConnecte() && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['naissance']) && isset($_POST['mail']) && isset($_POST['adresse'])) {
+            $mail = $_POST['email'];
+            $nom = $_POST['nom'];
+            $prenom = $_POST['prenom'];
+            $naissance = $_POST['naissance'];
+            $adresse = $_POST['adresse'];
+            $estAdmin = $_POST['estAdmin'] ?? "";
+            $client = (new ClientRepository())->select($mail);
 
-        if (!ConnexionClient::estUtilisateur($mail) && !ConnexionClient::estAdministrateur()) {
-            MessageFlash::ajouter("danger", "Hop-hop-hop ! N'allez pas trop loin !");
-            self::redirige("?controller=utilisateur&action=readAll");
-        } else if ($client == null) {
-            MessageFlash::ajouter("danger", "L'utilisateur n'existe pas.");
-            self::redirige("index.php?controleur=utilisateur&action=readAll");
-        } else {
-            // Mise à jour
-            $client->setNom($nom);
-            $client->setPrenom($prenom);
-            $client->setDateNaissance($naissance);
-            $client->setAdresse($adresse);
-            $client->setMailValide(false);
-            $client->setNonce(MotDePasse::genererChaineAleatoire());
-            $client->setEstAdmin(ConnexionClient::estAdministrateur() ? $estAdmin : false);
+            if (!ConnexionClient::estUtilisateur($mail) && !ConnexionClient::estAdministrateur()) {
+                MessageFlash::ajouter("danger", "Hop-hop-hop ! N'allez pas trop loin !");
+                self::redirige("?controller=utilisateur&action=readAll");
+            } else if ($client == null) {
+                MessageFlash::ajouter("danger", "L'utilisateur n'existe pas.");
+                self::redirige("index.php?controleur=utilisateur&action=readAll");
+            } else {
+                // Mise à jour
+                $client->setNom($nom);
+                $client->setPrenom($prenom);
+                $client->setDateNaissance($naissance);
+                $client->setAdresse($adresse);
+                $client->setMailValide(false);
+                $client->setNonce(MotDePasse::genererChaineAleatoire());
+                $client->setEstAdmin(ConnexionClient::estAdministrateur() ? $estAdmin : false);
 
-            // Validation de l'email
-            if (!ConnexionClient::estAdministrateur() || ConnexionClient::estUtilisateur($mail)) {
-                VerificationEmail::envoiEmailValidation($client);
+                // Validation de l'email
+                if (!ConnexionClient::estAdministrateur() || ConnexionClient::estUtilisateur($mail)) {
+                    VerificationEmail::envoiEmailValidation($client);
+                }
+
+                (new ClientRepository())->update($client);
+                MessageFlash::ajouter("success", "Votre compte a été mis à jour.");
+                self::redirige("?controller=client&action=readAll");
             }
-
-            (new ClientRepository())->update($client);
-            MessageFlash::ajouter("success", "Votre compte a été mis à jour.");
-            self::redirige("?controller=client&action=readAll");
+        } else {
+            MessageFlash::ajouter("danger", "Tous les champs doivent être remplis.");
+            self::redirige(ConnexionClient::estConnecte() ? "?controller=client&action=update&email=" . $_POST['email'] : "?controller=client&action=login");
         }
     }
 
@@ -141,13 +156,21 @@ class ControllerClient extends GenericController
      */
     public static function updatePassword(): void
     {
-        $client = (new ClientRepository())->select(ConnexionClient::getLoginUtilisateurConnecte());
+        if (ConnexionClient::estConnecte()) {
+            $client = (new ClientRepository())->select(ConnexionClient::getLoginUtilisateurConnecte());
 
-        if ($client->getMail() != ConnexionClient::getLoginUtilisateurConnecte()) {
-            MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte.");
-            self::redirige("?action=account&controller=client");
-        } else if ($client != null) {
-            self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Modification", "cheminVueBody" => "client/updatePassword.php"]);
+            if ($client->getMail() != ConnexionClient::getLoginUtilisateurConnecte()) {
+                MessageFlash::ajouter("danger", "Vous n'avez pas le droit de modifier ce compte.");
+                self::redirige("?action=account&controller=client");
+            } else if ($client != null) {
+                self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Modification", "cheminVueBody" => "client/updatePassword.php"]);
+            } else {
+                MessageFlash::ajouter("danger", "Le client n'existe pas");
+                self::redirige("?action=readAll&controller=client");
+            }
+        } else {
+            MessageFlash::ajouter("danger", "Vous devez être connecté pour accéder à cette page.");
+            self::redirige("?action=login&controller=client");
         }
     }
 
@@ -156,20 +179,26 @@ class ControllerClient extends GenericController
      */
     public static function updatedPassword(): void
     {
-        $oldPassword = $_POST["oldPassword"];
-        $newPassword = $_POST["password"];
-        $newPasswordConfirmation = $_POST["password2"];
+        if (ConnexionClient::estConnecte() && isset($_POST['oldPassword']) && isset($_POST['password']) && isset($_POST['password2'])) {
 
-        $client = (new ClientRepository)->select(ConnexionClient::getLoginUtilisateurConnecte());
-        if (!strcmp($newPassword, $newPasswordConfirmation)) {
-            MessageFlash::ajouter("warning", "Les mots de passe entrés doivent être identiques.");
-            self::redirige("?action=updatePassword&controller=client");
-        } else if (!MotDePasse::verifier($oldPassword, $client->getMdpHache())) {
-            MessageFlash::ajouter("warning", "Le mot de passe actuel est erroné.");
-            self::redirige("?action=updatePassword&controller=client");
+            $oldPassword = $_POST["oldPassword"];
+            $newPassword = $_POST["password"];
+            $newPasswordConfirmation = $_POST["password2"];
+
+            $client = (new ClientRepository)->select(ConnexionClient::getLoginUtilisateurConnecte());
+            if (!strcmp($newPassword, $newPasswordConfirmation)) {
+                MessageFlash::ajouter("warning", "Les mots de passe entrés doivent être identiques.");
+                self::redirige("?action=updatePassword&controller=client");
+            } else if (!MotDePasse::verifier($oldPassword, $client->getMdpHache())) {
+                MessageFlash::ajouter("warning", "Le mot de passe actuel est erroné.");
+                self::redirige("?action=updatePassword&controller=client");
+            } else {
+                MessageFlash::ajouter("success", "Le mot de passe a bien été modifié.");
+                self::redirige("?action=account&controller=client");
+            }
         } else {
-            MessageFlash::ajouter("success", "Le mot de passe a bien été modifié.");
-            self::redirige("?action=account&controller=client");
+            MessageFlash::ajouter("danger", "Tous les champs doivent être remplis.");
+            self::redirige("?action=updatePassword&controller=client");
         }
     }
 
@@ -263,20 +292,6 @@ class ControllerClient extends GenericController
             self::redirige("?action=home");
         } else {
             self::afficheVue("view.php", ["pagetitle" => "Administration", "cheminVueBody" => "admin.php"]);
-        }
-    }
-
-    /**
-     * Cette méthode oblige l'utilisateur à être connecté pour accéder à la page
-     */
-    public static function commander(): void
-    {
-        if (ConnexionClient::estConnecte()) {
-            $client = (new ClientRepository())->select(ConnexionClient::getLoginUtilisateurConnecte());
-            if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/commander.php"]);
-        } else {
-            MessageFlash::ajouter("warning", "Connectez-vous pour passer une commande.");
-            self::redirige("?action=login&controller=client");
         }
     }
 }

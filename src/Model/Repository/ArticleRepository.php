@@ -18,11 +18,11 @@ class ArticleRepository extends AbstractRepository
     protected function construire(array $objetFormatTableau): Article
     {
         return new Article(
-            $objetFormatTableau['idArticle'],
+            $objetFormatTableau["idArticle"],
             $objetFormatTableau["idBijou"],
-            $objetFormatTableau["stock"],
             $objetFormatTableau["couleur"],
-            $objetFormatTableau["taille"]
+            $objetFormatTableau["taille"],
+            $objetFormatTableau["stock"]
         );
     }
 
@@ -33,7 +33,7 @@ class ArticleRepository extends AbstractRepository
 
     protected function getNomColonnes(): array
     {
-        return array("idArticle", "idBijou", "couleur", "taille", "quantite");
+        return array("idArticle", "idBijou", "couleur", "taille", "stock");
     }
 
     public function getIdArticleParClesPrimaires(int $idBijou, string $couleur, string $taille): ?int

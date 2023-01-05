@@ -754,12 +754,13 @@ fieldset {
     background-color: rgba(169, 68, 66, 0.44);
 }
 
-.infoCompteButton {
-    display: inline-block;
+.buttonOnForm#deconnecter{
+    background-color: rgba(169, 68, 66, 0.44);
 }
 
-.infoCompteButton:first-child {
-    margin-top: 20px;
+.infoCompteButton {
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .infoCompteButton a {
@@ -1042,6 +1043,11 @@ p.panier-alert {
 }
 
 .commande_action{
-    margin-left: 10px;
+    margin-left: 30px;
+}
+
+.actionCompte{
+    display: flex;
+    justify-content: center;
 }
 

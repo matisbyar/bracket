@@ -80,7 +80,8 @@ if (!ConnexionClient::estAdministrateur()) {
                     <img class="admin-icon-hover" src="../images/add.svg">
                 </div>
                 <div class="admin-action-title">
-                    <h2>Ajouter un article</h2>
+                    <h2>Ajouter ou modifier un article</h2>
+                    <p><strong>Attention !</strong> La modification écrasera la quantité existante par celle que vous définirez.</p>
                 </div>
             </a>
         </div>
@@ -91,7 +92,7 @@ if (!ConnexionClient::estAdministrateur()) {
                     <img class="admin-icon-hover" src="../images/basket.svg">
                 </div>
                 <div class="admin-action-title">
-                    <h2>Commande</h2>
+                    <h2>Gestion des commandes utilisateurs</h2>
                 </div>
             </a>
         </div>
