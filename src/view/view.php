@@ -15,7 +15,39 @@
 </head>
 <body>
 <header>
-    <nav>
+    <nav class="burger" role="navigation">
+        <div id="menuToggle">
+            <!--
+            A fake / hidden checkbox is used as click reciever,
+            so you can use the :checked selector on it.
+            -->
+            <input type="checkbox" />
+
+            <!--
+            Some spans to act as a hamburger.
+
+            They are acting like a real hamburger,
+            not that McDonalds stuff.
+            -->
+            <span></span>
+            <span></span>
+            <span></span>
+
+            <!--
+            Too bad the menu has to be inside of the button
+            but hey, it's pure CSS magic.
+            -->
+            <ul id="menu">
+                <a href="#"><li>Home</li></a>
+                <a href="#"><li>About</li></a>
+                <a href="#"><li>Info</li></a>
+                <a href="#"><li>Contact</li></a>
+                <a href="https://erikterwan.com/" target="_blank"><li>Show me more</li></a>
+            </ul>
+        </div>
+        <a href="../web/index.php?action=home"><p class="logo" id="burger">Bracket.</p></a>
+    </nav>
+    <nav class="classic">
         <a href="../web/index.php?action=home"><p class="logo">Bracket.</p></a>
         <div class="nav-raccourcis">
             <?php if (ConnexionClient::estAdministrateur()) { ?>
@@ -54,7 +86,7 @@
 <footer>
     <div class="footer-container">
         <div class="footer-links">
-            <ul>
+            <ul class="subsectionfooter">
                 <li><a href="../web/index.php?action=aPropos">À propos de Bracket</a></li>
                 <li><a href="../web/index.php?action=contact">Nous contacter</a></li>
                 <?= ConnexionClient::estConnecte() ? '<li><a href="../web/index.php?controller=client&action=account">Mon compte</a></li>' : '<li><a href="../web/index.php?controller=client&action=login">S\'inscrire/Se connecter</a></li>' ?>

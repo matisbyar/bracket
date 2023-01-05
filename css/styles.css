@@ -25,7 +25,6 @@ html, body {
 
 body {
     margin: 0;
-    min-width: 1100px;
     display: flex;
     flex-direction: column;
 }
@@ -35,7 +34,7 @@ main {
 }
 
 footer {
-    height: 50px;
+    height: 100px;
 }
 
 a img, i img {
@@ -54,52 +53,286 @@ p.champs-obligatoires {
     font-family: WorkSans, sans-serif;
     margin-left: 20px;
 }
+/* BARRE DE NAVIGATION CLASSIC */
+@media only screen and (min-width: 1080px) {
+    .burger{
+        display: none;
+    }
 
-/* BARRE DE NAVIGATION */
-nav {
-    height: 70px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #111D13;
+    nav {
+        height: 70px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #111D13;
+    }
+
+    .nav-raccourcis {
+        font-family: "WorkSans", "ui-rounded";
+        display: flex;
+        flex-direction: row;
+    }
+
+    .navAdmin {
+        background-color: rgba(17, 29, 19, 0.66);
+        width: 100%;
+        margin: 0;
+        padding: 10px 0 0 20px;
+    }
+
+    p.bienvenue-admin {
+        font-family: "WorkSans", "ui-rounded";
+        color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navAdmin a {
+        color: #fff;
+        margin: 0 20px 0 0;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+    /* Correspond au logo "Bracket." */
+    .logo {
+        font-family: 'Unna', monospace;
+        font-size: 40px;
+
+        text-decoration: none;
+        margin: 0;
+    }
+    .imageAffiche {
+        width: 60%;
+        height: 60%;
+        margin-left: 150px;
+    }
+    .starred {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: #C4DAC6;
+    }
+
+    .starred-gauche {
+        display: flex;
+        max-width: 50%;
+        align-items: center;
+    }
+
+    .starred-droite {
+        padding: 5% 2% 10% 0;
+        max-width: 50%;
+
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+        align-items: flex-end;
+    }
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+/* BARRE DE NAVIGATION BURGER */
+@media only screen and (max-width: 1080px) {
+
+    .imageAffiche{
+        width: 60%;
+        height: 60%;
+        margin: auto;
+    }
+
+    .classic {
+        display: none;
+    }
+
+    nav {
+        height: 70px;
+        background-color: #111D13;
+    }
+
+    #menuToggle {
+        display: block;
+        position: relative;
+        top: 25px;
+        left: 25px;
+
+        z-index: 1;
+
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    #menuToggle a {
+        text-decoration: none;
+        color: #232323;
+
+        transition: color 0.3s ease;
+    }
+
+    #menuToggle a:hover {
+        color: tomato;
+    }
+
+
+    #menuToggle input {
+        display: block;
+        width: 40px;
+        height: 32px;
+        position: absolute;
+        top: -7px;
+        left: -5px;
+
+        cursor: pointer;
+
+        opacity: 0; /* hide this */
+        z-index: 2; /* and place it over the hamburger */
+
+        -webkit-touch-callout: none;
+    }
+
+    /*
+     * Just a quick hamburger
+     */
+    #menuToggle span {
+        display: block;
+        width: 33px;
+        height: 4px;
+        margin-bottom: 5px;
+        position: relative;
+
+        background: white;
+        border-radius: 3px;
+
+        z-index: 1;
+
+        transform-origin: 4px 0px;
+
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+        opacity 0.55s ease;
+    }
+
+    #menuToggle span:first-child {
+        transform-origin: 0% 0%;
+    }
+
+    #menuToggle span:nth-last-child(2) {
+        transform-origin: 0% 100%;
+    }
+
+    /*
+     * Transform all the slices of hamburger
+     * into a crossmark.
+     */
+    #menuToggle input:checked ~ span {
+        opacity: 1;
+        transform: rotate(45deg) translate(-2px, -1px);
+        background: white;
+    }
+
+    /*
+     * But let's hide the middle one.
+     */
+    #menuToggle input:checked ~ span:nth-last-child(3) {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.2, 0.2);
+    }
+
+    /*
+     * Ohyeah and the last one should go the other direction
+     */
+    #menuToggle input:checked ~ span:nth-last-child(2) {
+        transform: rotate(-45deg) translate(0, -1px);
+    }
+
+    /*
+     * Make this absolute positioned
+     * at the top left of the screen
+     */
+    #menu {
+        position: absolute;
+        width: 300px;
+        margin: -100px 0 0 -50px;
+        padding: 50px;
+        padding-top: 125px;
+
+        background-color: #111D13;
+        list-style-type: none;
+        -webkit-font-smoothing: antialiased;
+        /* to stop flickering of text in safari */
+
+        transform-origin: 0% 0%;
+        transform: translate(-100%, 0);
+
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    }
+
+    #menu li {
+        padding: 10px 0;
+        font-size: 22px;
+        color: white;
+        font-family: "WorkSans", "unna", Helvetica, Arial, sans-serif;
+    }
+
+    /*
+     * And let's slide it in from the left
+     */
+    #menuToggle input:checked ~ ul {
+        transform: none;
+    }
+    /* Correspond au logo "Bracket." */
+    .logo {
+        font-family: 'Unna', monospace;
+        font-size: 40px;
+        text-decoration: none;
+        margin: auto;
+        position: absolute;
+        top: 4px;
+        left: 80px;
+        padding: 10px;
+    }
+    .starred {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #C4DAC6;
+    }
+
+    .starred-gauche {
+        display: flex;
+        align-items: center;
+    }
+
+    .starred-droite {
+        padding: 5% 0 10% 0;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .starred-droite > p {
+        display: none;
+    }
+    .footer-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: auto;
+    }
+    .subsectionfooter{
+        flex-direction: column;
+    }
+
 }
 
-.nav-raccourcis {
-    font-family: "WorkSans", "ui-rounded";
-    display: flex;
-    flex-direction: row;
-}
 
-.navAdmin {
-    background-color: rgba(17, 29, 19, 0.66);
-    width: 100%;
-    margin: 0;
-    padding: 10px 0 0 20px;
-}
-
-p.bienvenue-admin {
-    font-family: "WorkSans", "ui-rounded";
-    color: #fff;
-    margin: 0;
-    padding: 0;
-}
-
-.navAdmin a {
-    color: #fff;
-    margin: 0 20px 0 0;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
-/* Correspond au logo "Bracket." */
-.logo {
-    font-family: 'Unna', monospace;
-    font-size: 40px;
-
-    text-decoration: none;
-    margin: 0;
-}
 
 nav a {
     color: white;
@@ -116,14 +349,6 @@ footer {
     font-family: "WorkSans", sans-serif;
     width: 100%;
     margin-top: 20px;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .footer-links ul {
@@ -147,28 +372,6 @@ footer {
 
 
 /* PAGE D'ACCUEIL: À L'AFFICHE */
-.starred {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: #C4DAC6;
-}
-
-.starred-gauche {
-    display: flex;
-    max-width: 50%;
-    align-items: center;
-}
-
-.starred-droite {
-    padding: 5% 2% 10% 0;
-    max-width: 50%;
-
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    align-items: flex-end;
-}
 
 .starred-droite > h1 {
     font-family: "Unna", monospace;
@@ -263,6 +466,24 @@ button#acheter a {
     margin-top: 30px;
 }
 
+@media only screen and (max-width: 1300px) {
+    .wrapper{
+        grid-template-columns: 8cm 8cm 8cm;
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+    .wrapper{
+        grid-template-columns: 8cm 8cm;
+    }
+}
+
+@media only screen and (max-width: 890px) {
+    .wrapper{
+        grid-template-columns: 8cm;
+    }
+}
+
 .produit {
     text-align: left;
     border-color: #cacaca;
@@ -348,13 +569,6 @@ a.produit-a {
 .bottom-product-pane button img {
     height: 22px;
     width: 22px;
-}
-
-.imageAffiche {
-    width: 60%;
-    height: 60%;
-    object-fit: cover;
-    margin-left: 150px;
 }
 
 .titre-home {
