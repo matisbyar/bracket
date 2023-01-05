@@ -111,6 +111,22 @@ class CommandeRepository extends AbstractRepository
         }
     }
 
+    public function commandeExiste(int $nbCommande): ?bool
+    {
+        try {
+            $sql = 'SELECT count(id) as commandeExiste FROM ' . $this->getNomTable() . ' WHERE id = :id';
+            $statement = DatabaseConnection::getPdo()->prepare($sql);
+            $statement->bindParam(":id", $nbCommande);
+            $statement->execute();
+            $resulats = $statement->fetch();
+            $statement->closeCursor();
+            return $resulats['commandeExiste'] == 1;
+        }catch(PDOException){
+            GenericController::error("", "Désolé ! La récupération de l'id de l'article n'a pu être faite.");
+            return null;
+        }
+    }
+
     public function getCommandeParIdClient(string $mail): ?array
     {
         try {
