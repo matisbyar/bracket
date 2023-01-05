@@ -30,17 +30,24 @@ class ControllerArticle extends GenericController
                 $couleur = $_REQUEST["couleur"];
                 $quantite = intval($_REQUEST["quantite"]);
 
-                $articleExiste = (new ArticleRepository())->getIdArticleParClesPrimaires($idBijou, $couleur, $taille);
-                if ($articleExiste == null) {
-                    $article = Article::construireDepuisTableau(["idBijou" => $idBijou, "taille" => $taille, "couleur" => $couleur, "stock" => $quantite]);
-                    (new ArticleRepository())->create($article);
-                    MessageFlash::ajouter("success", "Article ajouté avec succès.");
-                    self::redirige("?controller=produit&action=read&id=" . $idBijou);
-                } else {
-                    $article = Article::construireDepuisTableau(["idArticle" => $articleExiste, "idBijou" => $idBijou, "taille" => $taille, "couleur" => $couleur, "stock" => $quantite]);
-                    (new ArticleRepository())->update($article);
-                    MessageFlash::ajouter("success", "Article mis à jour avec succès.");
-                    self::redirige("?controller=produit&action=read&id=" . $idBijou);
+                if((new ProduitRepository())->select($idBijou) != null) {
+
+
+                    $articleExiste = (new ArticleRepository())->getIdArticleParClesPrimaires($idBijou, $couleur, $taille);
+                    if ($articleExiste == null) {
+                        $article = Article::construireDepuisTableau(["idBijou" => $idBijou, "taille" => $taille, "couleur" => $couleur, "stock" => $quantite]);
+                        (new ArticleRepository())->create($article);
+                        MessageFlash::ajouter("success", "Article ajouté avec succès.");
+                        self::redirige("?controller=produit&action=read&id=" . $idBijou);
+                    } else {
+                        $article = Article::construireDepuisTableau(["idArticle" => $articleExiste, "idBijou" => $idBijou, "taille" => $taille, "couleur" => $couleur, "stock" => $quantite]);
+                        (new ArticleRepository())->update($article);
+                        MessageFlash::ajouter("success", "Article mis à jour avec succès.");
+                        self::redirige("?controller=produit&action=read&id=" . $idBijou);
+                    }
+                }else{
+                    MessageFlash::ajouter("danger", "Le produit n'existe pas.");
+                    self::redirige("?controller=produit&action=readAll");
                 }
             } else {
                 MessageFlash::ajouter("danger", "Une erreur est survenue lors de la création de l'article.");

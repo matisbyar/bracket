@@ -131,7 +131,7 @@ class ControllerProduit extends GenericController
 
         }
     }
-    // TODO : Probléme suppression
+    // TODO : Problème suppression
 
     /**
      * Suppression d'un produit
