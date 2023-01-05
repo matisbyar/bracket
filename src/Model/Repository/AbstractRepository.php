@@ -2,6 +2,7 @@
 
 namespace App\Bracket\Model\Repository;
 
+use App\Bracket\Controller\GenericController;
 use App\Bracket\Model\DataObject\AbstractDataObject;
 use PDOException;
 
@@ -13,22 +14,26 @@ abstract class AbstractRepository
      * @param AbstractDataObject $object
      * @return void
      */
-    public function create(AbstractDataObject $object)
+    public function create(AbstractDataObject $object): void
     {
-        $sql = "INSERT INTO " . $this->getNomTable() . " (";
-        foreach ($this->getNomColonnes() as $colonne) {
-            $sql .= "$colonne,";
-        }
-        $sql = substr($sql, 0, -1);
-        $sql .= ") VALUES (";
-        foreach ($this->getNomColonnes() as $colonne) {
-            $sql .= ":$colonne" . "Tag,";
-        }
-        $sql = substr($sql, 0, -1);
-        $sql .= ");";
+        try {
+            $sql = "INSERT INTO " . $this->getNomTable() . " (";
+            foreach ($this->getNomColonnes() as $colonne) {
+                $sql .= "$colonne,";
+            }
+            $sql = substr($sql, 0, -1);
+            $sql .= ") VALUES (";
+            foreach ($this->getNomColonnes() as $colonne) {
+                $sql .= ":$colonne" . "Tag,";
+            }
+            $sql = substr($sql, 0, -1);
+            $sql .= ");";
 
-        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-        $pdoStatement->execute($object->formatTableau());
+            $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+            $pdoStatement->execute($object->formatTableau());
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! L'insertion de l'objet n'a pu être faite.");
+        }
     }
 
     /**
@@ -38,36 +43,46 @@ abstract class AbstractRepository
      */
     public function select(string $valeurClePrimaire): ?AbstractDataObject
     {
-        $sql = "SELECT * FROM " . $this->getNomTable() . " WHERE " . $this->getNomClePrimaire() . "=:clePrimaire";
-        // Préparation de la requête
-        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-        $values = array(
-            "clePrimaire" => $valeurClePrimaire
-        );
-        // On donne les valeurs et on exécute la requête
-        $pdoStatement->execute($values);
-        // On récupère les résultats comme précédemment
-        // Note: fetch() renvoie false si pas de voiture correspondante
-        $objet = $pdoStatement->fetch();
+        try {
+            $sql = "SELECT * FROM " . $this->getNomTable() . " WHERE " . $this->getNomClePrimaire() . "=:clePrimaire";
+            // Préparation de la requête
+            $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+            $values = array(
+                "clePrimaire" => $valeurClePrimaire
+            );
+            // On donne les valeurs et on exécute la requête
+            $pdoStatement->execute($values);
+            // On récupère les résultats comme précédemment
+            // Note: fetch() renvoie false si pas de voiture correspondante
+            $objet = $pdoStatement->fetch();
 
-        if ($objet != NULL) return $this->construire($objet);
-        else return NULL;
+            if ($objet != NULL) return $this->construire($objet);
+            else return NULL;
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La récupération de l'objet n'a pu être faite.");
+            return null;
+        }
     }
 
     /**
      * Récupère tous les objets dans la base de données
      * @return array
      */
-    public function selectAll(): array
+    public function selectAll(): ?array
     {
-        $pdoStatement = DatabaseConnection::getPdo()->query("SELECT * FROM " . $this->getNomTable());
+        try {
+            $pdoStatement = DatabaseConnection::getPdo()->query("SELECT * FROM " . $this->getNomTable());
 
-        $tableau = [];
+            $tableau = [];
 
-        foreach ($pdoStatement as $objetFormatTableau) {
-            $tableau[] = $this->construire($objetFormatTableau);
+            foreach ($pdoStatement as $objetFormatTableau) {
+                $tableau[] = $this->construire($objetFormatTableau);
+            }
+            return $tableau;
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La récupération de tous les objets n'a pu être faite.");
+            return null;
         }
-        return $tableau;
     }
 
     /**
@@ -77,16 +92,20 @@ abstract class AbstractRepository
      */
     public function update(AbstractDataObject $object): void
     {
-        $sql = "UPDATE " . $this->getNomTable() . " SET ";
-        foreach ($this->getNomColonnes() as $colonne) {
-            if ($colonne != $this->getNomClePrimaire()) {
-                $sql .= "$colonne = :$colonne" . "Tag,";
+        try {
+            $sql = "UPDATE " . $this->getNomTable() . " SET ";
+            foreach ($this->getNomColonnes() as $colonne) {
+                if ($colonne != $this->getNomClePrimaire()) {
+                    $sql .= "$colonne = :$colonne" . "Tag,";
+                }
             }
+            $sql = substr($sql, 0, -1);
+            $sql .= " WHERE " . $this->getNomClePrimaire() . " = :" . $this->getNomClePrimaire() . "Tag";
+            $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+            $pdoStatement->execute($object->formatTableau());
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La mise à jour de l'objet n'a pu être faite.");
         }
-        $sql = substr($sql, 0, -1);
-        $sql .= " WHERE " . $this->getNomClePrimaire() . " = :" . $this->getNomClePrimaire() . "Tag";
-        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-        $pdoStatement->execute($object->formatTableau());
     }
 
     /**
@@ -107,7 +126,7 @@ abstract class AbstractRepository
             $pdoStatement->execute($values);
             return true;
         } catch (PDOException) {
-            echo "La suppression a échoué. Merci de réessayer.";
+            GenericController::error("", "Désolé ! La suppression de l'objet n'a pu être faite.");
             return false;
         }
     }
