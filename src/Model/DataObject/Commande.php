@@ -16,13 +16,13 @@ class Commande extends AbstractDataObject {
      * @param array $produits
      * @return void
      */
-    public function __construct(int $id, string $adresse, string $client, array $produits)
+    public function __construct(int $id, string $adresse, string $client, array $produits,string $statut)
     {
         $this->id = $id;
         $this->adresse = $adresse;
         $this->client = $client;
         $this->articles = $produits;
-        $this->statut = "en attente";
+        $this->statut = $statut;
     }
 
     /**

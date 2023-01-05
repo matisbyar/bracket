@@ -49,9 +49,8 @@ class ControllerCommande extends GenericController
     public static function updateStatutCommande(string $statut): void
     {
         if (ConnexionClient::estAdministrateur()) {
-            $commande = (new CommandeRepository)->select($_GET["id"]);
-            //$commande->setStatut($statut);
-            (new CommandeRepository)->updateStatut($statut,$_GET["id"]);
+            $id = intval($_GET["id"]);
+            (new CommandeRepository)->updateStatut($id,$statut);
         } else {
             MessageFlash::ajouter("warning", "Erreur de mises à jour.");
             self::home();

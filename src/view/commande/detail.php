@@ -25,4 +25,6 @@ foreach ($commande->getArticles() as $article) {
 }
 echo "</ul>";
 
-echo "<a href='index.php?controller=commande&action=recommander&id=" . htmlspecialchars($commande->getId()) . "'>Recommander</a>";
+if (!ConnexionClient::estAdministrateur()){
+    echo "<a href='index.php?controller=commande&action=recommander&id=" . htmlspecialchars($commande->getId()) . "'>Recommander</a>";
+}

@@ -17,7 +17,7 @@ class CommandeRepository extends AbstractRepository
      */
     public function construire(array $commandeFormatTableau): Commande
     {
-        return new Commande($commandeFormatTableau['0'], $commandeFormatTableau['1'], $commandeFormatTableau['2'], $commandeFormatTableau['3']);
+        return new Commande($commandeFormatTableau['0'], $commandeFormatTableau['1'], $commandeFormatTableau['2'], $commandeFormatTableau['3'], $commandeFormatTableau['4']);
     }
 
     /**
@@ -86,6 +86,7 @@ class CommandeRepository extends AbstractRepository
             $commandeFormatTableauFinal[] = $save['adresse'];
             $commandeFormatTableauFinal[] = $save['client'];
             $commandeFormatTableauFinal[] = $listeBijoux;
+            $commandeFormatTableauFinal[] = $save['statut'];
             return $this->construire($commandeFormatTableauFinal);
         } catch (PDOException) {
             GenericController::error("", "Désolé ! La récupération de l'id de l'article n'a pu être faite.");
@@ -137,6 +138,7 @@ class CommandeRepository extends AbstractRepository
                         $commandeFormatTableauFinal[] = $save['adresse'];
                         $commandeFormatTableauFinal[] = $save['client'];
                         $commandeFormatTableauFinal[] = $listeBijoux;
+                        $commandeFormatTableauFinal[] = $save['statut'];
                         $listeBijoux = array();
                         $commandes[] = $this->construire($commandeFormatTableauFinal);
                     }
@@ -148,6 +150,7 @@ class CommandeRepository extends AbstractRepository
                 $commandeFormatTableauFinal[] = $save['client'];
                 $bijou = (new ArticleRepository())->getArticleParIdArticle($save['idArticle']);
                 $commandeFormatTableauFinal[] = $listeBijoux;
+                $commandeFormatTableauFinal[] = $save['statut'];
                 $commandes[] = $this->construire($commandeFormatTableauFinal);
                 return $commandes;
             }
@@ -183,6 +186,7 @@ class CommandeRepository extends AbstractRepository
                         $commandeFormatTableauFinal[] = $save['adresse'];
                         $commandeFormatTableauFinal[] = $save['client'];
                         $commandeFormatTableauFinal[] = $listeBijoux;
+                        $commandeFormatTableauFinal[] = $save['statut'];
                         $listeBijoux = array();
                         $commandes[] = $this->construire($commandeFormatTableauFinal);
                     }
@@ -194,6 +198,7 @@ class CommandeRepository extends AbstractRepository
                 $commandeFormatTableauFinal[] = $save['client'];
                 $bijou = (new ArticleRepository())->getArticleParIdArticle($save['idArticle']);
                 $commandeFormatTableauFinal[] = $listeBijoux;
+                $commandeFormatTableauFinal[] = $save['statut'];
                 $commandes[] = $this->construire($commandeFormatTableauFinal);
                 return $commandes;
             }
