@@ -39,7 +39,7 @@ class ArticleRepository extends AbstractRepository
     public function getIdArticleParClesPrimaires(int $idBijou, string $couleur, string $taille): ?int
     {
         try {
-            $requete = "SELECT idArticle FROM " . $this->getNomTable() . " WHERE idBijou = :idBijou AND couleur = :couleur AND taille = :taille";
+            $requete = "SELECT idArticle FROM p_articles WHERE idBijou = :idBijou AND couleur = :couleur AND taille = :taille";
             $statement = DatabaseConnection::getPdo()->prepare($requete);
             $statement->bindParam(":idBijou", $idBijou);
             $statement->bindParam(":couleur", $couleur);
@@ -47,7 +47,7 @@ class ArticleRepository extends AbstractRepository
             $statement->execute();
             $resultat = $statement->fetch();
             $statement->closeCursor();
-            return $resultat["idArticle"];
+            return !$resultat ? null : $resultat["idArticle"];
         } catch (PDOException) {
             GenericController::error("", "Désolé ! La récupération de l'id de l'article n'a pu être faite.");
             return null;

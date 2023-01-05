@@ -31,8 +31,6 @@ class ControllerArticle extends GenericController
                 $quantite = intval($_REQUEST["quantite"]);
 
                 if((new ProduitRepository())->select($idBijou) != null) {
-
-
                     $articleExiste = (new ArticleRepository())->getIdArticleParClesPrimaires($idBijou, $couleur, $taille);
                     if ($articleExiste == null) {
                         $article = Article::construireDepuisTableau(["idBijou" => $idBijou, "taille" => $taille, "couleur" => $couleur, "stock" => $quantite]);

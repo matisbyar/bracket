@@ -18,11 +18,12 @@
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="couleurId">Couleur</label>
             <select class="InputAddOn-field" value="<?php if (isset($_REQUEST['couleur'])) echo $_REQUEST['couleur']; ?>" name="couleur" size="1" id="couleurId">
-                <option>Acier Inoxydable</option>
                 <option>Argent</option>
+                <option>Argent Blanc</option>
+                <option>Argent Rose</option>
                 <option>Or</option>
-                <option>Plaque Or</option>
-                <option>Tissus</option>
+                <option>Or Rose</option>
+                <option>Tissus Gris</option>
             </select>
         </p>
         <p class="InputAddOn">

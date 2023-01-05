@@ -144,7 +144,7 @@ class ControllerProduit extends GenericController
     {
         if (ConnexionClient::estAdministrateur()) {
             if (isset($_GET['id'])) {
-                (new ProduitRepository())->delete($_GET["produit"]);
+                (new ProduitRepository())->delete($_GET["id"]);
                 MessageFlash::ajouter("success", "Le produit a bien été supprimé.");
                 self::redirige("?action=readAll");
             } else {

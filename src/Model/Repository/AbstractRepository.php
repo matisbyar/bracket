@@ -16,7 +16,6 @@ abstract class AbstractRepository
      */
     public function create(AbstractDataObject $object): void
     {
-        try {
             $sql = "INSERT INTO " . $this->getNomTable() . " (";
             foreach ($this->getNomColonnes() as $colonne) {
                 $sql .= "$colonne,";
@@ -31,9 +30,6 @@ abstract class AbstractRepository
 
             $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
             $pdoStatement->execute($object->formatTableau());
-        } catch (PDOException) {
-            GenericController::error("", "Désolé ! L'insertion de l'objet n'a pu être faite.");
-        }
     }
 
     /**
