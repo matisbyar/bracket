@@ -21,13 +21,10 @@ class VerificationEmail
         $absoluteURL = Conf::getAbsoluteURL();
         $lienValidationEmail = "$absoluteURL?action=validerEmail&controller=client&login=$loginURL&nonce=$nonceURL";
         $corpsEmail = "<a href=\"$lienValidationEmail\">Validation de votre email</a>";
+        $header = "Content-Type: text/html; charset=UTF-8\r\n";
 
-        if (substr($client->getMail(), -10) == "@yopmail.com") {
-            MessageFlash::ajouter("info", "Un lien de validation a été envoyé à l'adresse $lienValidationEmail");
-            mail($client->getMail(), "Validation de votre email", wordwrap("Bonjour très cher(e) Validez votre email ici:" . $corpsEmail, 70, "\r\n"));
-        } else {
-            MessageFlash::ajouter("info", $corpsEmail);
-        }
+        MessageFlash::ajouter("info", "Un lien de validation a été envoyé à l'adresse".  $client->getMail());
+        mail($client->getMail(), "Validation de votre email", wordwrap("Bonjour très cher(e) Validez votre email ici:" . $corpsEmail, 70, "\r\n"), $header);
     }
 
     /**
