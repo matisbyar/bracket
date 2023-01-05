@@ -17,7 +17,6 @@ class ControllerPanier extends GenericController
         if (ConnexionClient::estConnecte()) $panier = (new PanierRepository)->selectPanierFromClient(ConnexionClient::getLoginUtilisateurConnecte());
         else $panier = PanierSession::lirePanier();
         self::afficheVue("view.php", ["panier" => $panier, "pagetitle" => "Bracket - Panier", "cheminVueBody" => "panier/list.php"]);
-
     }
 
     /**
