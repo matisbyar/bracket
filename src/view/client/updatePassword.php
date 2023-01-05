@@ -28,7 +28,7 @@
         </p>
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="password2Id">Confirmation du mot de passe</label>
-            <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="password2Id" id="password2Id" required/>
+            <input class="InputAddOn-field" type="password" placeholder="Mot de passe" name="password2" id="password2Id" required/>
         </p>
         <div class="buttonForm">
             <button class="buttonOnForm" role="button"><input type="submit" value=""/>Mettre à jour le compte</button>

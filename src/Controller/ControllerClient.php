@@ -189,7 +189,7 @@ class ControllerClient extends GenericController
             $newPasswordConfirmation = $_POST["password2"];
 
             $client = (new ClientRepository)->select(ConnexionClient::getLoginUtilisateurConnecte());
-            if (!strcmp($newPassword, $newPasswordConfirmation)) {
+            if ($newPassword !== $newPasswordConfirmation) {
                 MessageFlash::ajouter("warning", "Les mots de passe entrés doivent être identiques.");
                 self::redirige("?action=updatePassword&controller=client");
             } else if (!MotDePasse::verifier($oldPassword, $client->getMdpHache())) {
