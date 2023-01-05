@@ -30,10 +30,15 @@ class ControllerProduit extends GenericController
      */
     public static function read(): void
     {
-        $produit = (new ProduitRepository())->select($_GET['id']);
-        if ($produit != null) self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Bracket - Détail", "cheminVueBody" => "produit/detail.php"]);
-        else {
-            MessageFlash::ajouter("danger", "Le produit n'existe pas.");
+        if (isset($_GET['id'])) {
+            $produit = (new ProduitRepository())->select($_GET['id']);
+            if ($produit != null) self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Bracket - Détail", "cheminVueBody" => "produit/detail.php"]);
+            else {
+                MessageFlash::ajouter("danger", "Le produit n'existe pas !");
+                self::home();
+            }
+        } else {
+            MessageFlash::ajouter("warning", "Le produit n'existe pas !");
             self::home();
         }
     }
@@ -74,7 +79,7 @@ class ControllerProduit extends GenericController
             ControllerProduit::afficheVue('view.php', ["pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/create.php"]);
         } else {
             MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
-            self::redirige("?action=home");
+            self::home();
         }
     }
 
@@ -108,7 +113,6 @@ class ControllerProduit extends GenericController
                     MessageFlash::ajouter("success", "Le produit a bien été créé.");
                     self::readAll();
                 }
-
             } else {
                 MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
                 self::home();
@@ -127,11 +131,10 @@ class ControllerProduit extends GenericController
             ControllerProduit::afficheVue('view.php', ["produits" => $produits, "pagetitle" => "Bracket - Création", "cheminVueBody" => "produit/delete.php"]);
         } else {
             MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
-            self::redirige("?action=home");
+            self::home();
 
         }
     }
-    // TODO : Problème suppression
 
     /**
      * Suppression d'un produit
@@ -140,12 +143,17 @@ class ControllerProduit extends GenericController
     public static function deleted(): void
     {
         if (ConnexionClient::estAdministrateur()) {
-            (new ProduitRepository())->delete($_GET["produit"]);
-            MessageFlash::ajouter("success", "Le produit a bien été supprimé.");
-            self::redirige("?action=readAll");
+            if (isset($_GET['id'])) {
+                (new ProduitRepository())->delete($_GET["produit"]);
+                MessageFlash::ajouter("success", "Le produit a bien été supprimé.");
+                self::redirige("?action=readAll");
+            } else {
+                MessageFlash::ajouter("warning", "Le produit n'existe pas.");
+                self::redirige("?action=home");
+            }
         } else {
             MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
-            self::redirige("?action=home");
+            self::home();
         }
     }
 
@@ -156,11 +164,16 @@ class ControllerProduit extends GenericController
     public static function update(): void
     {
         if (ConnexionClient::estAdministrateur()) {
-            $produit = (new ProduitRepository)->select($_GET["id"]);
-            self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Modifier un produit", "cheminVueBody" => "produit/update.php"]);
-        } else {
+            if (isset($_GET['id'])) {
+                $produit = (new ProduitRepository)->select($_GET["id"]);
+                self::afficheVue("view.php", ["produit" => $produit, "pagetitle" => "Modifier un produit", "cheminVueBody" => "produit/update.php"]);
+            } else {
+                MessageFlash::ajouter("warning", "Le produit n'existe pas.");
+                self::redirige("?action=home");
+            }
+        }else{
             MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
-            self::redirige("?action=home");
+            self::home();
         }
     }
 
@@ -182,11 +195,11 @@ class ControllerProduit extends GenericController
                 self::redirige("?action=read&id=" . $produit->getId());
             } else {
                 MessageFlash::ajouter("warning", "Vous n'avez pas les droits pour accéder à cette page.");
-                self::redirige("?action=home");
+                self::home();
             }
         } else {
             MessageFlash::ajouter("warning", "Une erreur est survenue.");
-            self::redirige("?action=home");
+            self::home();
         }
     }
 }
