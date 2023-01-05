@@ -7,7 +7,7 @@ class Article extends AbstractDataObject
     private int $idArticle, $idBijou, $stock;
     private string $couleur, $taille;
 
-    public function __construct(int $idArticle, int $idBijou, int $stock, string $couleur, string $taille)
+    public function __construct(int $idArticle, int $idBijou, string $couleur, string $taille, int $stock)
     {
         $this->idArticle = $idArticle;
         $this->idBijou = $idBijou;
@@ -19,21 +19,22 @@ class Article extends AbstractDataObject
     public function formatTableau(): array
     {
         return array(
-            "idBijou" => $this->idBijou,
-            "stock" => $this->stock,
-            "couleur" => $this->couleur,
-            "taille" => $this->taille
+            "idArticleTag" => $this->getIdArticle(),
+            "idBijouTag" => $this->getIdBijou(),
+            "couleurTag" => $this->getCouleur(),
+            "tailleTag" => $this->getTaille(),
+            "stockTag" => $this->getStock(),
         );
     }
 
     public static function construireDepuisTableau(array $tableau): Article
     {
         return new Article(
-            0,
+            $tableau["idArticle"] ?? 0,
             $tableau["idBijou"],
-            $tableau["stock"],
             $tableau["couleur"],
-            $tableau["taille"]
+            $tableau["taille"],
+            $tableau["stock"]
         );
     }
 
