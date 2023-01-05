@@ -122,7 +122,7 @@ class CommandeRepository extends AbstractRepository
             $listeBijoux = array();
             $save = $statement->fetch();
             $resultat = $statement->fetchAll();
-            if (sizeof($resultat) == 0) {
+            if (sizeof($resultat) == 0 && $save == false) {
                 return array();
             } else {
                 foreach ($resultat as $commandeFormatTableau) {
@@ -200,6 +200,22 @@ class CommandeRepository extends AbstractRepository
         } catch (PDOException) {
             GenericController::error("", "Désolé ! La récupération de l'id de l'article n'a pu être faite.");
             return null;
+        }
+    }
+
+    public function updateStatut(int $idCommande, string $statut): bool
+    {
+        try {
+            $sql = "UPDATE " . $this->getNomTable() . " SET statut = :statut WHERE id = :idCommande";
+            $statement = DatabaseConnection::getPdo()->prepare($sql);
+            $statement->bindParam(":statut", $statut);
+            $statement->bindParam(":idCommande", $idCommande);
+            $statement->execute();
+            $statement->closeCursor();
+            return true;
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La mise à jour du statut de la commande n'a pu être faite.");
+            return false;
         }
     }
 

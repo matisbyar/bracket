@@ -17,8 +17,8 @@ foreach ($commande->getArticles() as $article) {
     $bijou = (new ProduitRepository)->select($article->getIdBijou());
     if (ConnexionClient::estAdministrateur()){
         echo "<li>" . htmlspecialchars($bijou->getNom()) . " : " . htmlspecialchars($bijou->getPrix()) . "€" .
-            "<a href='index.php?controller=commande&action=update&id=" . htmlspecialchars($commande->getId()) . "'> Changer le statut </a>".
-            "<a href='index.php?controller=commande&action=delete&id=" . htmlspecialchars($commande->getId()) . "'>Supprimer</a></li>";
+            "<a href='index.php?controller=commande&action=validerCommande&id=" . htmlspecialchars($commande->getId()) . "'> Valider la commande </a>".
+            "<a href='index.php?controller=commande&action=annulerCommande&id=" . htmlspecialchars($commande->getId()) . "'>Annuler</a></li>";
     }else{
         echo "<li>" . htmlspecialchars($bijou->getNom()) . " : " . htmlspecialchars($bijou->getPrix()) . "€</li>";
     }
