@@ -49,6 +49,11 @@ class MotDePasse
         return substr(base64_encode($octetsAleatoires), 0, $nbCaracteres);
     }
 
+    /**
+     * Vérifie qu'un mot de passe est assez fort
+     * @param string $mdp
+     * @return bool
+     */
     public static function motDePasseValide(string $mdp) : bool
     {
         //créer un tableau de caractères spéciaux
