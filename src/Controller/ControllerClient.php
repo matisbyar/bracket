@@ -215,7 +215,7 @@ class ControllerClient extends GenericController
         if (!ConnexionClient::estConnecte()) {
             self::afficheVue("view.php", ["pagetitle" => "Bracket - Connexion/Inscription", "cheminVueBody" => "client/login.php"]);
         } else {
-            self::redirige("?action=account&controller=client");
+            self::account();
         }
     }
 
@@ -227,8 +227,7 @@ class ControllerClient extends GenericController
         if (ConnexionClient::estConnecte()) {
             $client = (new ClientRepository())->select(ConnexionClient::getLoginUtilisateurConnecte());
             if ($client != null) self::afficheVue("view.php", ["client" => $client, "pagetitle" => "Bracket - Compte", "cheminVueBody" => "client/account.php"]);
-
-        } else self::redirige("?action=login&controller=client");
+        } else self::login();
     }
 
     /**
@@ -236,20 +235,30 @@ class ControllerClient extends GenericController
      */
     public static function connecter(): void
     {
-        $client = (new ClientRepository())->select($_POST['email']);
-        if ($client == null) {
-            MessageFlash::ajouter("Danger", "L'identifiant est incorrect.");
-            self::redirige("?action=login&controller=client");
-        } else {
-            if ($_POST['password'] == MotDePasse::verifier($_POST['password'], $client->getMdpHache())) {
-                ConnexionClient::connecter($client->getMail());
-                PanierSession::migrerVersCompte();
-                MessageFlash::ajouter("success", "Bienvenue, " . $client->getPrenom() . ".");
-                self::redirige("?action=home");
+        if (!ConnexionClient::estConnecte()) {
+            if (isset($_REQUEST['email']) && isset($_REQUEST['password'])) {
+                $client = (new ClientRepository())->select($_POST['email']);
+                if ($client == null) {
+                    MessageFlash::ajouter("Danger", "L'identifiant est incorrect.");
+                    self::login();
+                } else {
+                    if ($_POST['password'] == MotDePasse::verifier($_POST['password'], $client->getMdpHache())) {
+                        ConnexionClient::connecter($client->getMail());
+                        PanierSession::migrerVersCompte();
+                        MessageFlash::ajouter("success", "Bienvenue, " . $client->getPrenom() . ".");
+                        self::home();
+                    } else {
+                        MessageFlash::ajouter("Danger", "Le mot de passe ou l'identifiant est incorrect.");
+                        self::login();
+                    }
+                }
             } else {
-                MessageFlash::ajouter("Danger", "Le mot de passe ou l'identifiant est incorrect.");
-                self::redirige("?action=login&controller=client");
+                MessageFlash::ajouter("danger", "Tous les champs doivent être remplis.");
+                self::login();
             }
+        } else {
+            MessageFlash::ajouter("info", "Vous êtes déjà connecté.");
+            self::home();
         }
     }
 
@@ -258,9 +267,13 @@ class ControllerClient extends GenericController
      */
     public static function logout(): void
     {
-        ConnexionClient::deconnecter();
-        MessageFlash::ajouter("success", "Vous êtes bien déconnecté(e).");
-        self::redirige("?action=home");
+        if (ConnexionClient::estConnecte()) {
+            ConnexionClient::deconnecter();
+            MessageFlash::ajouter("success", "Vous êtes bien déconnecté(e).");
+        } else {
+            MessageFlash::ajouter("info", "Vous n'êtes pas connecté(e).");
+        }
+        self::home();
     }
 
     /**
@@ -269,17 +282,19 @@ class ControllerClient extends GenericController
     public static function validerEmail(): void
     {
         if (isset($_REQUEST['login']) && isset($_REQUEST['nonce'])) {
-            $login = $_REQUEST['login'];
-            $nonce = $_REQUEST['nonce'];
-            $client = (new ClientRepository())->select($login);
-            if ($client == null) {
-                MessageFlash::ajouter("danger", "Le compte n'existe pas.");
-                self::redirige("?controller=client&action=readAll");
-            }
-            if (!VerificationEmail::traiterEmailValidation($login, $nonce)) {
-                MessageFlash::ajouter("danger", "Le lien de validation est incorrect.");
-            } else {
-                MessageFlash::ajouter("success", "Votre compte a été validé.");
+            if (ConnexionClient::estConnecte() && ConnexionClient::getLoginUtilisateurConnecte() == $_REQUEST['login']) {
+                $login = $_REQUEST['login'];
+                $nonce = $_REQUEST['nonce'];
+                $client = (new ClientRepository())->select($login);
+                if ($client == null) {
+                    MessageFlash::ajouter("danger", "Le compte n'existe pas.");
+                    self::redirige("?controller=client&action=readAll");
+                }
+                if (!VerificationEmail::traiterEmailValidation($login, $nonce)) {
+                    MessageFlash::ajouter("danger", "Le lien de validation est incorrect.");
+                } else {
+                    MessageFlash::ajouter("success", "Votre compte a été validé.");
+                }
             }
         } else {
             MessageFlash::ajouter("danger", "Le lien de validation est incorrect.");
@@ -294,7 +309,7 @@ class ControllerClient extends GenericController
     {
         if (!ConnexionClient::estAdministrateur()) {
             MessageFlash::ajouter("danger", "Vous n'avez pas accès à cette page.");
-            self::redirige("?action=home");
+            self::home();
         } else {
             self::afficheVue("view.php", ["pagetitle" => "Administration", "cheminVueBody" => "admin.php"]);
         }
