@@ -19,6 +19,8 @@ foreach ($commande->getArticles() as $article) {
         echo "<li>" . htmlspecialchars($bijou->getNom()) . " : " . htmlspecialchars($bijou->getPrix()) . "€" .
             "<a href='index.php?controller=commande&action=update&id=" . htmlspecialchars($commande->getId()) . "'> Changer le statut </a>".
             "<a href='index.php?controller=commande&action=delete&id=" . htmlspecialchars($commande->getId()) . "'>Supprimer</a></li>";
+    }else{
+        echo "<li>" . htmlspecialchars($bijou->getNom()) . " : " . htmlspecialchars($bijou->getPrix()) . "€</li>";
     }
 }
 echo "</ul>";
