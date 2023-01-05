@@ -157,6 +157,52 @@ class CommandeRepository extends AbstractRepository
         }
     }
 
+    public function getCommandes(): ?array
+    {
+        try {
+            $sql = "SELECT * FROM " . $this->getNomTable() . " com JOIN p_contient con ON com.id=con.idCommande ORDER BY com.id ASC;";
+            //echo $sql;
+            $statement = DatabaseConnection::getPdo()->prepare($sql);
+            $statement->execute();
+            $commandes = array();
+            $listeBijoux = array();
+            $save = $statement->fetch();
+            $resultat = $statement->fetchAll();
+            if (sizeof($resultat) == 0) {
+                return array();
+            } else {
+                foreach ($resultat as $commandeFormatTableau) {
+                    if ($save['id'] == $commandeFormatTableau['id']) {
+                        $bijou = (new ArticleRepository())->getArticleParIdArticle($save['idArticle']);
+                        $listeBijoux[] = $bijou;
+                    } else {
+                        $bijou = (new ArticleRepository())->getArticleParIdArticle($save['idArticle']);
+                        $listeBijoux[] = $bijou;
+                        $commandeFormatTableauFinal = array();
+                        $commandeFormatTableauFinal[] = $save['id'];
+                        $commandeFormatTableauFinal[] = $save['adresse'];
+                        $commandeFormatTableauFinal[] = $save['client'];
+                        $commandeFormatTableauFinal[] = $listeBijoux;
+                        $listeBijoux = array();
+                        $commandes[] = $this->construire($commandeFormatTableauFinal);
+                    }
+                    $save = $commandeFormatTableau;
+                }
+                $commandeFormatTableauFinal = array();
+                $commandeFormatTableauFinal[] = $save['id'];
+                $commandeFormatTableauFinal[] = $save['adresse'];
+                $commandeFormatTableauFinal[] = $save['client'];
+                $bijou = (new ArticleRepository())->getArticleParIdArticle($save['idArticle']);
+                $commandeFormatTableauFinal[] = $listeBijoux;
+                $commandes[] = $this->construire($commandeFormatTableauFinal);
+                return $commandes;
+            }
+        } catch (PDOException) {
+            GenericController::error("", "Désolé ! La récupération de l'id de l'article n'a pu être faite.");
+            return null;
+        }
+    }
+
     /**
      * Retourne le nom de la table
      * @return string

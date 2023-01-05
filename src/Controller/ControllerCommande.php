@@ -83,5 +83,11 @@ class ControllerCommande extends GenericController
         ControllerPanier::basket();
     }
 
+    public static function commande() : void
+    {
+        $commandes = (new CommandeRepository())->getCommandes();
+        self::afficheVue("view.php", ["commandes" => $commandes, "pagetitle" => "Bracket - Commandes", "cheminVueBody" => "commande/list.php"]);
+    }
+
 
 }
