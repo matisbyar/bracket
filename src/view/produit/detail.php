@@ -119,7 +119,7 @@ use App\Bracket\Model\Repository\ProduitRepository;
     <?php
     if (ConnexionClient::estConnecte()) {
         echo '<div class="avis-product-detail-form">
-                <form action="?controller=avis&action=ajouterAvis" method="post" id="laisser-avis-id">
+                <form action="?controller=avis&action=create" method="post" id="laisser-avis-id">
                     <input type="hidden" name="mailClient" value="' . ConnexionClient::getLoginUtilisateurConnecte() . '">
                     <input type="hidden" name="idBijou" value="' . $produit->getId() . '">
                     <div class="avis-product-detail-form-note">

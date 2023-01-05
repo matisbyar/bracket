@@ -9,7 +9,7 @@ use App\Bracket\Model\Repository\AvisRepository;
 
 class ControllerAvis extends GenericController
 {
-    public static function ajouterAvis(): void
+    public static function create(): void
     {
         if (ConnexionClient::estConnecte()) {
             if (isset($_REQUEST['idBijou']) && isset($_REQUEST['mailClient']) && isset($_REQUEST['note']) && isset($_REQUEST['avis'])) {
