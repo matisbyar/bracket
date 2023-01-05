@@ -2,6 +2,7 @@
 
 namespace App\Bracket\Controller;
 
+use App\Bracket\Lib\ConnexionClient;
 use App\Bracket\Lib\MessageFlash;
 use App\Bracket\Model\Repository\ProduitRepository;
 

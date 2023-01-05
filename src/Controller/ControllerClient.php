@@ -246,7 +246,7 @@ class ControllerClient extends GenericController
                         ConnexionClient::connecter($client->getMail());
                         PanierSession::migrerVersCompte();
                         MessageFlash::ajouter("success", "Bienvenue, " . $client->getPrenom() . ".");
-                        self::home();
+                        self::redirige("?action=home");
                     } else {
                         MessageFlash::ajouter("Danger", "Le mot de passe ou l'identifiant est incorrect.");
                         self::login();
