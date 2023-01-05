@@ -20,7 +20,12 @@ if ($client->estAdmin()) {
 }
 echo "<h2 class='InfoAccount' id='info'> " . htmlspecialchars($client->getAdresse()) . " • "  . htmlspecialchars($client->getDateNaissance()) . " </h2>";
 echo "<hr>";
-echo "<h2 class='commande_action'>Mes commandes</h2>";
+?>
+<div class="titres-home">
+    <h1 class="commande_action">Mes commandes</h1>
+    <a class="sous-titre-home" href="?controller=commande&action=readAll">Voir plus ></a>
+</div>
+<?php
 echo "<p class='commande_action'>Vous pouvez retrouver ici, l'historique de vos commandes.</p>";
 $commandes = (new CommandeRepository())->getCommandeParIdClient($client->getMail());
 if (sizeof($commandes) == 0) {
@@ -32,8 +37,9 @@ if (sizeof($commandes) == 0) {
 }
 echo "<hr>";
 echo "<h2 class='commande_action'>Actions</h2>";
-echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=update&controller=client&email=" . rawurldecode(ConnexionClient::getLoginUtilisateurConnecte()) . "\">Modification des informations du compte</button></p></div>";
-echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=updatePassword&controller=client\">Modification du mot de passe</button></p></div>";
-echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?controller=client&action=logout\">Se déconnecter</button></p></div>";
-echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?controller=commande&action=readAll\">Voir commandes</button></p></div>";
+echo "<div class='actionCompte'>";
+echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=update&controller=client&email=" . rawurldecode(ConnexionClient::getLoginUtilisateurConnecte()) . "\">Modification des informations du compte</a></button></p></div>";
+echo "<div class='infoCompteButton'><p><button class='buttonOnForm'><a href=\"?action=updatePassword&controller=client\">Modification du mot de passe</a></button></p></div>";
+echo "<div class='infoCompteButton'><p><button class='buttonOnForm' id='deconnecter'><a href=\"?controller=client&action=logout\">Se déconnecter</a></button></p></div>";
+echo "</div>";
 echo "</section>";
