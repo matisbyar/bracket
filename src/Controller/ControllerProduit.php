@@ -140,7 +140,7 @@ class ControllerProduit extends GenericController
     public static function deleted(): void
     {
         if (ConnexionClient::estAdministrateur()) {
-            (new ProduitRepository())->delete($_GET["Produit"]);
+            (new ProduitRepository())->delete($_GET["produit"]);
             MessageFlash::ajouter("success", "Le produit a bien été supprimé.");
             self::redirige("?action=readAll");
         } else {

@@ -1,4 +1,4 @@
-<?<?php
+<?php
   use App\Bracket\Model\Repository\ProduitRepository;
 /** @var Commande $commande */
 echo "<section>";
