@@ -92,7 +92,7 @@ if (!ConnexionClient::estAdministrateur()) {
                     <img class="admin-icon-hover" src="../images/basket.svg">
                 </div>
                 <div class="admin-action-title">
-                    <h2>Commande</h2>
+                    <h2>Gestion des commandes utilisateurs</h2>
                 </div>
             </a>
         </div>
