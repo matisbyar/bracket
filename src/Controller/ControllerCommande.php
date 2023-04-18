@@ -51,16 +51,21 @@ class ControllerCommande extends GenericController
     public static function commander(): void
     {
         $mail = ConnexionClient::getLoginUtilisateurConnecte();
-        $panier = (new PanierRepository())->selectPanierFromClient($mail);
-
-        if ($panier != null) {
-            (new CommandeRepository())->ajouterCommande($panier);
-            MessageFlash::ajouter("success", "Commande effectuée avec succès.");
-            (new PanierRepository())->viderPanierParClient($mail);
+        if ($mail == null) {
+            MessageFlash::ajouter("danger", "Vous devez être connecté pour effectuer une commande.");
+            self::redirige("index.php?controller=client&action=login");
         } else {
-            MessageFlash::ajouter("danger", "Votre panier est vide.");
+            $panier = (new PanierRepository())->selectPanierFromClient($mail);
+
+            if ($panier != null) {
+                (new CommandeRepository())->ajouterCommande($panier);
+                MessageFlash::ajouter("success", "Commande effectuée avec succès.");
+                (new PanierRepository())->viderPanierParClient($mail);
+            } else {
+                MessageFlash::ajouter("danger", "Votre panier est vide.");
+            }
+            self::home();
         }
-        self::home();
     }
 
     public static function updateStatutCommande(string $statut = ""): void

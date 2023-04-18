@@ -103,7 +103,7 @@ if (ConnexionClient::estConnecte()) {
 
         echo '<div class="panier-actions">
             <button id="retourHome"><a href="?action=home">Poursuivre mes emplètes</a></button>
-            <button id="acheter"><a href="?controller=client&action=commander">Commander</a></button>
+            <button id="acheter"><a href="?controller=commande&action=commander">Commander</a></button>
         </div>';
     }
 } ?>
