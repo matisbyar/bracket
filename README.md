@@ -10,7 +10,7 @@
     <br />
     <br />
     <a href="#le-projet">Le projet</a> •
-    <a href="#credits">Credits</a> •
+    <a href="#credits">Credits</a>
   </p>
 </div>
 
