@@ -1,78 +1,36 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
 
 <!-- PROJECT LOGO -->
-<br />
 <div align="center">
 
 
 <h3 align="center">Bracket</h3>
 
   <p align="center">
-    Vente de bijoux à l'international
+    Vente de bijoux en ligne
     <br />
     <br />
     <a href="#le-projet">Le projet</a> •
-    <a href="#comment-lutiliser">Comment l'utiliser</a> •
     <a href="#credits">Credits</a> •
-    <a href="mailto:valentin.vanhove@etu.umontpellier.fr">Report Bug</a>
-
-
   </p>
 </div>
 
-![Product Name Screen Shot][product-screenshot]
-
 ## Le projet
 
-Ce projet a été réalisé dans le cadre du cours de Développement Web de l'Université de Montpellier-Sète. <br>
-Il a pour but de mettre en place une stratégie de marketing digital pour une entreprise fictive.
+Ce projet a été réalisé dans le cadre du cours de Développement Web de l'IUT de Montpellier-Sète. <br>
+Il a pour but de mettre en place une site d'e-commerce pour une entreprise fictive.
 
-### Créer à l'aide de
+### Créé à l'aide de
 
 * ![Php][Php]
 * ![MySQL][MySQL]
 * ![CSS][CSS]
 * ![HTML][HTML]
 
-
-## Roadmap
-
-- [ ] Interface Base
-- [ ] Commande
-- [ ] Paiement
-    - [ ] Carte Bleue
-
 ## Credits
 
-* **_Valentin Vanhove_**
-* **_Matis Byar_**
-* **_Killian Reiner_**
-
-
-<p align="right">(<a href="#readme-top">Haut de la page</a>)</p>
-
-
-
+* Valentin Vanhove
+* Matis Byar
+* Killian Reiner
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
